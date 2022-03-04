@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones</title>
+    <script>
+       var x= 3, y= 9;
+       for(i=0;i<10;i++)
+            x*=3;
+        var z = prompt("Ingresa un valor", "3");
+        var z1 = prompt("Ingresa un valor", "5");
+        // alert("El valor de x es:"+x);
+        // alert("El valor de la suma es:"+sumar());
+        function sumar(){
+            var x= 5, y= 6;
+            suma=x+y;
+            return suma;
+        }
+        alert("La multiplicación es "+multi(z,z1));
+     
+        function multi(x,y){
+            if(x==3)
+                alert("si es igual");
+            if(x==="3")
+                alert("si es igual a una cadena");
+            else    
+                alert("no es igual");
+            var res = parseInt(x) * parseInt(y);
+            return res;
+        }
+
+        function despliega(){
+            alert("hola");
+        }
+      
+
+    </script>
+</head>
+<body>
+    <ul id="li1">
+        <li>Uno</li>
+        <li>Dos</li>
+    </ul>
+        <button onclick="despliega()">Despliega</button>
+    
+    
+</body>
+</html>

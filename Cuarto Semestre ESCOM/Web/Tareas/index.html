@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arreglos</title>
+  </head>
+  <body>
+    <h1
+      style="
+        max-height: 100vh; height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        display: flex; align-items: center; justify-content: center; font-size: 50px;
+      "
+    >
+      Arreglos
+    </h1>
+    <script>
+      let numeros = [1, 2, 3, 4, 5];
+    
+      for (let i = 0; i < numeros.length; i++) console.log("numeros["+i+"]: " + numeros[i]);
+      let suma=0;
+      numeros.forEach(n => suma+=n)
+      console.log(suma);
+    </script>
+  </body>
+</html>

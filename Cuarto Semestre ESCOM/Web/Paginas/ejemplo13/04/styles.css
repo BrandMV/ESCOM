@@ -1,0 +1,12 @@
+.lista{list-style: square;}
+.texto{
+    border-color: #FF0000;
+    border-style: dotted;
+    border-width: medium;
+}
+a{color:#FF0000}
+.encabezado{
+    background-color: #0033CC;
+    border-width: medium;
+    color: white;
+}

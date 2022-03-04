@@ -1,0 +1,107 @@
+.orderItemContainer{
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+}
+.orderImgContainer{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    text-align: center;
+}
+.orderImg{
+    max-width: 80px;
+    max-height: 80px;
+}
+.orderRow{
+    display: flex;
+    flex: 1;
+}
+.orderName{
+    width: 300px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    font-size: 12px;
+}
+.orderPrice{
+    box-sizing: border-box;
+    padding: 0 40px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+  }
+  .orderE{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+  }
+  .cardC{
+      width: 100%;
+      background: white;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px !important;
+
+  }
+  .row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .col-4{
+    flex-basis: 25%;
+    padding: 10px;
+    min-width: 200px;
+    margin-bottom: 50px;
+    transition: transform 0.5s;
+  }
+  .col-4 img{
+    width: 100%;
+  }
+  .col-4 p{
+    font-size: 14px;
+  }
+  .col-4:hover{
+    transform: translateY(-5px);
+  }
+  h4{
+    color: #555;
+    font-weight: normal;
+  }
+  .small-container{
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .fle{
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media only screen and (max-width: 600px){
+    .row{
+      text-align: center;
+    }
+    .col-2, .col-3, .col-4{
+      flex-basis: 100%;
+    }
+ 
+  }
+
+  @media only screen and (max-width: 790px){
+    .fle{
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media only screen and (width: 1280px){
+    .fle{
+        grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media only screen and (max-width: 500px){
+    .fle{
+        grid-template-columns: repeat(1, 1fr);
+    }
+  }

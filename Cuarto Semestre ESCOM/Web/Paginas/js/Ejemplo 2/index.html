@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con Javascript</title>
+    <script langiage="Javascript">
+        let resultado;
+        var numero, sumaTotal = 0;
+
+        resultado = (confirm ("Presione uno de los dos botones que se ve en este cuadro.")) 
+        
+        ? "Haz presionado 'ACEPTAR'." : "Haz presionado 'CANDELAR'\no la casilla de cierre.";
+        alert(resultado);
+        console.log(resultado);
+
+        while (true) {
+            numero = prompt ("Introduzca un número positivo.", "");
+            numero = Number(numero);
+            if(numero < 1) break;
+            sumaTotal += numero;
+        }
+
+        alert ("La suma de los valores positivos introducidos es " + sumaTotal);
+    </script>
+</head>
+<body>
+    <p>Hola</p>
+    
+</body>
+</html>

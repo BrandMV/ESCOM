@@ -1,0 +1,34 @@
+.cartContainer{
+    max-width: 1080px;
+
+    display: flex;
+    max-width: 1260px;
+    margin: 15px auto;
+    margin: auto;
+    justify-content: space-between;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.small-container{
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.cart-page{
+    margin: 80px auto;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+th{
+    text-align: left;
+    padding: 5px;
+    color: white;
+    background: #ff523b;
+    font-weight: normal;
+}
+td{
+    padding: 10px 5px;
+}

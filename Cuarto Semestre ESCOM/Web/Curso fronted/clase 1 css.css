@@ -1,0 +1,61 @@
+/*
+Unidades de medida
+
+px - pixeles, no conviene usarla
+em - depende de donde lo pongas
+rem - USAR ESTE, un rem vale 16 pixeles (se puede modificar en el navegador) - siempre vale lo mismo
+vw - 1% of viewporth weight
+vh - 1% of viewporth height
+
+Usar vh, vw y rem
+
+internetingishard.com/html-and-css/
+
+fuente bonita: interfont
+para codigo: Fira Code font
+
+    400 --  normal
+    500 -1000 oscuro, engrita
+    0-300 -- mas light
+
+    Modelo de caja
+    Todo en HTML lo podemos ver como una caja, las cajas en HTMK ocupan el ancho maximo que puedan
+    Borde
+    Margin: espaciado que siempre será transparente, esta afuera el borde, separa y acomada de mejor forma las cosas
+    Padding: espaciado pero por dentro de la caja, seguira transparente, permite separar el contenido dentro de la caja de la caja misma
+
+    En css, top, right, bottom, left
+    
+    Es mejor poner margenes a las cosas de arriba
+
+    Pseudo.clases
+    selector:pseudoclase{       developer.mozilla para ver pseudo clases
+        propiedad:valor;
+    }
+
+    Responsive design
+    Poder ver la página de forma correcta en cualquier dispositivo
+
+    meta Viewport
+    <meta name="viewport" content="width=device-width, initial-scale=1>
+
+    Media queries
+    Son un tipo selector que permite aplicarle diseño dependiendo en que tamaño lo estemos viendo
+
+    Diseño
+
+    Flexbox: acomodar las cajas a como nos convenga
+    container: 
+    .container{
+        display: felx; display permite usar la caja de bloque como flex uno al lado del otro
+        flex.direction: row; o column
+        flex-wrap: nowrap | wrap | wrap-reverse;
+        la combinacion de lo anterior es:
+        flex-flow: column wrap;
+
+        justify-content: hotizontal
+        align-items: vertical
+    }
+    
+*/
+

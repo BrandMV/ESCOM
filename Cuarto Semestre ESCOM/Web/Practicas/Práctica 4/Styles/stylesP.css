@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* permite que solo crezca el tamaño del margin and padding*/
+}
+
+
+body{
+    background-color: antiquewhite;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    padding: 3rem;
+}
+#header>h1::after{
+    Font-size: 2.5rem;
+    content: " ✦ ";  
+}
+#header>h1::before{
+    Font-size: 2.5rem;
+    content: " ✦ ";  
+}
+
+#header{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+}
+.space p{
+    padding: .3rem;
+}
+.middle{
+    max-width: 100%;
+    width: 38%;
+    padding: 1.5rem;
+    position: absolute;
+    left: 25rem;
+}
+
+#datos>h1{
+    text-align: center;
+}
+
+#datos::first-line{
+    color: olive;
+}
+#datos img{
+    border: 3px solid olive;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 33%;
+}
+
+.news{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    height: 165rem;
+    width: 40%;
+    left: 70rem;
+    padding: 1.5rem;
+}
+.news h4{
+    color: coral;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+.news p{
+    margin-top: -13rem;
+}
+.news img{
+    padding: 1rem;;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+a{
+    text-decoration: underline;
+    color: rgb(250, 154, 170);
+}
+a:visited{
+    color:brown;
+}
+a:hover{
+    color: lightskyblue;
+}
+
+#school{
+
+    margin-top: 46rem;
+  
+}
+#school::first-line{
+    color: dodgerblue;
+    text-align: center;
+}
+#school ol li{
+    padding-left: 20px;
+    list-style: none;
+}
+#others{
+    margin-top: 110rem;
+}
+#others::first-line{
+    color: darkviolet;
+    text-align: center;
+}
+#others ul li{
+    list-style: none;
+}
+#others ul li::before{
+    
+    content: " ◈ ";
+}
+#contact{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    width: 96%;
+    padding: 20px;
+    margin-top: 170rem;
+    font-weight: bold;
+}
+#contact ul{
+    padding: 1rem;
+    margin-top: 10px;
+    list-style: none;
+    position:absolute;
+    float: left;
+}
+#contact ol{
+    padding: 1rem;
+    margin-top: 10px;
+    margin-left: 102rem;
+    list-style: none;
+    position:absolute;
+    float: right;
+
+}
+#enlaces{
+    width: 200px;
+    position: absolute;
+    height: 135rem;
+}
+#enlaces>#links{
+    position: absolute;
+    top: 50%;
+}

@@ -1,0 +1,73 @@
+.cCards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+.cTitle h1{
+    font-size: 2.4rem;
+    color: #333;
+}
+.cCard{
+    background: url(../../images//Creators/wave.svg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    gap: 3rem;
+    transition: .2s ease-in-out;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    width: 50rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: .5rem;
+    border: .1rem solid rgba(0,0,0,.2);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+}
+.cIcons{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.6rem;
+}
+
+.cCard img{
+    border-radius: 2rem;
+    width: 15rem;
+    border: .1rem solid rgba(0,0,0,.2);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+}
+.cCard h2{
+    font-size: 1.8rem;
+    color: #333;
+}
+.cCard p{
+    font-size: 1.3rem;
+    color: #666;
+    padding: 1rem 0;
+    text-align: justify;
+}
+.cCard:hover{
+    transform: translateY(-10px);
+}
+
+@media only screen and (max-width: 800px){
+    .cCard{
+
+        width: 30rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 470px){
+    .cCard{
+        width: 20rem;
+    }
+}

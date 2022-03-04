@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+      crossorigin="anonymous"
+    />
+    <title>Segundo Departamental</title>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" class="grapScript"></script>
+
+  </head>
+  <body>
+    <section id="cover">
+      <div class="container">
+        <h1>Ejercicio de probabilidad Segundo Departamental</h1>
+        <br />
+        <div id="integrantes">
+          <h2>Integrantes</h2>
+          <br />
+          <ul>
+            <li>Contreras Barrita José Roberto</li>
+            <li>Fonseca Ramos Angel Gabriel</li>
+            <li>Meza Vargas Brandon David</li>
+            <li>Ruiz Mendez Diana Itzel</li>
+            <li>Santillan García Jorge Luis</li>
+            <li>Toledo Espinosa Cristina Aline</li>
+          </ul>
+        </div>
+      </div>
+      <a href="#problem"><div class="scroll"></div></a>
+    </section>
+
+    <section id="problem">
+      <a href="#"><div class="scroll-up"></div></a>
+      <div class="container">
+        <h2 align="center">Descripción del problema</h2>
+        <p style="text-align:justify;">
+          Suponga que un distribuidor de joyería antigua está interesado en
+          comprar un collar de oro para el que tiene <b>a</b> de probabilidades
+          de venderlo con <b>x</b> de utilidad; <b>b</b> de venderlo con
+          <b>y</b> de utilidad; <b>c</b> de venderlo al costo y <b>d</b> de
+          venderlo con una perdida de <b>z</b>. ¿Cuál es su utilidad esperada?
+        </p>
+       
+        <form class="form-inline mt-5" id="sol">
+          <div class="proba" align="center">
+            <label for="x" class="sr-only">Valor de x</label>
+            <input type="number" id="x" class="col-3" required min="0"/>
+            <label for="a" class="sr-only" >Probabilidad (a)</label>
+            <input type="number" id="a" class="col-3" required step="0.01" min="0" max="1"/>
+          </div>
+
+          <div class="proba" align="center">
+            <label for="y" class="sr-only">Valor de y</label>
+            <input type="number" id="y" class="col-3" required min="0"/>
+            <label for="b" class="sr-only">Probabilidad (b)</label>
+            <input type="number" id="b" class="col-3" required step="0.01" min="0" max="1"/>
+          </div>
+          <div class="proba" align="center">
+            <p>
+              La utilidad de vendero al costo es 0$
+              <label for="c" class="sr-only">Probabilidad (c)</label>
+              <input type="number" id="c" class="col-3" required step="0.01" min="0" max="1"/>
+            </p>
+          </div>
+          <div class="proba" align="center">
+            <label for="x" class="sr-only">Valor de z</label>
+            <input type="number" id="z" class="col-3" required min="0"/>
+            <label for="d" class="sr-only">Probabilidad (d)</label>
+            <input type="number" id="d" class="col-3" required step="0.01" min="0" max="1"/>
+          </div>
+          <br>
+          <p align="left"> <b> NOTA: </b> La suma de las probabilidades a, b, c y d debe ser 1</p>
+
+          <div style="text-align: center;">
+            <button type="submit" class="btn btn-primary col-5 mt-2" style="background:#FACCCC; color:black; border-color:black;">
+              Calcular utilidad esperada
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+  </body>
+  <script type="text/javascript" src="./js/sol.js"></script>
+  <script
+    type="text/javascript"
+    src="./plugins/sweetalert2.all.min.js"
+  ></script>
+</html>

@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ 
+}
+body{
+    font-family:'Roboto', sans-serif;
+}
+.trick{
+    width: 60px;
+    height: 78px;
+    background-color: red;
+    position: fixed;
+    transform: translate(34rem, 4.6rem);
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 80px;
+    /* background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.438));
+     */
+    background-color: #333;
+
+}
+header .home{
+    font-size: 25px;
+    font-weight: 400;
+    
+    float: left;
+
+}
+header .home a{
+    color: white;
+    text-decoration: none;
+      transition: ease-out 0.3s;
+    box-shadow: inset 0 0 0 0 white;
+}
+header .home a:hover{
+    color: white;
+    cursor: pointer;
+
+}
+header .menu{
+    transform: translate(70%,0);
+    margin-top: .5rem;
+}
+header ul li{
+    display: inline-block;
+}
+header ul li a{
+    margin: auto;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    margin: 0 25px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    transition: ease-out 0.3s;
+    box-shadow: inset 0 0 0 0 white;
+
+}
+header ul li a:hover{
+  
+    color: white;
+    cursor: pointer;
+
+}
+
+#canvas{
+    
+    margin-top: 4rem;
+
+}
+.container{
+    margin-top: -23rem;
+}
+.wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+.btn{
+    width: 170px;
+    height: 45px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    transition: ease-out 0.3s;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: inset 0 0 0 0 white;
+    background-color:#5000CA ;
+
+}
+.btn:hover{
+    box-shadow: inset 300px 0 0 0 #000b76;
+    color: white;
+    cursor: pointer;
+}
+.firstButtons{
+    display: flex;
+    justify-content: space-between;
+}
+.secondsButtons{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+.thirdsButtons{
+    margin-top: 1rem;
+    display: flex;
+   
+    flex-direction: column;
+    gap: 1rem;
+
+}
+#stackNodeValue{
+    font-size: 1.2rem;
+    width: 100%;
+    border: 1px solid #333;
+}
+.btn:disabled{
+    background-color: #000b76;
+    cursor: default;
+}
+.btn:disabled:hover{
+    box-shadow: none;
+}
+.wave{
+    position:absolute;
+    z-index: -1;
+    bottom: 0;
+}
+.hide{
+    display: none;
+}
+
+.thirdsButtons input{
+    width: 100%;
+}
+.code{
+    position: fixed;
+    left: -10px;
+    top: 30%;
+    margin-left: 2rem;
+    transform: translate(0,-50%);
+    transition: ease-in-out 0.3s;
+}

@@ -1,0 +1,146 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* permite que solo crezca el tamaño del margin and padding*/
+}
+
+body{
+    font-family: 'Roboto';
+    display: flex;
+    justify-content: center;
+    align-items:center;  
+    
+
+}
+
+.contenedor{
+  
+    position: relative;
+    background: #FDC830;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F37335, #FDC830);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F37335, #FDC830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    border: 10px solido black;
+
+    width: 700px;
+    height: 350px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+}
+
+#datos{
+    position:absolute;
+    background-color: rgba(0, 0, 0, 0.822);
+    width: 322px;
+    height: 280px;
+    right: 5%;
+    transform: translateX(-39%);
+    transition: 0.5s;
+    padding: 40px;
+}
+
+.contenedor:hover #datos{
+    left: 65%;
+    height: 350px;
+}
+
+
+.contenedor img{
+    border-radius: 10px;
+    position: absolute;
+    bottom: 10;
+    right: 0;
+    transform: translateX(-50%);
+    height: 20rem;
+    transition: 0.5s;
+}
+.contenedor:hover img{
+    right: 38.2%;
+    height: 18rem;
+}
+#datos h1{
+    position: absolute;
+    text-align: center;
+    font-size: 2.5rem;
+
+    color: white;
+}
+#datos ul{
+    position: absolute;
+    list-style: none;
+    color: white;
+    font-size: 1.5rem;
+    margin-top: 90px;
+}
+
+@media screen and (max-width: 700px){
+    .contenedor{
+        width: 450px;
+        height: 300px;
+    }
+    #datos{
+        width: 200px;
+        padding: 20px;
+        height: 280px;
+    }
+    #datos h1{
+        font-size: 1.5rem;
+    }
+    #datos ul{
+        font-size: 1rem;
+    }
+    .contenedor:hover #datos{
+        left: 65%;
+        height: 300px;
+    }
+    .contenedor img{
+        transform: translateX(-50%);
+        height: 12.5rem;
+
+    }
+    .contenedor:hover img{
+        right: 30.7%;
+        height: 13rem;
+    }
+
+}
+
+@media screen and (max-width: 450px){
+    .contenedor{
+        width: 300px;
+        height: 250px;
+    }
+    #datos{
+        width: 300px;
+        padding: 40px;
+        height: 250px;
+        transform: translateX(0%);
+        right: 0;
+    }
+    .contenedor:hover #datos{
+        width: 300px;
+        padding: 20px;
+        height: 250px;
+        left: 0%;
+       
+    }
+    #datos h1{
+        font-size: 2rem;
+    }
+    #datos ul{
+        font-size: 1.5rem;
+    }
+    .contenedor img{
+        transform: translateX(-8%);
+        height: 250px;
+
+    }
+    .contenedor:hover img{
+        right: 0%;
+        height: 250px;
+    }
+}

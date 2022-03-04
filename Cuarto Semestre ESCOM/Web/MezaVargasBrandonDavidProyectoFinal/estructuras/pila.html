@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/pila.css" />
+    <!-- <link rel="stylesheet" href="./styles/pila.css" /> -->
+    <title>Pila</title>
+  </head>
+  <body>
+    <header>
+      <div class="home"><a href="../index.html">Inicio</a></div>
+      <div class="menu">
+        <ul>
+          <li><a href="./pila.html">Pila</a></li>
+          <li><a href="./cola.html">Cola</a></li>
+          <li><a href="./lista.html">Lista</a></li>
+        </ul>
+      </div>
+    </header>
+    
+
+    </div>
+    <section class="wrap">
+      <div>
+        <canvas
+          id="canvas"
+          width="650"
+          height="700"
+     
+        ></canvas>
+      </div>
+
+      <article class="container">
+        <div class="firstsButtons">
+          <input
+            type="button"
+            value="Guardar pila"
+            id="saveButton"
+            class="btn hide"
+          />
+          <input
+            type="button"
+            value="Cargar pila"
+            id="loadButton"
+            class="btn"
+          />
+          <input
+          type="button"
+          value="Nueva pila"
+          id="newButton"
+          class="btn"
+        />
+        </div>
+
+        <div class="secondsButtons">
+          <input type="button" value="Crear Nodo" class="hide" id="createNodeButton">
+
+          <input type="button" value="Pop" id="popButton" class="btn hide" />
+        
+        </div>
+
+        <div class="thirdsButtons">
+          <input
+            type="number"
+            step="0.1"
+            id="stackNodeValue"
+            placeholder="inserta un numero"
+            required
+            class="hide"
+          />
+          <input
+          type="button"
+          value="Crear"
+          id="createButton"
+          class="btn hide"
+        />
+          <div class="push">
+            <input
+              type="button"
+              value="Push"
+              id="pushButton"
+              class="hide"
+            />
+          </div>
+        </div>
+
+        <br />
+        <article>
+          <div class="hide" id="cCodeCreateNode">
+         
+            <pre>
+              struct nodo{
+                int dato;
+                struct nodo *next;
+              }
+              struct nodo *pila = NULL;
+              void crearNodo(int nDato, struct nodo *aux){
+                aux = (struct node *) malloc(sizeof(struct nodo));
+                aux->dato = nDato;
+                aux->next = NULL;
+              }
+            </pre>
+          </div>
+          <div class="hide" id="cCodeInsertNode">
+        
+            <pre>
+              void push(strut nodo *aux, struct nodo *pila){
+                aux->next = pila;
+                pila = aux;
+              }
+            </pre>
+          </div>
+          <div class="hide" id="cCodePopNode">
+     
+            <pre>
+              void pop(struct *nodo pila){
+                struct nodo *aux;
+                if( pila == NULL )
+                  printf("La pila esta vacia\n");
+                else{
+                  aux = pila;
+                  pila = pila->next;
+                  free(aux)
+                }
+              }
+            </pre>
+          </div>
+        </article>
+      </article>
+    </section>
+    <div>
+      <svg
+        class="wave"
+        viewBox="0 0 500 150"
+        preserveAspectRatio="none"
+        style="height: 100%; width: 100%"
+      >
+        <path
+          d="M-14.95,26.14 C-35.26,264.95 486.17,152.45 507.05,0.50 L601.30,225.48 L-18.90,224.50 Z"
+          style="stroke: none; fill: #5000ca"
+        ></path>
+      </svg>
+    </div>
+
+    <script src="../js/pila.js"></script>
+  </body>
+</html>

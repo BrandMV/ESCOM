@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablas</title>
+</head>
+<body>
+    <table border="1">
+        <caption>Esta es una tabla</caption>
+        <tr>
+            <th>1,1</th><!-- celda de encabezado-->
+            <td>1,2</td>
+            <td rowspan="2">1,3</td>
+            <td>1,4</td>
+        </tr>
+        <tr>
+            <td colspan="2">2,1-2,2</td>
+            <td>2,1</td>
+        </tr>
+        <tr>
+            <td colspan="4">3,1</td>
+        </tr>
+        <tr>
+            <td colspan="3" rowspan="2">4,1</td>
+            <td>4,4</td>
+        </tr>
+        <tr>
+            <td>5,4</td>
+        </tr>
+    </table>
+
+    <table border="1" width="80%">
+        <caption>Guía de tléfono. Letra: <b>S</b></caption>
+        <thead>
+            <tr>
+                <th>Apellidos</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Pie1</th>
+                <th>Nombre</th>
+                <th>Pie2</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            <tr>
+                <td>Sánchez Gómez</td>
+                <td>María</td>
+                <td>666450622</td>
+            </tr>
+            <tr>
+                <td>Sánz Rodríguez</td>
+                <td>Ana</td>
+                <td>6564328343</td>
+            </tr>
+            <tr>
+                <td>Seis González</td>
+                <td>Ruben</td>
+                <td>6235221455</td>
+            </tr>
+            <tr>
+                <td>Soriano Pascual</td>
+                <td>Carlos</td>
+                <td>6123548</td>
+            </tr>
+            <tr>
+                <td>Soros</td>
+                <td>Patricia</td>
+                <td>6321456</td>
+            </tr>
+            <tr>
+                <td>Soto del Rio</td>
+                <td>Pedro</td>
+                <td>6987452</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT recetas (seccion*) >
+<!ELEMENT seccion (secTitutlo, receta*) >
+<!ELEMENT secTitutlo (#PCDATA) >
+
+<!ELEMENT receta (recTitulo, ingredientes, paso*) >
+<!ELEMENT ingredientes (ingrediente*) >
+<!ELEMENT ingrediente (nomIngrediente, cantidad) >
+<!ELEMENT cantidad (#PCDATA) >
+<!ELEMENT nomIngrediente (#PCDATA) >
+
+<!ELEMENT recTitulo (#PCDATA) >
+<!ELEMENT paso (#PCDATA) >
+
+
+
+<!ATTLIST paso numPaso CDATA #REQUIRED >

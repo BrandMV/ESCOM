@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //usando setItem
+      localStorage.setItem("Nombre", "Brandon");
+      //usando .name
+      localStorage.Apellido = "Meza";
+
+      //usando setItem
+      sessionStorage.setItem("Nombre", "Brandon");
+      //usando .name
+      sessionStorage.Apellido = "Meza";
+
+      // Obtenemos los datos y los almacenamos en variables
+      let nombre = localStorage.getItem("Nombre"),
+        apellido = localStorage.Apellido;
+
+      console.log(`Soy ${nombre} ${apellido} con localStorage`);
+
+      let nombre2 = sessionStorage.getItem("Nombre"),
+        apellido2 = sessionStorage.Apellido;
+
+      console.log(`Soy ${nombre2} ${apellido2} con sessionStorage`);
+
+      //quitando del storage
+      localStorage.removeItem('Apellido')
+
+      sessionStorage.removeItem('Apellido')
+
+      //limpiando todo el storage
+      localStorage.clear()
+
+      sessionStorage.clear()
+    </script>
+  </head>
+  <body>
+    <h1>Strings</h1>
+  </body>
+</html>

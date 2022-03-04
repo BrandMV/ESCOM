@@ -1,0 +1,141 @@
+.Hcontainer{
+  max-width: 1300px;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .col-2{
+    flex-basis: 50%;
+    min-width: 300px;
+  }
+  .col-2 p{
+    font-size: 18px;
+    color: #232323;
+  }
+  .col-2 img{
+    max-width: 100%;
+    padding: 50px 0;
+  }
+  .col-2 h1{
+    font-size: 50px;
+    line-height: 60px;
+    margin: 25px 0;
+  }
+  .btn{
+    display: inline-block;
+    background: #232323;
+    color: white;
+    padding: 8px 30px;
+    margin: 30px 0;
+    border-radius: 30px;
+    transition: background 0.5s;
+  }
+  .btn:hover{
+    background: #563434;
+  }
+  .small-container{
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .col-4{
+    flex-basis: 25%;
+    padding: 10px;
+    min-width: 200px;
+    margin-bottom: 50px;
+    transition: transform 0.5s;
+  }
+  .col-4 img{
+    width: 100%;
+
+  }
+ 
+  .headerStore row{
+    margin-top: 70px;
+  }
+  .title{
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    line-height: 60px;
+    color: #555;
+  }
+
+  .title::after{
+    content: '';
+    background: #ff533b;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  h4{
+    color: #232323;
+    font-weight: normal;
+  }
+  .col-4 p{
+    font-size: 14px;
+  }
+
+  .col-4:hover{
+    transform: translateY(-5px);
+  }
+  .offer{
+    background: #56ab2f;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    margin-top: 80px;
+    padding: 30px 0;
+  }
+ .col-2 .offer-img{
+   padding: 50px;
+ }
+ .col-3{
+   flex-basis: 35%;
+   min-width: 250px;
+   margin: 30px;
+ }
+ .testimonial{
+   padding-top: 100px;
+ }
+ .testimonial .col-3{
+   font-size: 18px;
+  text-align: center;
+  padding: 40px 20px;
+  box-shadow: 0 0 20px 0px rgba(0,0,0,0.1);
+  transition: transform 0.5s;
+ }
+ .testimonial .col-3:hover{
+   transform: translateY(-10px);
+ }
+ .fas.fa-quote-right{
+    font-size: 34px;
+    color: #ff523b;
+ }
+ .col-3 p{
+   margin: 12px 0;
+   color: #777;
+ }
+ @media only screen and (max-width: 600px){
+  .row{
+    text-align: center;
+  }
+  .col-2, .col-3, .col-4{
+    flex-basis: 100%;
+  }
+  .Hcontainer{
+    width: 100%;
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo js</title>
+
+ 
+
+</head>
+<body>
+    <p id="texto">nombre:  <!--this es el objeto sobre el que ocurre el evento -->
+    <input type="text" name="nombre" id="nombre" onMouseMove="holaMundo()">
+    </p>
+    <input type="button" value="pagina roja con texto azul" onclick="cambiaColor('red', 'blue');" />
+    <br>
+    <input type="button" value="Pagina verde con texto amarillo" onclick="cambiaColor('green', 'yellow');" />
+    <input type="button" value="boton" />
+    <script>
+
+        const t = document.getElementById("texto")
+       
+        t.addEventListener("mousedown", function(event){
+            event.target.style="font-style:italic"
+        })
+        document.write("<h1>Texto para pruebas</h1>");
+        const cambiaColor = (colorDeFondo, colorDeTexto) =>{
+            document.bgColor = colorDeFondo;
+            document.fgColor = colorDeTexto;
+        }
+
+        const holaMundo = () => {
+            alert("Hola mundo");
+        }
+
+        // const carga = () => {
+        //     t.addEventListener("click", (e) => {texto})
+        // }
+       
+
+        // const texto = (e) => {
+        //     tex = e.target;
+        //     tex.style="font-style:italic";
+        // }
+
+        // window.addEventListener("load", carga)
+
+    </script>
+    
+</body>
+</html>

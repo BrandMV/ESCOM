@@ -1,0 +1,42 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 20px;
+    font-family: 'Montserrat';
+    scroll-behavior: smooth;
+   
+}
+
+section{
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+main{
+    padding: 3rem;
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+button{
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    margin: 1rem;
+    border-style: none;
+    background-color: aliceblue;
+    transition: 0.3s;
+}
+button:hover{
+    background-color: cornflowerblue;
+    font-size: 1.5em;
+}

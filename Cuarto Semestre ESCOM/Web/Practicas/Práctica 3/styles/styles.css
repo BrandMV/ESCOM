@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* permite que solo crezca el tamaño del margin and padding*/
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: #136a8a;
+    background: -webkit-linear-gradient(to right, #267871, #136a8a); 
+    background: linear-gradient(to right, #267871, #136a8a);
+
+}
+
+h1{
+    font-size: 2.8rem;
+    color: white;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.568);
+    padding: 10px;
+}
+
+input{
+    outline: none;
+    border: none;
+    color: black;
+    background-color: ivory;
+    border-radius: 8px;
+    width: 16rem;
+    height: 2rem;
+    font-size: 1.3rem;
+}
+
+#p4 table tr td>input{
+    outline: none;
+    border: none;
+    color: black;
+    background-color: ivory;
+    border-radius: 8px;
+    width: 3rem;
+    height: 1.5rem;
+
+}
+#p3 table tr td>input{
+    outline: none;
+    border: none;
+    color: black;
+    background-color: ivory;
+    border-radius: 8px;
+    width: 3rem;
+    height: 1.5rem;
+
+}
+#p3 #curp{
+    width: 20rem;
+    height: 2rem;
+}
+#p5 table tr td>input{
+    outline: none;
+    border: none;
+    color: black;
+    background-color: ivory;
+    border-radius: 8px;
+    width: 3rem;
+    height: 1.5rem;
+
+}
+
+form fieldset{
+    margin-top: 2rem;
+    border: .2rem solid white;
+}
+
+.field legend{
+    
+    color: white;
+    font-size: 1.5rem;
+    
+}
+.field table{
+    padding: 20px;
+}
+
+.field>textarea{
+    margin: 20px;
+    background-color: rgba(0, 0, 0, 0.486);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+
+form div{
+    display: flex;
+    justify-content: flex-start;
+    background-color: rgba(0, 0, 0, 0.568);
+    padding: 10px;
+    color: white;
+ 
+}
+
+#tb{
+    margin-top: 2rem;
+}
+
+
+#p3 table{
+    display: flex;
+    justify-content: center;
+    border-spacing: 1.5rem 1.5rem;
+    border: .2rem solid white;
+    
+}
+
+#p3 table td tr>input{
+    color: black;
+    width: 2rem;
+    height: 1rem;
+}
+
+#p4 table{
+    display: flex;
+    justify-content: center;
+    border-spacing: 1.5rem 1.5rem;
+    
+}
+#p5 table{
+    display: flex;
+    justify-content: center;
+    border-spacing: 1.5rem 1.5rem;
+}
+
+.botones{
+    display: flex;
+    justify-content:center ;
+    background: none;
+}
+.botones button:nth-child(1n+0){
+    width: 10rem;
+    height: 2rem;
+    border-radius: 2px;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+}
+span>#b1{
+
+    background: olive;
+    color: white;
+   
+}
+span>#b2{
+    background: #800000;
+    color: white;
+    
+}
+span>#b1:hover{
+    background:rgba(0, 105, 32, 0.295);
+}
+span>#b2:hover{
+    background:rgba(255, 0, 0, 0.281);
+}
+h1::after{ 
+    content: " ☁"
+}
+h1::before{
+    content: "☁ ";
+}

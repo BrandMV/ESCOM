@@ -1,0 +1,85 @@
+
+.abtn{
+    display: inline-block;
+    margin-top: 1rem;
+    padding: .8rem 3rem;
+    border-radius: 5rem;
+    background: #00cba9;
+    font-size: 1.7rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.1);
+    transition: all 0.3s linear;
+}
+.abtn:hover{
+    transform: scale(1.1);
+}
+
+.heading{
+    text-align: center;
+    background: #729d39 ;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    padding: 1rem;
+}
+.about{
+    background: url(../../images/about.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    transition: .2s ease-in-out;
+}
+.about .column{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.about .column .image{
+    flex: 1 1 40rem;
+}
+.about .column .image img{
+    height: 15rem;
+    width: 100%;
+}
+.about .column .aContent{
+    flex: 1 1 40rem;
+}
+.about .column .aContent h3{
+    font-size: 3rem;
+    color: #666;
+}
+.about .column .aContent p{
+    font-size: 1.5rem;
+    color: #666;
+    padding: 1rem 0;
+}
+
+.about .column .aContent .buttons a:last-child{
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+}
+.sAbout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 500px){
+
+    .heading{
+        text-align: center;
+        font-size: 2rem;
+        margin: auto;
+    }
+
+    .aContent p{
+        font-size: 0.2rem;
+        text-align: justify;
+    }
+}
+
+

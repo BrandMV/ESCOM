@@ -1,0 +1,131 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 30px;
+    font-family: 'Montserrat';
+    scroll-behavior: smooth;
+}
+section{
+    padding: 3rem;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cover{
+    position: relative;
+    background-color: #ffe8e8;
+}
+#problema{
+    position: relative;
+    background-color: #ffdcdc;
+}
+
+.scroll{
+    height: 50px;
+    width: 30px;
+    border: 2px solid black;
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    border-radius: 4rem;
+    cursor: pointer;
+}
+.scroll::before, .scroll::after{
+    position: absolute;
+    content: "";
+    top: 20%;
+    left: 50%;
+    border: 2px solid black;
+    height: .3rem;
+    width: .3rem;
+    transform: translate(-50%,-100%) rotate(45deg);
+    border-left: transparent;
+    border-top: transparent;
+    animation: scroll 1s ease-in-out infinite;
+    
+}
+.scroll::after{
+    top: 25%;
+    animation-delay: .2s;
+}
+.scroll-up{
+    height: 50px;
+    width: 30px;
+    border: 2px solid black;
+    position: absolute;
+    left: 50%;
+    margin-top: -15.5rem;
+   /* transform: translate(50%,50%); */
+    border-radius: 4rem;
+    cursor: pointer;
+}
+.scroll-up::before, .scroll-up::after{
+    position: absolute;
+    content: "";
+    top: 20%;
+    left: 50%;
+    border: 2px solid black;
+    height: .3rem;
+    width: .3rem;
+    transform: translate(-50%,100%) rotate(45deg);
+    border-right: transparent;
+    border-bottom: transparent;
+    animation: scrolll 1s ease-in-out infinite;
+    
+}
+.scroll-up::after{
+    top: 25%;
+    animation-delay: .2s;
+}
+@keyframes scroll {
+    0%{
+        opacity: 0;
+    }
+    25%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+
+    }
+    75%{
+        opacity: 1;
+
+    }
+    100%{
+        opacity: 0;
+        top: 90%;
+    }
+
+}
+@keyframes scrolll {
+    0%{
+        opacity: 0;
+    }
+    25%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 1;
+
+    }
+    75%{
+        opacity: 1;
+
+    }
+    100%{
+        opacity: 0;
+        top: -30%;
+    }
+
+}
+.proba{
+    margin: .8rem;
+}

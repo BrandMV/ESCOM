@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/lista.css">
+    <title>Lista</title>
+</head>
+<body>
+    <header>
+        <div class="home"><a href="../index.html">Inicio</a></div>
+        <div class="menu">
+            <ul>
+                <li><a href="./pila.html">Pila</a></li>
+                <li><a href="./cola.html">Cola</a></li>
+                <li><a href="./lista.html">Lista</a></li>
+            </ul>
+        </div>
+    </header>
+    <section class="wrap">
+        <div>
+          <canvas
+            id="canvas"
+            width="650"
+            height="700"
+
+          ></canvas>
+        </div>
+  
+        <article class="container">
+          <div class="firstsButtons">
+            <input
+              type="button"
+              value="Guardar lista"
+              id="saveButton"
+              class="hide"
+            />
+            <input
+              type="button"
+              value="Cargar lista"
+              id="loadButton"
+              class="btn"
+            />
+            <input
+            type="button"
+            value="Nueva lista"
+            id="newButton"
+            class="btn"
+          />
+          </div>
+  
+          <div class="secondsButtons">
+            <input
+            type="button"
+            value="Crear Nodo"
+            id="createNodeButton"
+            class="hide"
+          />
+         
+         
+          </div>
+    
+  
+          <div class="thirdsButtons">
+            <input
+              type="number"
+              step="0.1"
+              id="listNodeValue"
+              placeholder="inserta un numero"
+              required
+              class="hide"
+            />
+            <input
+            type="button"
+            value="Crear"
+            id="createButton"
+            class="hide"
+          />
+            
+        </div>
+        <div class="fourthsButton">
+              <input
+                type="button"
+                value="Insertar al inicio"
+                id="firstButton"
+                class="hide"
+              />
+              <input
+              type="button"
+              value="Insertar al final"
+              id="lastButton"
+              class="hide"
+            />
+            <input
+            type="button"
+            value="Posicion especifica"
+            id="specificButton"
+            class="hide"
+          />
+        </div>
+    
+        <div style="margin-top: 1rem;">
+       
+        <input
+        type="number"
+        step="1"
+        id="saltButton"
+        placeholder="inserta posición"
+        required
+        class="hide"
+        style="height: 3rem; font-size: 1rem;"
+      />
+   
+        </div>
+        <input
+        type="button"
+        value="Insertar"
+        id="insertSpecificButton"
+        class="hide"
+        style="width: 100%; margin-top: 15px;"
+      />
+      <div class="fourthsButton">
+        <input type="button" value="Eliminar nodo al inicio" id="dropButton" class="hide" />
+        <input type="button" value="Eliminar nodo al final" id="dropLastButton" class="hide" />
+        <input type="button" value="Eliminar nodo especifico" id="dropSpecificButton" class="hide" />
+      </div>
+      <div style="margin-top: 2rem">
+        <input type="number" step="1" id="dropValue" placeholder="inserta posición a eliminar" required class="hide" style="height: 3rem; font-size: 1rem;"/>
+        <input type="button" value="Eliminar nodo especifico" id="dropSpecific" class="hide" />
+
+      </div>
+        
+          <br />
+          <article>
+            <div class="code hide" id="cCodeCreateNode">
+              <h4>Còdigo</h4>
+              <pre>
+                typedef struct nodo{
+                  int dato;
+                  struct nodo *next;
+                }Nodo;
+
+                Nodo *crearNodo(int dato){
+                  Nodo *nuevo = NULL;
+                  nuevo = (Nodo*)malloc(sizeof(Nodo));
+                  if( nuevo != NULL ){
+                    nuevo-> dato = dato;
+                    nuevo-> next = NULL;
+                  }
+                  return nuevo;
+                }
+              </pre>
+            </div>
+            <div class="code hide" id="cCodefirstNode">
+              <h4>Còdigo</h4>
+              <pre>
+                int insertarInicio(Nodo **cabeza, int dato){
+                  Nodo *nuevo == NULL;
+                  nuevo = crearNodo(dato);
+                  if( nuevo != NULL ){
+                    nuevo->next = *cabeza;
+                    *cabeza = nuevo;
+                    return 1;
+                  }
+                  return 0;
+                }
+              </pre>
+            </div>
+            <div class="code hide" id="cCodeLastNode">
+              <h4>Còdigo</h4>
+              <pre>
+                int insertarFinal(Nodo **cabeza, int dato){
+                  Nodo *nuevo = NULL;
+                  *nAux = *cabeza;
+                  nuevo = crearNodo(dato);
+                  if( nuevo != NULL ){
+                    while(nAux->next != NULL){
+                      nAux = nAux->next;
+                    }
+                    nAux->next = nuevo;
+                    return 1;
+                  }
+                  return 0;
+
+                }
+              </pre>
+            </div>
+            <div class="code hide" id="cCodeSpecificNode">
+              <h4>Còdigo</h4>
+              <pre>
+                void insertarEspecifico(int pos, Nodo *lista, Nodo *elemento){
+                  Nod *temp = lista;
+                  if (pos > 1 ){
+                    for(int i = 1; i < pos-1; i++){
+                      temp = temp -> next;
+                    }
+                    elemento -> next = temp -> next;
+                    temp-> = elemento;
+                  }else if( pos ){
+                    temp->next = lista;
+                    lista = temp;
+                  }
+                }
+              </pre>
+            </div>
+            <div class="code hide" id="cCodeDropFirstNode">
+              <h4>Còdigo</h4>
+              <pre>
+                void eliminarPrincipio(Lista* lista){
+                  Nodo* eliminado = lista->cabeza;
+                  lista->cabeza = lista->cabeza->next;
+                  free(eliminado);
+                  lista->longitud--;
+                }
+              </pre>
+            </div>
+            <div class="code hide" id="cCodeDropLastNode">
+              <h4>Còdigo</h4>
+              <pre>
+                void eliminarUltimo(Lista* lista){
+                  if(lista->cabeza){
+                    if(lista->cabeza->next){
+                      Nodo *puntero = lista -> cabeza;
+                      while(puntero->next->next){
+                        puntero = puntero->next;
+                      }
+                      Nodo *eliminado = puntero -> next;
+                      puntero->next = NULL;
+                      free(eliminado);
+                      lista->longitud--;
+                    }else{
+                      Nodo *eliminado = lista->cabeza;
+                      lista->cabeza = NULL;
+                      free(eliminado);
+                      lista->longitud--;
+                    }
+                  }
+                }
+              </pre>
+            </div>
+            <div class="code hide" id="cCodeDropSpecificNode">
+              <h4>Còdigo</h4>
+              <pre>
+                void eliminarEspecifico(int n, Lista* lista){
+                  if(lista->cabeza){
+                    if(n == 0){
+                      Nodo * eliminado = lista->cabeza;
+                      lista->cabeza = lista->cabeza->next;
+                      free(eliminado);
+                    }else if(n < lista->longitud){
+                      Nodo *puntero = lista->cabeza;
+                      int posicion = 0;
+                      while(posicion < (n-1)){
+                        puntero = puntero ->next;
+                        posicion++;
+                      }
+                      Nodo* eliminado = puntero->next;
+                      puntero->next = eliminado->next;
+                      free(eliminado);
+                      lista->longitud--;
+                    }
+                  }
+                }
+              </pre>
+            </div>
+          </article>
+        </article>
+      </section>
+    <div><svg class="wave"  viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-14.95,26.14 C-35.26,264.95 486.17,152.45 507.05,0.50 L601.30,225.48 L-18.90,224.50 Z" style="stroke: none; fill: #FF5500;"></path></svg></div>
+
+
+    <script src="../js/lista.js"></script>
+</body>
+</html>

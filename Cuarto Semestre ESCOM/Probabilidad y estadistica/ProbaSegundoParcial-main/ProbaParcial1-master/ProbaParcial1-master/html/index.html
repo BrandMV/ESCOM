@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejericio de probabilidad</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <div class="info">
+      <div class="title">
+        <h1>Ejercicio de probabilidad. Galletitas</h1>
+      </div>
+      <div class="desc">
+        <h3>Descripción del problema:</h3>
+        <br />
+        Tenemos una caja con <strong>n</strong> galletas, <strong>m</strong> son
+        de chocolate y <strong>p</strong> de otro sabor. Se extraen 2 galletas,
+        una seguida de la otra, sin remplazo.
+        <br />
+        Sean los eventos:
+        <br />
+        ¿Cual es la probabilidad de que las 2 galletas sean de chocolate?
+        <br />
+        ¿Cual es la probabilidad de que la primera sea de chocolate y la segunda
+        de otro sabor?
+        <br />
+        ¿Cual es la probabilidad de que ambas sean de otro sabor?
+        <br /><br />
+
+        <div class="integrantes">
+          <h3>Integrantes:</h3>
+          <br />
+          <ul>
+            <li>Contreras Barrita José Roberto</li>
+            <li>Fonseca Ramos Angel Gabriel</li>
+            <li>Meza Vargas Brandon David</li>
+            <li>Ruiz Mendez Diana Itzel</li>
+            <li>Santillan García Jorge Luis</li>
+            <li>Toledo Espinosa Cristina Aline</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="formulario">
+      <h2>Ingresa los datos para solucionar este problema.</h2>
+        <br>
+      <form class="form-inline row" id="formsol">
+        <div class="form-group col-5 inputc">
+          <label for="totalGalletas" class="sr-only">Total de galletas (n)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="totalGalletas"
+            min="0"
+          />
+        </div>
+        <div class="form-group col-5 inputc">
+            <label for="totalGalletasChoc" class="sr-only">Galletas de chocolate (m)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="totalGalletasChoc"
+              min="0"
+            />
+          </div>
+
+        
+        <button type="submit" class="btn btn-primary col-2">Solucionar</button>
+      </form>
+    </div>
+
+
+  </body>
+  <script type="text/javascript" src="../js/solucion.js"></script>
+  <script type="text/javascript" src="../js/simulacion.js"></script>
+  <script type="text/javascript" src="../plugins/sweetalert2.all.min.js"></script>
+</html>

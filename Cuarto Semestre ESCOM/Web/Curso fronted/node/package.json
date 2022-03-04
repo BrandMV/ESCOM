@@ -1,0 +1,16 @@
+{
+  "name": "demp",
+  "version": "0.0.1",
+  "description": "a demo for a class",
+  "main": "index.js",
+  "scripts": {
+    "run": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}

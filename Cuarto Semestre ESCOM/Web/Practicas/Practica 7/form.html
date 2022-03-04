@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Brandon David Meza Vargas" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <title>Form</title>
+  </head>
+  <body>
+    <h1>Formulario</h1>
+    <form name="form" id="formulario">
+      <div id="p1">
+        <fieldset class="field">
+          <legend>Nombre</legend>
+          <table id="tb1">
+            <tr>
+              <td><input type="text" name="name" id="nombre" /></td>
+              <td><input type="text" name="aP" id="aP" /></td>
+              <td><input type="text" name="aM" id="aM" /></td>
+            </tr>
+
+            <tr>
+              <td>Nombre</td>
+              <td>Apellido Paterno</td>
+              <td>Apellido materno</td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+
+      <div id="p2">
+        <fieldset class="field">
+          <legend>Direccion</legend>
+          <table>
+            <tr>
+              <td><input type="text" name="calle" id="calle" /></td>
+              <td><input type="text" name="no" id="no" /></td>
+              <td><input type="text" name="col" id="col" /></td>
+              <td><input type="text" name="cp" id="cp" /></td>
+              <td>
+                <select name="delega" id="delega">
+                  <option value="Álvaro Obregón">Álvaro Obregón</option>
+                  <option value="Azcapotzalco">Azcapotzalco</option>
+                  <option value="Benito Juárez">Benito Juárez</option>
+                  <option value="Coyoacán">Coyoacán</option>
+                  <option value="Cuauhtémoc">Cuauhtémoc</option>
+                  <option value="Cuajimalpa de Morelos">
+                    Cuajimalpa de Morelos
+                  </option>
+                  <option value="Gustavo A. Madero">Gustavo A. Madero</option>
+                  <option value="Iztacalco">Iztacalco</option>
+                  <option value="Iztapalapa">Iztapalapa</option>
+                  <option value="Magdalena Contreras">
+                    Magdalena Contreras
+                  </option>
+                  <option value="Miguel Hidalgo">Miguel Hidalgo</option>
+                  <option value="Milpa Alta">Milpa Alta</option>
+                  <option value="Tláhuac3">Tláhuac</option>
+                  <option value="Tlalpan">Tlalpan</option>
+                  <option value="Venustiano Carranza">
+                    Venustiano Carranza
+                  </option>
+                  <option value="Xochimilco">Xochimilco</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Calle</td>
+              <td>No.</td>
+              <td>Colonia</td>
+              <td>CP</td>
+              <td>Delegación</td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+
+      <div id="p3">
+        <table id="tb">
+          <tr>
+            <td>Sexo:</td>
+            <td>
+              <input type="radio" name="sexo" value="Masculino" />Masculino
+            </td>
+            <td><input type="radio" name="sexo" value="Femenino" />Femenino</td>
+            <td><input type="radio" name="sexo" value="Otro" />Otro</td>
+          </tr>
+          <tr>
+            <td>Fecha de nacimiento</td>
+            <td>
+              <select name="mes" id="mes">
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+              </select>
+            </td>
+            <td>
+              <select name="dia" id="dia">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+              </select>
+            </td>
+            <td>
+              <select name="año" id="año">
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="2">CURP</td>
+            <td><input type="text" id="curp" /></td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="p4">
+        <fieldset class="field">
+          <legend>Lenguajes de Programación</legend>
+          <table>
+            <tr>
+              <td><input type="checkbox" id="c" value="C" />C</td>
+              <td><input type="checkbox" id="ruby" value="Ruby" />Ruby</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" id="cmm" value="C++" />C++</td>
+              <td><input type="checkbox" id="perl" value="Perl" />Perl</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" id="java" value="Java" />Java</td>
+              <td><input type="checkbox" id="r" value="R" />R</td>
+            </tr>
+            <tr>
+              <td>
+                <input type="checkbox" id="python" value="Python" />Python
+              </td>
+              <td><input type="checkbox" id="otroL" value="Otro" />Otro</td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+
+      <div id="p5">
+        <fieldset class="field">
+          <legend>Pasatiempos</legend>
+          <table>
+            <tr>
+              <td><input type="checkbox" id="leer" value="Leer" />Leer</td>
+              <td>
+                <input
+                  type="checkbox"
+                  id="videojuegos"
+                  value="Videojuegos"
+                />Videojuegos
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" id="tv" value="Ver TV" />Ver TV</td>
+              <td>
+                <input type="checkbox" id="cine" value="Ir al cine" />Ir al cine
+              </td>
+              <td>
+                <input type="checkbox" id="oC" value="Otras cosas" />Otras cosas
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  id="navegar"
+                  value="Navegar en internet"
+                />Navegar en internet
+              </td>
+              <td>
+                <input type="checkbox" id="netflix" value="Ver Netflix" />Ver
+                Netflix
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+      </div>
+
+      <div id="p6">
+        <fieldset class="field">
+          <legend>Comentarios</legend>
+
+          <textarea
+            name="comen"
+            id="comentario"
+            cols="100"
+            rows="10"
+            placeholder="Escriba su comentario"
+          ></textarea>
+          <br />
+        </fieldset>
+      </div>
+      <div class="botones">
+        <span
+          ><a href="Datos.html" style="text-decoration: none"
+            ><input type="submit" id="b1" value="Obtener Datos" /></a
+        ></span>
+      </div>
+    </form>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>

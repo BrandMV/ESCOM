@@ -1,0 +1,13 @@
+postman para llamar y consumir APIS
+
+express-validator para validaciones
+mongoose para usar mongoDB
+
+bcrypt: encriptar contrase{as
+
+jsonwebtoken: para un token para manejar la sesion del cliente
+
+multer: para subir archivos
+shortid: para crear id's unicos a los archivos
+
+checkbox-tree para arbol de rutas

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE recetas SYSTEM "./recetas.dtd">
+
+<recetas>
+    
+    <seccion>
+        <secTitutlo>Apetitosos Pasteles</secTitutlo>
+        <receta>
+            <recTitulo>Pastel de queso</recTitulo>
+            <ingredientes>
+                <ingrediente>
+                    <nomIngrediente>Pan cortado en rebanadas</nomIngrediente>
+                    <cantidad>1/2kg</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Huevos</nomIngrediente>
+                    <cantidad>6</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de leche</nomIngrediente>
+                    <cantidad>6</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de queso reallado o ricota</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharadas de cebolla picada</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Sal</nomIngrediente>
+                    <cantidad>al gusto</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharaditas de pimienta</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+            </ingredientes>
+            <paso numPaso="1">
+                En una asadera enmantecada se coloca, en el fondo, una camada de rebanadas
+                de pan, se espolvorean con abundante queso rallado y se vuelve a poner otra camada
+                de rebanadas de pan que se cubre con el queso restante. 
+                
+            </paso>
+            <paso numPaso="2">
+                Aparte se baten los huevos, se les agrega leche, la sal y la cebolla y se vierte
+                este liquido sobre las rebanadas de pan y queso. Se cocinan en horno moderado durante
+                una hora más o menos.
+            </paso>
+        </receta>
+
+        <receta>
+            <recTitulo>Pastel de choclo</recTitulo>
+            <ingredientes>
+                <ingrediente>
+                    <nomIngrediente>Tazas de choclos desgranados, previamente cocidos</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Huevos</nomIngrediente>
+                    <cantidad>4</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharadas de manteca o mantequilla</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Crema de leche</nomIngrediente>
+                    <cantidad>1/4 de litro</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de harina cernida</nomIngrediente>
+                    <cantidad>1/4</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Sal</nomIngrediente>
+                    <cantidad>al gusto</cantidad>
+                </ingrediente>
+            </ingredientes>
+            <paso numPaso="1">
+                Baten los huevos y se le agregan la harina, la sal, el choclo, la manteca y por último la crema de leche,
+                batiendo siempre hasta que la preparación quede bien homogénea. Se coloca luego en un molde a baño
+                maria en horno moderado durante una hora. Se sirve caliente.
+            </paso>
+        </receta>
+
+        <receta>
+            <recTitulo>Pastel de espinacas o acelga</recTitulo>
+            <ingredientes>
+                <ingrediente>
+                    <nomIngrediente>Tazas de puré de acelga o espinaca cocida con sal</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Huevos duros picados</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de salsa blanca</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de queso rallado</nomIngrediente>
+                    <cantidad>1/2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Sal</nomIngrediente>
+                    <cantidad>al gusto</cantidad>
+                </ingrediente>
+            </ingredientes>
+            <paso numPaso="1">
+                Se mezclan todos los ingredientem se ponen en una asadera y se espolvorean con pan rallado.
+                Se deja en el hotno sólo hasta que se dore.
+            </paso>
+        </receta>
+    </seccion>
+
+    <seccion>
+        <secTitutlo>Tortillas para todos los gustos</secTitutlo>
+        <receta>
+            <recTitulo>Tortilla al horno</recTitulo>
+            <ingredientes>
+                <ingrediente>
+                    <nomIngrediente>Huevos</nomIngrediente>
+                    <cantidad>3</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cdas de queso rallado</nomIngrediente>
+                    <cantidad>4</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de leche</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tajadas de queso fresco</nomIngrediente>
+                    <cantidad>6</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Sal y condimento</nomIngrediente>
+                    <cantidad>al gusto</cantidad>
+                </ingrediente>
+            </ingredientes>
+            <paso numPaso="1">
+                Se baten muy bien por separado las claras y las yemas. En estas pultimas se incorpora la sal y se continua
+                batiendo hasta que se espesen. Se agregan las 4 cucharadas de queso rallado, el condimento, la leche y cuando
+                todo está bien unido, se añaden las claras batidas a nieve. En una fuente enmantecada se coloca la preparación
+                y se distribuyen en ella las 6 tajadas de queso fresco. Se pone en el horno a temparatura suave.
+            </paso>
+        </receta>
+
+        <receta>
+            <recTitulo>Tortilla de arroz</recTitulo>
+            <ingredientes>
+                <ingrediente>
+                    <nomIngrediente>Tazas de arroz cocido</nomIngrediente>
+                    <cantidad>1/2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cebolla chica bien picada</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Diente de ajo bien picado</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Huevos</nomIngrediente>
+                    <cantidad>3</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharadas de perejil picado</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharada de manteca o mantequilla</nomIngrediente>        
+                    <cantidad>1</cantidad>            
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Sal y condimento</nomIngrediente>
+                    <cantidad>al gusto</cantidad>
+                </ingrediente>
+            </ingredientes>
+            <paso numPaso="1">
+                Se baten muy bien los tres huevos y se les añade el arroz. En la manteca derretida, se doran ligeramente
+                la cebolla y el ajo picados; cuando están listos, se les agrega la mezcla de arros con huevos
+                y pot último la sal y el perejil. COn un tenedor se mezclan bien todos los ingredientes y se deja que
+                la tortilla se dore por un lado; luego se da vuelta para que se dore por el otro.
+            </paso>
+        </receta>
+    </seccion>
+
+    <seccion>
+        <secTitutlo>Postres para adornar su mesa</secTitutlo>
+        <receta>
+            <recTitulo>Budin de limón</recTitulo>
+            <ingredientes>
+                <ingrediente>
+                    <nomIngrediente>Tazas de azúcar</nomIngrediente>
+                    <cantidad>3/4</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de harina</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharadita de sal</nomIngrediente>
+                    <cantidad>1/4</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Huevos</nomIngrediente>
+                    <cantidad>3</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharaditas de polvo de hornear</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de jugos de frutas</nomIngrediente>
+                    <cantidad>1/2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharadas de jugo de limón</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharaditas de ralladura de limnón</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+            </ingredientes>
+            <paso numPaso="1">
+                Se baten separadas las claras y las yemas. En estas últimas, se ñaden los dos jugos de fruta.
+                Se mezclan los sólidos: azúcar, harina y sal, y se unen las dos mezclas revolviendo bien. 
+                Se baten las claras a punto de nieve y se añaden. Se vuelca la preparación en una budinera
+                enmantecada y se cocina a baño maria en el horno, a temperatura suave.
+            </paso>
+        </receta>
+
+        <receta>
+            <recTitulo>Masitas con azúcar negra</recTitulo>
+            <ingredientes>
+                <ingrediente>
+                    <nomIngrediente>Tazas de harina</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Manteca o mantequilla</nomIngrediente>
+                    <cantidad>50g</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Cucharaditas de polvo de hornear</nomIngrediente>
+                    <cantidad>2</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Tazas de leche</nomIngrediente>
+                    <cantidad>1/3</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Azúcar negra</nomIngrediente>
+                    <cantidad>al gusto</cantidad>
+                </ingrediente>
+                <ingrediente>
+                    <nomIngrediente>Pizcas de sal</nomIngrediente>
+                    <cantidad>1</cantidad>
+                </ingrediente>
+            </ingredientes>
+            <paso numPaso="1">
+                Mezclar con un tenedor la manteca con la harina (en la que se habrán mezclado con anterioridad el
+                polvo para hornear y la sal). Agregar la leche y amasar hasta que la mezcla esté unida. Estirar
+                la masa hasta que tenga un espesor de medio centimetro. Cortar medallones pincelarlos con agua y en cada
+                uno ir colocando una cucharadita de azúcar negra. Cocinar en placa enmantecada en horno caliente,
+                durante 10 o 15 minutos.
+            </paso>
+        </receta>
+    </seccion>
+
+</recetas>
