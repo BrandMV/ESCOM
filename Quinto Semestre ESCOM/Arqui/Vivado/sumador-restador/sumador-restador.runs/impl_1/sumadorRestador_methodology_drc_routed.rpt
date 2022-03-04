@@ -1,0 +1,60 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+| Date         : Thu Oct 14 18:24:30 2021
+| Host         : DESKTOP-LG583T8 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file sumadorRestador_methodology_drc_routed.rpt -pb sumadorRestador_methodology_drc_routed.pb -rpx sumadorRestador_methodology_drc_routed.rpx
+| Design       : sumadorRestador
+| Device       : xc7a100tcsg324-2
+| Speed File   : -2
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 5
++--------+----------+----------------------------------+------------+
+| Rule   | Severity | Description                      | Violations |
++--------+----------+----------------------------------+------------+
+| HPDR-1 | Warning  | Port pin direction inconsistency | 5          |
++--------+----------+----------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+HPDR-1#1 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) CN direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (CN) connected to this Port, but both were not found.
+Related violations: <none>
+
+HPDR-1#2 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) S[0] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (S[0]) connected to this Port, but both were not found.
+Related violations: <none>
+
+HPDR-1#3 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) S[1] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (S[1]) connected to this Port, but both were not found.
+Related violations: <none>
+
+HPDR-1#4 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) S[2] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (S[2]) connected to this Port, but both were not found.
+Related violations: <none>
+
+HPDR-1#5 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) S[3] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (S[3]) connected to this Port, but both were not found.
+Related violations: <none>
+
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-2" LaunchTime="1634253694">
+  <File Type="ROUTE-PWR" Name="sumadorRestador_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="sumadorRestador.tcl"/>
+  <File Type="ROUTE-PWR-SUM" Name="sumadorRestador_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="sumadorRestador_reports.tcl"/>
+  <File Type="BITSTR-MSK" Name="sumadorRestador.msk"/>
+  <File Type="ROUTE-CLK" Name="sumadorRestador_clock_utilization_routed.rpt"/>
+  <File Type="RDI-RDI" Name="sumadorRestador.vdi"/>
+  <File Type="BG-BIT" Name="sumadorRestador.bit"/>
+  <File Type="BG-DRC" Name="sumadorRestador.drc"/>
+  <File Type="BG-BGN" Name="sumadorRestador.bgn"/>
+  <File Type="BG-BIN" Name="sumadorRestador.bin"/>
+  <File Type="BITSTR-RBT" Name="sumadorRestador.rbt"/>
+  <File Type="BITSTR-NKY" Name="sumadorRestador.nky"/>
+  <File Type="BITSTR-BMM" Name="sumadorRestador_bd.bmm"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="sumadorRestador_methodology_drc_routed.rpt"/>
+  <File Type="BITSTR-MMI" Name="sumadorRestador.mmi"/>
+  <File Type="BITSTR-SYSDEF" Name="sumadorRestador.sysdef"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="sumadorRestador.ltx"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="OPT-DRC" Name="sumadorRestador_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="sumadorRestador.hwdef"/>
+  <File Type="PLACE-IO" Name="sumadorRestador_io_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="sumadorRestador_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="sumadorRestador_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="sumadorRestador_control_sets_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="sumadorRestador_incremental_reuse_pre_placed.rpt"/>
+  <File Type="ROUTE-DRC" Name="sumadorRestador_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="sumadorRestador_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="sumadorRestador_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="sumadorRestador_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="sumadorRestador_route_status.pb"/>
+  <File Type="ROUTE-DCP" Name="sumadorRestador_routed.dcp"/>
+  <File Type="ROUTE-ERROR-DCP" Name="sumadorRestador_routed_error.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="sumadorRestador_routed_bb.dcp"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="sumadorRestador_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="sumadorRestador_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="sumadorRestador_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-BUS-SKEW" Name="sumadorRestador_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="sumadorRestador_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="sumadorRestador_bus_skew_routed.rpx"/>
+  <File Type="OPT-DCP" Name="sumadorRestador_opt.dcp"/>
+  <File Type="PLACE-DCP" Name="sumadorRestador_placed.dcp"/>
+  <File Type="PWROPT-DCP" Name="sumadorRestador_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="sumadorRestador_postplace_pwropt.dcp"/>
+  <File Type="PHYSOPT-DCP" Name="sumadorRestador_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="sumadorRestador_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="sumadorRestador_postroute_physopt_bb.dcp"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="sumadorRestador_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="sumadorRestador_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="sumadorRestador_methodology_drc_routed.rpx"/>
+  <File Type="PDI-FILE" Name="sumadorRestador.pdi"/>
+  <File Type="RCFI_FILE" Name="sumadorRestador.rcfi"/>
+  <File Type="CFI_FILE" Name="sumadorRestador.cfi"/>
+  <File Type="RNPI_FILE" Name="sumadorRestador.rnpi"/>
+  <File Type="NPI_FILE" Name="sumadorRestador.npi"/>
+  <File Type="RBD_FILE" Name="sumadorRestador.rbd"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/sumador-restador.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="sumadorRestador"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PPRDIR/../Nexys4DDR_LabRemoto.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+    <Step Id="write_device_image"/>
+  </Strategy>
+</GenRun>

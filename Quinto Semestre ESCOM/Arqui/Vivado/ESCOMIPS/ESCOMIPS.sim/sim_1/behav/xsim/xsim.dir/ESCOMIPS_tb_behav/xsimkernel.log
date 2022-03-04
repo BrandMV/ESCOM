@@ -1,0 +1,7 @@
+Running: xsim.dir/ESCOMIPS_tb_behav/xsimk.exe -simmode gui -wdb ESCOMIPS_tb_behav.wdb -simrunnum 0 -socket 50674
+Design successfully loaded
+Design Loading Memory Usage: 5868 KB (Peak: 5868 KB)
+Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 6456 KB (Peak: 6456 KB)
+Simulation CPU Usage: 31 ms

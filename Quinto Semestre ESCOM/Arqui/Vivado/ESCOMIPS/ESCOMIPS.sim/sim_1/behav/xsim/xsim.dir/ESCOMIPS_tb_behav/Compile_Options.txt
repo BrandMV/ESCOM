@@ -1,0 +1,1 @@
+-wto "1c601cdb4318422eb186d9f0e3adc30f" --incr --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" --snapshot "ESCOMIPS_tb_behav" "xil_defaultlib.ESCOMIPS_tb" -log "elaborate.log" 

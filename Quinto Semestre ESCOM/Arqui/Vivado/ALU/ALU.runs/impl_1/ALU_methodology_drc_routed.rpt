@@ -1,0 +1,86 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+| Date         : Tue Oct 26 00:04:10 2021
+| Host         : DESKTOP-LG583T8 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file ALU_methodology_drc_routed.rpt -pb ALU_methodology_drc_routed.pb -rpx ALU_methodology_drc_routed.rpx
+| Design       : ALU
+| Device       : xc7a100tcsg324-2
+| Speed File   : -2
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 10
++-----------+----------+----------------------------------+------------+
+| Rule      | Severity | Description                      | Violations |
++-----------+----------+----------------------------------+------------+
+| HPDR-1    | Warning  | Port pin direction inconsistency | 4          |
+| TIMING-20 | Warning  | Non-clocked latch                | 6          |
++-----------+----------+----------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+HPDR-1#1 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) RES[0] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (RES[0]) connected to this Port, but both were not found.
+Related violations: <none>
+
+HPDR-1#2 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) RES[1] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (RES[1]) connected to this Port, but both were not found.
+Related violations: <none>
+
+HPDR-1#3 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) RES[2] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (RES[2]) connected to this Port, but both were not found.
+Related violations: <none>
+
+HPDR-1#4 Warning
+Port pin direction inconsistency  
+Hierarchical port(pin) RES[3] direction INOUT is not consistent with the directions of the cell pins/ports found at that level of the netlist hierarchy. Please review the design and consider changing the port(pin) direction. Both drivers and loads were expected for the net (RES[3]) connected to this Port, but both were not found.
+Related violations: <none>
+
+TIMING-20#1 Warning
+Non-clocked latch  
+The latch PAU2.G_reg[0] cannot be properly analyzed as its control pin PAU2.G_reg[0]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#2 Warning
+Non-clocked latch  
+The latch PAU2.G_reg[1] cannot be properly analyzed as its control pin PAU2.G_reg[1]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#3 Warning
+Non-clocked latch  
+The latch PAU2.G_reg[2] cannot be properly analyzed as its control pin PAU2.G_reg[2]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#4 Warning
+Non-clocked latch  
+The latch PAU2.P_reg[0] cannot be properly analyzed as its control pin PAU2.P_reg[0]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#5 Warning
+Non-clocked latch  
+The latch PAU2.P_reg[1] cannot be properly analyzed as its control pin PAU2.P_reg[1]/G is not reached by a timing clock
+Related violations: <none>
+
+TIMING-20#6 Warning
+Non-clocked latch  
+The latch PAU2.P_reg[2] cannot be properly analyzed as its control pin PAU2.P_reg[2]/G is not reached by a timing clock
+Related violations: <none>
+
+

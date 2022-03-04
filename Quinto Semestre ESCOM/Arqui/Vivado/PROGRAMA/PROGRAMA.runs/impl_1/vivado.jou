@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Tue Nov  9 12:06:20 2021
+# Process ID: 10880
+# Current directory: C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/PROGRAMA/PROGRAMA.runs/impl_1
+# Command line: vivado.exe -log PROGRAMA.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source PROGRAMA.tcl -notrace
+# Log file: C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/PROGRAMA/PROGRAMA.runs/impl_1/PROGRAMA.vdi
+# Journal file: C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/PROGRAMA/PROGRAMA.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source PROGRAMA.tcl -notrace

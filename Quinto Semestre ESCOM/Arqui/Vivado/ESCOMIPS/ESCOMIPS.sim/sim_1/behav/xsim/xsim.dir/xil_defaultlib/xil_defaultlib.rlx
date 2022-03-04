@@ -1,0 +1,14 @@
+0.7
+2020.2
+Nov 18 2020
+09:47:47
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/Control/Control.srcs/sources_1/new/CONTROL.vhd,1639340115,vhdl,,,,control,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sim_1/new/TB_ESCOMIPS.vhd,1640061465,vhdl,,,,escomips_tb,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/ALU.vhd,1639763274,vhdl,,,,alu,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/DIVISOR.vhd,1639761362,vhdl,,,,divisor,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/ESCOMIPS.vhd,1640103357,vhdl,,,,escomips,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/MEMDATOS.vhd,1637086768,vhdl,,,,memdatos,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/MI_PAQUETE.vhd,1639763485,vhdl,C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/ESCOMIPS.vhd,,,mi_paquete,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/PC.vhd,1637084849,vhdl,,,,pc,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/PROGRAMA.vhd,1640103348,vhdl,,,,programa,,,,,,,,
+C:/Users/PC/Desktop/5to Semestre ESCOM/Arqui/Vivado/ESCOMIPS/ESCOMIPS.srcs/sources_1/new/REGISTROS.vhd,1637176823,vhdl,,,,registros,,,,,,,,
