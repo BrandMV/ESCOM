@@ -1,0 +1,28 @@
+# Project: tablaHashAbierta
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = "Nueva\ carpeta/Hash\ Abierta.o"
+LINKOBJ  = "Nueva carpeta/Hash Abierta.o"
+LIBS     = -L"D:/Programas/Dev-Cpp/MinGW64/lib" -L"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"D:/Programas/Dev-Cpp/MinGW64/include" -I"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"D:/Programas/Dev-Cpp/MinGW64/include" -I"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = tablaHashAbierta.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+"Nueva\ carpeta/Hash\ Abierta.o": Nueva\ carpeta/Hash\ Abierta.c
+	$(CC) -c "Nueva carpeta/Hash Abierta.c" -o "Nueva carpeta/Hash Abierta.o" $(CFLAGS)

@@ -1,0 +1,28 @@
+# Project: listaEstaticaLineal
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = "../Lista\ lineal\ vinculada\ dinamica/listaLinealVinculadaDina.o"
+LINKOBJ  = "../Lista lineal vinculada dinamica/listaLinealVinculadaDina.o"
+LIBS     = -L"D:/Programas/Dev-Cpp/MinGW64/lib" -L"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"D:/Programas/Dev-Cpp/MinGW64/include" -I"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"D:/Programas/Dev-Cpp/MinGW64/include" -I"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = listaEstaticaLineal.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+"../Lista\ lineal\ vinculada\ dinamica/listaLinealVinculadaDina.o": ../Lista\ lineal\ vinculada\ dinamica/listaLinealVinculadaDina.c
+	$(CC) -c "../Lista lineal vinculada dinamica/listaLinealVinculadaDina.c" -o "../Lista lineal vinculada dinamica/listaLinealVinculadaDina.o" $(CFLAGS)
