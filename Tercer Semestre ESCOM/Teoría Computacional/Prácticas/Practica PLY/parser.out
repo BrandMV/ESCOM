@@ -1,0 +1,108 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> S
+Rule 1     S -> a a a T
+Rule 2     T -> a T b
+Rule 3     T -> empty
+Rule 4     empty -> <empty>
+
+Terminals, with rules where they appear
+
+a                    : 1 1 1 2
+b                    : 2
+error                : 
+
+Nonterminals, with rules where they appear
+
+S                    : 0
+T                    : 1 2
+empty                : 3
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . S
+    (1) S -> . a a a T
+
+    a               shift and go to state 2
+
+    S                              shift and go to state 1
+
+state 1
+
+    (0) S' -> S .
+
+
+
+state 2
+
+    (1) S -> a . a a T
+
+    a               shift and go to state 3
+
+
+state 3
+
+    (1) S -> a a . a T
+
+    a               shift and go to state 4
+
+
+state 4
+
+    (1) S -> a a a . T
+    (2) T -> . a T b
+    (3) T -> . empty
+    (4) empty -> .
+
+    a               shift and go to state 5
+    $end            reduce using rule 4 (empty -> .)
+
+    T                              shift and go to state 6
+    empty                          shift and go to state 7
+
+state 5
+
+    (2) T -> a . T b
+    (2) T -> . a T b
+    (3) T -> . empty
+    (4) empty -> .
+
+    a               shift and go to state 5
+    b               reduce using rule 4 (empty -> .)
+
+    T                              shift and go to state 8
+    empty                          shift and go to state 7
+
+state 6
+
+    (1) S -> a a a T .
+
+    $end            reduce using rule 1 (S -> a a a T .)
+
+
+state 7
+
+    (3) T -> empty .
+
+    $end            reduce using rule 3 (T -> empty .)
+    b               reduce using rule 3 (T -> empty .)
+
+
+state 8
+
+    (2) T -> a T . b
+
+    b               shift and go to state 9
+
+
+state 9
+
+    (2) T -> a T b .
+
+    $end            reduce using rule 2 (T -> a T b .)
+    b               reduce using rule 2 (T -> a T b .)
+

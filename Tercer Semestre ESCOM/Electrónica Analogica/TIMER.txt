@@ -1,0 +1,8 @@
+Con este proyecto vimos una aplicación del amplificador operacional como comparador este es un circuito de tiempo del cual ya vimos su funcionamiento,
+puedo concluir que gracias a este proyecto comprendi mejor el funcionamiento del amplificador operacional, pues el proyecto implico investigar y reforzar lo visto en clases.
+Debido a la situación que estamos viviendo actualmente no se pudo realizar el proyecto de manera fisica como nos hubiese gustado pero racias a un simulador
+se logro hacer de una amnerda adecuada. Me parecio un buen proyecto para cerrar el semestre
+
+Como bien sabemos, un semaforo es un dispositivo que permite, tanto a vehiculoscomo a peatones, transitar por las calles de una manera segura.
+Una aplicación que le podemos dar a nuestro circuito es, precisamente un semaforo sencillo, estableciendo un tiempo especifico para que cada color vaya prendiendo o apagando
+dependiendo de un tiempo fijo establecido
