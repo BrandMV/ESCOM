@@ -1,0 +1,1 @@
+build/default/debug/PRINCIPAL4BOLETA.o: PRINCIPAL4BOLETA.S
