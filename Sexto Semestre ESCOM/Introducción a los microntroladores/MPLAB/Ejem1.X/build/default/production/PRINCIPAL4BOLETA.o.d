@@ -1,1 +1,0 @@
-build/default/production/PRINCIPAL4BOLETA.o: PRINCIPAL4BOLETA.S

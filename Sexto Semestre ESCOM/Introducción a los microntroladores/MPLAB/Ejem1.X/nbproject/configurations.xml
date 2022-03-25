@@ -15,7 +15,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>retardos.s</itemPath>
-      <itemPath>PRINCIPAL4BOLETA.S</itemPath>
+      <itemPath>BOLETAAUTO.S</itemPath>
+      <itemPath>PRINCIPAL4.S</itemPath>
+      <itemPath>PRINCIPAL4B.S</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

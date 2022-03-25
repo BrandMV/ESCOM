@@ -19,7 +19,7 @@ Command:
   -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33E/gld \
   -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/retardos.o \
-  build/default/production/PRINCIPAL4BOLETA.o \
+  build/default/production/BOLETAAUTO.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp30F3013.gld.00 \
   --stack=16 \
@@ -86,11 +86,11 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100                0x82            0xc3  (195)
-.text                        0x182                0x9c            0xea  (234)
-.dinit                       0x21e                0x14            0x1e  (30)
-.myconstbuffer               0x232                 0x8             0xc  (12)
+.text                        0x182                0xc4           0x126  (294)
+.myconstbuffer               0x246                0x14            0x1e  (30)
+.dinit                       0x25a                0x14            0x1e  (30)
 
-                 Total "program" memory used (bytes):          0x1d7  (471) 1%
+                 Total "program" memory used (bytes):          0x225  (549) 2%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
@@ -120,18 +120,18 @@ External Symbols in Program Memory (by address):
                   0x000106                  __data_init
                   0x00017c                  __DefaultInterrupt
                   0x000182                  __reset
-                  0x0001f0                  __T1Interrupt
-                  0x0001f8                  _RETARDO_1S
-                  0x00020e                  _RETARDO_1mS
+                  0x000218                  __T1Interrupt
+                  0x000220                  _RETARDO_1S
+                  0x000236                  _RETARDO_1mS
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x0001f8                  _RETARDO_1S
-                  0x00020e                  _RETARDO_1mS
+                  0x000220                  _RETARDO_1S
+                  0x000236                  _RETARDO_1mS
                   0x00017c                  __DefaultInterrupt
                   0xf8000a                  __FGS.sec
-                  0x0001f0                  __T1Interrupt
+                  0x000218                  __T1Interrupt
                   0x000106                  __data_init
                   0x000106                  __data_init_standard
                   0x000182                  __reset
@@ -162,7 +162,7 @@ FICD             0xf8000c           0x000002
 Linker script and memory map
 
 LOAD build/default/production/retardos.o
-LOAD build/default/production/PRINCIPAL4BOLETA.o
+LOAD build/default/production/BOLETAAUTO.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p30F3013
 LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
@@ -229,15 +229,15 @@ __FUID3
 
 __FOSC            0xf80000          0x2
  *(__FOSC.sec*)
- __FOSC.sec       0xf80000          0x2 build/default/production/PRINCIPAL4BOLETA.o
+ __FOSC.sec       0xf80000          0x2 build/default/production/BOLETAAUTO.o
 
 __FWDT            0xf80002          0x2
  *(__FWDT.sec*)
- __FWDT.sec       0xf80002          0x2 build/default/production/PRINCIPAL4BOLETA.o
+ __FWDT.sec       0xf80002          0x2 build/default/production/BOLETAAUTO.o
 
 __FBORPOR         0xf80004          0x2
  *(__FBORPOR.sec*)
- __FBORPOR.sec    0xf80004          0x2 build/default/production/PRINCIPAL4BOLETA.o
+ __FBORPOR.sec    0xf80004          0x2 build/default/production/BOLETAAUTO.o
 
 __RESERVED1
  *(__RESERVED1.sec*)
@@ -247,7 +247,7 @@ __RESERVED2
 
 __FGS             0xf8000a          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf8000a          0x2 /CW/_FGS{è
+ __FGS.sec        0xf8000a          0x2 /CW/_FGS
                   0xf8000a                  __FGS.sec
 
 __FICD
@@ -262,21 +262,21 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x16a
+.debug_info       0x000000        0x164
  *(.debug_info)
  .debug_info      0x000000         0xb1 build/default/production/retardos.o
- .debug_info      0x0000b1         0xb9 build/default/production/PRINCIPAL4BOLETA.o
+ .debug_info      0x0000b1         0xb3 build/default/production/BOLETAAUTO.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000         0x28
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x14 build/default/production/retardos.o
- .debug_abbrev    0x000014         0x14 build/default/production/PRINCIPAL4BOLETA.o
+ .debug_abbrev    0x000014         0x14 build/default/production/BOLETAAUTO.o
 
-.debug_line       0x000000         0xbf
+.debug_line       0x000000         0xc5
  *(.debug_line)
  .debug_line      0x000000         0x49 build/default/production/retardos.o
- .debug_line      0x000049         0x76 build/default/production/PRINCIPAL4BOLETA.o
+ .debug_line      0x000049         0x7c build/default/production/BOLETAAUTO.o
 
 .debug_frame
  *(.debug_frame)
@@ -301,7 +301,7 @@ userdata
  .debug_aranges
                   0x000000         0x18 build/default/production/retardos.o
  .debug_aranges
-                  0x000018         0x18 build/default/production/PRINCIPAL4BOLETA.o
+                  0x000018         0x18 build/default/production/BOLETAAUTO.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -694,7 +694,7 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libm-elf.a
 LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/Ejem1.X.production.elf elf32-pic30)
-LOAD /CW/_FGS{è
+LOAD /CW/_FGS
 LOAD default_isr
 LOAD data_init
 
@@ -704,30 +704,30 @@ __c30_signature
                   0x000030          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
 .nbss               0x0800          0x2
- .nbss              0x0800          0x2 build/default/production/PRINCIPAL4BOLETA.o
+ .nbss              0x0800          0x2 build/default/production/BOLETAAUTO.o
 
 .xbss               0x0802         0x80
- .xbss              0x0802         0x80 build/default/production/PRINCIPAL4BOLETA.o
+ .xbss              0x0802         0x80 build/default/production/BOLETAAUTO.o
 
 .ybss               0x0c00         0x80
- .ybss              0x0c00         0x80 build/default/production/PRINCIPAL4BOLETA.o
+ .ybss              0x0c00         0x80 build/default/production/BOLETAAUTO.o
 
 .ivt._T1Interrupt
                   0x00001a          0x2
  .ivt._T1Interrupt
-                  0x00001a          0x2 build/default/production/PRINCIPAL4BOLETA.o
+                  0x00001a          0x2 build/default/production/BOLETAAUTO.o
 
-.text             0x000182         0x9c
- .text            0x000182         0x76 build/default/production/PRINCIPAL4BOLETA.o
+.text             0x000182         0xc4
+ .text            0x000182         0x9e build/default/production/BOLETAAUTO.o
                   0x000182                  __reset
-                  0x0001f0                  __T1Interrupt
- .text            0x0001f8         0x26 build/default/production/retardos.o
-                  0x0001f8                  _RETARDO_1S
-                  0x00020e                  _RETARDO_1mS
+                  0x000218                  __T1Interrupt
+ .text            0x000220         0x26 build/default/production/retardos.o
+                  0x000220                  _RETARDO_1S
+                  0x000236                  _RETARDO_1mS
 
-.dinit            0x00021e         0x14
- .dinit           0x00021e         0x14 data_init
-
-.myconstbuffer    0x000232          0x8
+.myconstbuffer    0x000246         0x14
  .myconstbuffer
-                  0x000232          0x8 build/default/production/PRINCIPAL4BOLETA.o
+                  0x000246         0x14 build/default/production/BOLETAAUTO.o
+
+.dinit            0x00025a         0x14
+ .dinit           0x00025a         0x14 data_init
