@@ -41,7 +41,11 @@
 ; SECCIÓN DE DECLARACIÓN DE CONSTANTES CON LA DIRECTIVA .EQU (= DEFINE EN C)
 ;******************************************************************************
         .equ MUESTRAS, 64         ;NÚMERO DE MUESTRAS
-
+	.EQU	CERO,	    0X7E
+	.EQU	DOS,	    0X6D
+	.EQU	TRES,	    0X79
+	.EQU	SEIS,	    0X5F
+	.EQU	OCHO,	    0X7F
 ;******************************************************************************
 ; DECLARACIONES GLOBALES
 ;******************************************************************************
@@ -114,40 +118,62 @@ __reset:
 	
 
 CICLO:
-	
+	;TAREA 3 VERSIÓN 1
 	MOV	PORTF,	W0		;W0 = PORTF
 	NOP
 	LSR	W0,	#2,	W0	;W0 = W0  >> 2
-	AND	#0X03,	W0		;W0 = W0 & OXO3
+	AND	#0X0F,	W0		;W0 = W0 & OXOF
 	;COMPARAMOS TODO EL VALOR DE LA VARIABLE; SIEMPRE ACOMPAÑAMOS DE UNA CONDICION DE BRINCO CONDICIONAL
 	CP	W0,	#0
-	BRA	Z,	LETRA_H		;BRINCA SI WO == 0
+	BRA	Z,	DIG_2		;BRINCA SI WO == 0
 	CP	W0,	#1
-	BRA	Z,	LETRA_O
+	BRA	Z,	DIG_0
 	CP	W0,	#2
-	BRA	Z,	LETRA_L
+	BRA	Z,	DIG_2
+	CP	W0,	#3
+	BRA	Z,	DIG_0
+	CP	W0,	#4
+	BRA	Z,	DIG_6
+	CP	W0,	#5
+	BRA	Z,	DIG_3
+	CP	W0,	#6
+	BRA	Z,	DIG_0
+	CP	W0,	#7
+	BRA	Z,	DIG_2
+	CP	W0,	#8
+	BRA	Z,	DIG_8
 	;SI NO ES NINGUNA DE LAS ANTERIORES HACER
-	MOV	    #0X77,	W0
+	MOV	    #OCHO,	W0
 	MOV	    W0,		PORTB
 	NOP
         GOTO    CICLO  
 
-LETRA_H:
-    MOV	    #0X37,	W0
+DIG_2:
+    MOV	    #DOS,	W0
     MOV	    W0,		PORTB
     NOP
     GOTO    CICLO
-LETRA_O:
-    MOV	    #0X7E,	W0
+DIG_0:
+    MOV	    #CERO,	W0
     MOV	    W0,		PORTB
     NOP
     GOTO    CICLO
-LETRA_L:
-    MOV	    #0X0E,	W0
+DIG_6:
+    MOV	    #SEIS,	W0
     MOV	    W0,		PORTB
     NOP
     GOTO    CICLO
-LETRA_A:
+DIG_3:
+    MOV	    #TRES,	W0
+    MOV	    W0,		PORTB
+    NOP
+    GOTO    CICLO
+DIG_8:
+    MOV	    #OCHO,	W0
+    MOV	    W0,		PORTB
+    NOP
+    GOTO    CICLO
+
 ;/**@brief ESTA RUTINA INICIALIZA LOS PERIFERICOS DEL DSC
 ; */
 INI_PERIFERICOS:
