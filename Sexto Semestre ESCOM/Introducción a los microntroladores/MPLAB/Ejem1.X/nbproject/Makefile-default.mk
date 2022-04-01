@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=retardos.s BOLETACOND.S
+SOURCEFILES_QUOTED_IF_SPACED=retardos.s PRINCIPAL2.S
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/retardos.o ${OBJECTDIR}/BOLETACOND.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/retardos.o.d ${OBJECTDIR}/BOLETACOND.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/retardos.o ${OBJECTDIR}/PRINCIPAL2.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/retardos.o.d ${OBJECTDIR}/PRINCIPAL2.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/retardos.o ${OBJECTDIR}/BOLETACOND.o
+OBJECTFILES=${OBJECTDIR}/retardos.o ${OBJECTDIR}/PRINCIPAL2.o
 
 # Source Files
-SOURCEFILES=retardos.s BOLETACOND.S
+SOURCEFILES=retardos.s PRINCIPAL2.S
 
 
 
@@ -119,18 +119,18 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemblePreproc
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/BOLETACOND.o: BOLETACOND.S  .generated_files/flags/default/924722e89246f58bc9c6176e284882e54c48740f .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/PRINCIPAL2.o: PRINCIPAL2.S  .generated_files/flags/default/a671a12c5ccae5e6d466c50ac039db23a12f6018 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/BOLETACOND.o.d 
-	@${RM} ${OBJECTDIR}/BOLETACOND.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  BOLETACOND.S  -o ${OBJECTDIR}/BOLETACOND.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/BOLETACOND.o.d"  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/BOLETACOND.o.asm.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/PRINCIPAL2.o.d 
+	@${RM} ${OBJECTDIR}/PRINCIPAL2.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  PRINCIPAL2.S  -o ${OBJECTDIR}/PRINCIPAL2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPAL2.o.d"  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/PRINCIPAL2.o.asm.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/BOLETACOND.o: BOLETACOND.S  .generated_files/flags/default/62dcf31bcfb1a288f99c4d7b639db64b2fdd01e1 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/PRINCIPAL2.o: PRINCIPAL2.S  .generated_files/flags/default/40a6b8d9885eb70c797d150c80566d5a996d1261 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/BOLETACOND.o.d 
-	@${RM} ${OBJECTDIR}/BOLETACOND.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  BOLETACOND.S  -o ${OBJECTDIR}/BOLETACOND.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/BOLETACOND.o.d"  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/BOLETACOND.o.asm.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/PRINCIPAL2.o.d 
+	@${RM} ${OBJECTDIR}/PRINCIPAL2.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  PRINCIPAL2.S  -o ${OBJECTDIR}/PRINCIPAL2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPAL2.o.d"  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/PRINCIPAL2.o.asm.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

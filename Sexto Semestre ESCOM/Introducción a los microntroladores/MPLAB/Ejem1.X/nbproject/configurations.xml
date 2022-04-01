@@ -15,7 +15,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>retardos.s</itemPath>
-      <itemPath>BOLETACOND.S</itemPath>
+      <itemPath>PRINCIPAL2.S</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
