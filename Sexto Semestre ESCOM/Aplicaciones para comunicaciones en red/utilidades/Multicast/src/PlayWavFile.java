@@ -11,9 +11,13 @@ import javax.sound.sampled.TargetDataLine;
 
 public class PlayWavFile
 {
-public static void main(String[]args)
+    String filename;
+    public PlayWavFile(String filename){
+        this.filename = filename;
+    }
+    
+public void play()
 {
-String filename="Audio.wav"; //fill in file name here
 
 int EXTERNAL_BUFFER_SIZE = 524288;
 
@@ -32,12 +36,13 @@ if (!soundFile.exists())
       //Get and display a list of
       // available mixers.
       Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
-      System.out.println("Mezcladores disponibles:");
-      for(int cnt = 0; cnt < mixerInfo.length;cnt++){
-        System.out.println("["+cnt+"]->"+mixerInfo[cnt].getName());
-      }//end for loop
-      System.out.print("\nElige el mezclador de salida (bocinas) de tu eleccion:");
-      int bocina = Integer.parseInt(br.readLine());
+//      System.out.println("Mezcladores disponibles:");
+//      for(int cnt = 0; cnt < mixerInfo.length;cnt++){
+//        System.out.println("["+cnt+"]->"+mixerInfo[cnt].getName());
+//      }//end for loop
+//      System.out.print("\nElige el mezclador de salida (bocinas) de tu eleccion:");
+//      int bocina = Integer.parseInt(br.readLine());
+      int bocina = 1;
       mixer = AudioSystem.getMixer(mixerInfo[bocina]);//3
   }catch(Exception e){e.printStackTrace();
   }//catch

@@ -29,6 +29,7 @@ public class SHMM {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
         int z=0,pto= 9930,pto_dst=9931;
+        
           for (NetworkInterface netint : Collections.list(nets)){
               System.out.print("[Interfaz "+ ++z +"]:");
              despliegaInfoNIC(netint);

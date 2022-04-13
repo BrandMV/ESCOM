@@ -30,6 +30,7 @@ String mensaje_inicio="",mensaje_medio="",mensaje_final="";
         mensaje_inicio= "<head><base href=\"file:"+ruta+"\\\">"+
                 "<style>#usuarios {"+
                   "font-family: Arial, Helvetica, sans-serif;"+
+                "font-size: 22rem"+
                   "border-collapse: collapse;"+
                   "width: 100%;"+
                 "} #usuarios td, #usuarios th {"+
@@ -41,11 +42,11 @@ String mensaje_inicio="",mensaje_medio="",mensaje_final="";
                  " padding-top: 12px;"+
                   "padding-bottom: 12px;"+
                   "text-align: left;"+
-                  "background-color: #04AA6D;"+
+                  "background-color: red;"+
                   "color: white;}"+
                 "</style>"+
                 "</head>"+ 
-                "<table id=\"usuarios\">\n";
+                "<table id=\"usuarioss\">\n";
          /*   "  <tr>\n" +
             "    <th>Usuario</th>\n" +
             "    <th>Mensaje</th>\n" +
