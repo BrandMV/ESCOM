@@ -89,7 +89,10 @@ public class Chatss extends JFrame{
         initEmojis();
         window.setVisible(true);
     }
-    
+
+    /**
+     * Method that initialize the client GUI components
+     */
     public void initComponents(){
         
         tabs.setBounds(5,10,750,450);
@@ -133,7 +136,11 @@ public class Chatss extends JFrame{
         setCurrentUsers();
         
     }
-    
+
+    /**
+     * Method that set the Audio components
+     */
+
     public void setAudio(){
         JButton audio = new JButton("Enviar audio");
         audio.setBounds(610,465,120,40);
@@ -141,6 +148,11 @@ public class Chatss extends JFrame{
         audio.setFont(new FontUIResource("Roboto", Font.BOLD, 15));
         
         audio.addActionListener(new ActionListener(){
+
+            /**
+             * The send audio button action listener will send the audio
+             * @param ae the action event
+             */
             @Override
             public void actionPerformed(ActionEvent ae){
                 if(ae.getSource() == audio){
@@ -200,7 +212,11 @@ public class Chatss extends JFrame{
         });
         panel.add(audio);
     }
-    
+
+
+    /**
+     * Method that set the play audio button and its components
+     */
     public void setPlayAudio(){
         JButton playAudio = new JButton("Reproducir audio");
         playAudio.setBounds(750,465,180,40);
@@ -221,6 +237,12 @@ public class Chatss extends JFrame{
         });
         panel.add(playAudio);
     }
+
+    /**
+     * Show the available audios which the client can select to reproduce
+     * @param path The directory path where the audios are saved
+     * @return none
+     */
     
     public void showAvailableAudios(String path){
         PlayWavFile pa;
@@ -234,6 +256,10 @@ public class Chatss extends JFrame{
             pa.play();
         }
     }
+
+    /**
+     * Methot that sets the emojis components
+     */
     public void initEmojis(){
         emojisPanel.setBounds(780,360,240,70);
         Constants.EMOJIS_LIST.forEach((k,e) -> {
@@ -255,6 +281,8 @@ public class Chatss extends JFrame{
         panel.add(emojisPanel);
         panel.add(emojisText);
     }
+
+    //*Method that indicates when a user leaves the chat
     
     public void userLeft(){
        window.addWindowListener(new WindowAdapter(){
@@ -273,6 +301,10 @@ public class Chatss extends JFrame{
            }
        });
     }
+
+    /**
+     * Method that set the current Users in the chat
+     */
     public void setCurrentUsers(){
         int i = 0;
 //        System.err.println("Dentro setCurrentUsers");
@@ -305,6 +337,11 @@ public class Chatss extends JFrame{
             }
         }
     }
+
+    /**
+     * Method that add a new chat to the tabbed pane
+     * @param title The tab name
+     */
     
     public void addChat(String title){
         JPanel chat = new JPanel();
@@ -343,6 +380,11 @@ public class Chatss extends JFrame{
         chat.setText("");
         return currentMessage;
     }
+
+    /**
+     * Method that will set the new message depending if it a private or general message
+     * @param m The message recieved
+     */
     public void newMessage(String m){
 //        System.out.println("Mensaje recibido: " + m);
         if(m.contains("<usuarios>")){

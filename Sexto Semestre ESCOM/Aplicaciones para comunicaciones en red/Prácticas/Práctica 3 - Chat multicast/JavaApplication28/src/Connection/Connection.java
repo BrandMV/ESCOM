@@ -26,6 +26,12 @@ import javax.swing.UIManager;
  * @author BrandMV
  */
 public class Connection {
+
+    /**
+     * Method that shows the NIC info
+     * @param netint The network Interface the user has choosen
+     * @throws SocketException If was not possible to join to the group
+     */
     public static void despliegaInfoNIC(NetworkInterface netint) throws SocketException {
         System.out.printf("Nombre de despliegue: %s\n", netint.getDisplayName());
         System.out.printf("Nombre: %s\n", netint.getName());
@@ -37,6 +43,14 @@ public class Connection {
         }
         System.out.printf("\n");
      }
+
+    /**
+     * Method that will join the user to the group depending on the NI choosen
+     * @param pto The server port
+     * @param s The multicastSocket
+     * @param server Wheter if is the server or a client
+     * @param group The multicast group
+     */
     
     public static void selectNetworkInterface(int pto, MulticastSocket s, boolean server, InetAddress group){
         if(server){

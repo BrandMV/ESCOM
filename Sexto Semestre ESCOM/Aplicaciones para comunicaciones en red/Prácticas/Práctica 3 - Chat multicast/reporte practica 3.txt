@@ -1,0 +1,83 @@
+SERVER
+
+Primeramente tenemos el servidor el cual se encargará de recibir mensajes del cliente y a su vez enviar mensajes indicando que es una repuesta del servidor
+El hilo se ecarga de determinar el tipo de mensaje del que se trata y realizar una acción en base a eso, si el mensaje indica un inicio de chat se le mandará a los clientes la lista de usuarios conectados, si el mensaje se trata de un mensaje tal cuál este se mandará al cliente y si se indica un fin de sesión se removerá ese cliente de los chats y se enviará a los clientes conectados la nueva lista de usuarios en el chat
+
+SendPacket
+Este método se encarga de enviar el paquete al cliente como se ha realizado en prácticas anteriores, a continuación se presenta el código correspondiente
+
+serverConnect
+Este método se encarga de mostrar en el servidor las interfaces de red disponibles para que se seleccione una y de esta manera unir al servidor al grupo multicast, como el servidor esta en un ciclo infinito se le 
+verifica si el servidor ha sido invocado solo una vez, si no es así se selecciona la misma red elegida la primera vez de manera automática.
+
+
+CLIENT
+
+En el cliente tenemos un hilo que se encarga de gestionar las conexiones y mensajes de los clientes en el chat, lo que se hace primero es unir al cliente al mismo grupo multicast al que esta unido el servidor.
+Al inicio se le manda al servidor un mensaje de inicio de chat, pues el usuario al ejecutar el programa y al unirse adecuadamente a un grupo da inicio al chat.
+Posteriormente en un ciclo infinito se pregunta por la operación que se esta realizando en el cliente, si es escritura quiere decir que tenemos que escibir un mensaje, para esto obtenemos el mensaje dependiendo si es de fin de chat, mensaje general o mensaje privado entre usuarios
+Si la operación que se esta realizando es de lectura entonces tenemos que setear un nuevo mensaje el cual es el que se enviará
+
+CHAT
+
+En esta parte tenemos todo lo necesario para desplegar la interfaz gráfica del usuario
+
+initComponents
+Aqui empezamos por inicializar los componentes particpantes en la interfaz del usuario, entre ellos la ventan principal y el boton de enviar
+
+setAudio
+Aqui se crean los componentes para enviar el audio, se crea el botón correspondiente y su event listener que se encargará de enviar el audio primeramente se encagra de establecer la carpeta donde se guardará el audio y posteriormente se crea una instancia de la clase que se encarga de grabar el audio, se grabará por 5 segundos
+
+setPlayAudio
+Este método crea el boton para repoducir un audio, posteriormente se manda a llamar la clase que muestra los audios disponibles.
+
+showAvailableAudios
+Este método se encarga de ir a la carpeta correspondiente para mostrarle al usuario los audios que estan disponibles para que el pueda seleccionar uno y a partir de eso se crea una instancia de la clase que se encarga de reproducir el audio seleccionado
+
+initEmojis
+Este método se encarga de poner los emojis disponibles en la interfaz de usuario
+Cada emoji corresponde a un boton que cuando el usuario lo pulsa se le adjunta a su mensaje de texto
+
+userLeft
+Este método indica cuando un usuario se desconecta del chat, este método agrega un escuchador a la ventana al momento de que se pulsa el botón de cerrar
+Cuando pasa eso se cambio el estado de conectado a false y se cambia la operación a escritura para indicar que salió del chat
+
+setCurrentUsers
+Este método recorre el arreglo que contiene los usuarios conectados en tiempo real, poniendolos todos en un botón para que el usuario al hacer click en unide ellos pueda iniciar un chat privado. A cada botoón se le asigna un escuchador que agregará al usuario clickaedo en una nueva pestaña del tabbed Pane
+Al final se tiene que repintar la ventana para ver cuando hay actualizaciones en los usuarios conectados
+
+addChat
+Aqui simplemente se agrega a las pestañas una nueva en caso de que sea un nuevo chat se agrega una nueva ventana con un titulo que será igual al nombre del usuario con el que se inicio un chat.
+
+getCurrentMsg 
+Este método solo se encarga de devolver el mensaje actual
+
+newMessage
+Este método es el más importante de la clase ues se encarga de establecer de que tipo de mensaje se trata y crear el mensaje.
+En primer lugar tenemos que si es un mensaje que indica un inicio de sesión se setea la lista de usuarios conectados.
+Si es un mensaje se corta la parte que indica que es un mensaje y se verifica si es un mensaje privado, de ser asi se corta el mensaje para determinar el receptor y emisor. Si el usuario conectado es igual al que recibe el mensaje y el que mando el mensaje ya esta en las pestañas del chat solo se cambia la pestaña actual, en caso contrario se crea la pestaña con el método antes mencionado. En caso de que el usuario conectado sea igual al que manda el mensaje se obtiene la pestaña y si no corresponde a un chat privado se obtiene la pestaña 0 que corresponde al chat general.
+
+CONSTANTS
+
+En esta clase solo se guardan los mensajes y algunas configuraciones usadas en todo el programa como constantes.
+
+Connection
+
+En esta clase encontramos los métodos referentes a conexiones usadas por el servidor y cliente
+
+selectNetworkInterface
+Este método selecciona las interfaces de red disponibles en el equipo.
+Si el usuario es el servidor se le mustra la información de manera textual, en caso de que sea el cliente como se esta ejecutando con una interfaz también se le da a escoger la interfaz de red de manera gráfica
+
+despliegaInfoNIC
+Este método solo muestra la inforamción de la NIC como su nombre, dirección y algo muy importante, si soporta multicast o no.
+
+Conclusión
+
+Para concluir, esta práctica me pareció una muy buena práctica para aplicar lo visto en clases sobre multicast, pues a partir de estos se logró realizar
+un chat con multiples usuarios, cosa que se sigue viendo hoy en día con distintas aplicaciones entre las más famosas facebook
+Durante el desarrollo de la práctica se me presentaron algunas complicaciones, entre las más destacables fue el hacer que se identifique el mensaje general
+o el mensaje privado, pero esto se resolvió gracias a la estructura de mensajes que nos recomendo el profesor, por medio de etiquetas se indico si era un mensaje
+privado, el remitente y el receptor y cortando el mensaje y guardando esos cortes en nuevas variables se identifico si el mensaje era privado o general.
+Sin duda una práctica retadora pero que al final se logró resolver de buena forma.
+

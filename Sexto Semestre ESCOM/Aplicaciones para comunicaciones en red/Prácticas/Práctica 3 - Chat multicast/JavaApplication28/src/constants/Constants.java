@@ -14,6 +14,7 @@ import java.util.Map;
 /**
  *
  * @author BrandMV
+ * Class that contains all the constants used during the program
  */
 public class Constants {
     
