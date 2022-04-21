@@ -81,8 +81,6 @@ public class Connection {
                 return;
              }//catch
              s.joinGroup(dir, ni);
-
-
          } catch (Exception e) {
              e.printStackTrace();
              System.exit(0);

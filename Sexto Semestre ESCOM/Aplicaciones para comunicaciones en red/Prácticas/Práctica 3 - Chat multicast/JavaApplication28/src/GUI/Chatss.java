@@ -94,20 +94,22 @@ public class Chatss extends JFrame{
      * Method that initialize the client GUI components
      */
     public void initComponents(){
-        
         tabs.setBounds(5,10,750,450);
-
         JLabel usersSection = new JLabel(Constants.CURRENT_USERS);
-        
+        onlineUsers = new JScrollPane();
+//        onlineUsers.setLayout(null);
+        onlineUsers.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        onlineUsers.setBorder(BorderFactory.createEmptyBorder());
         panel = new JPanel();
         panel.setLayout(null);
         window.getContentPane().add(panel);
         panel.setBackground(new Color(255,246,234));
         usersSection.setBounds(830,10,200,10);
         panel.add(usersSection);
+        onlineUsers.setBackground(new Color(255,246,234));
+        onlineUsers.setBounds(780,35,240,300);
         addChat("Sala general");
         panel.add(tabs);
-        
         btn = new JButton("Enviar");
         
         btn.addActionListener(new ActionListener(){
@@ -124,17 +126,13 @@ public class Chatss extends JFrame{
         btn.setBackground(Color.WHITE);
         btn.setFont(new FontUIResource("Roboto", Font.BOLD, 20));
         panel.add(btn);
-        
-        
-        
         chat = new JTextField();
         chat.setBounds(5,465,450,40);
         panel.add(chat);
-        
+        panel.add(onlineUsers);
         setAudio();
         setPlayAudio();
         setCurrentUsers();
-        
     }
 
     /**
@@ -175,18 +173,11 @@ public class Chatss extends JFrame{
                            recorder = new JavaSoundRecorder(path,audioName, false);
 
                     }
-                   
                          try{
                           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                                              //Get and display a list of
+                            //Get and display a list of
                             // available mixers.
                           Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
-        //                  System.out.println("Mezcladores disponibles:");
-        //                  for(int cnt = 0; cnt < mixerInfo.length;cnt++){
-        //                    System.out.println("["+cnt+"]->"+mixerInfo[cnt].getName());
-        //                  }//end for loop
-        //                  System.out.print("\nElige el mezclador de entrada (microfono) de tu eleccion:");
-                          //int micro = Integer.parseInt(br.readLine());
                           int micro = 5;
                         // creates a new thread that waits for a specified
                         // of time before stopping
@@ -212,7 +203,6 @@ public class Chatss extends JFrame{
         });
         panel.add(audio);
     }
-
 
     /**
      * Method that set the play audio button and its components
@@ -258,7 +248,7 @@ public class Chatss extends JFrame{
     }
 
     /**
-     * Methot that sets the emojis components
+     * Method that sets the emojis components
      */
     public void initEmojis(){
         emojisPanel.setBounds(780,360,240,70);
@@ -282,16 +272,18 @@ public class Chatss extends JFrame{
         panel.add(emojisText);
     }
 
-    //*Method that indicates when a user leaves the chat
-    
+    /**
+     * Method that indicates when a user leaves the chat
+     */
     public void userLeft(){
        window.addWindowListener(new WindowAdapter(){
            @Override
            public void windowClosing(WindowEvent e){
+               
                connected = false;
                operation = 1;
-               currentUsersString.remove(userName);
-               setCurrentUsers();
+//               currentUsersString.remove(userName);
+//               setCurrentUsers();
 //               System.out.println("Saliendo");
                try {
                    Thread.sleep(1000);
@@ -307,13 +299,14 @@ public class Chatss extends JFrame{
      */
     public void setCurrentUsers(){
         int i = 0;
+        onlineUsers.removeAll();
 //        System.err.println("Dentro setCurrentUsers");
         for(String user: currentUsersString){
             if(!user.equals(userName)){
                 JButton userBtn = new JButton(user);
                 currentUsers.add(userBtn);
 
-                userBtn.setBounds(800,35+i,200,25);
+                userBtn.setBounds(0,0+i,240,25);
                 i += 35;
                 userBtn.setName(user);
                 userBtn.setBackground(new Color(255,238,238));
@@ -331,11 +324,13 @@ public class Chatss extends JFrame{
                     }
                 }
                 });
-                panel.add(userBtn);
-                System.err.println(user);
-                window.repaint();
+                onlineUsers.add(userBtn);
+                
+                System.err.println("boton " + user);
+               
             }
         }
+         window.repaint();
     }
 
     /**
@@ -392,12 +387,13 @@ public class Chatss extends JFrame{
            String [] contacts = m.split(",");
            currentUsersString.clear();
            currentUsers.clear();
+           
            //Arrays.stream(contacts).forEach(System.out::println);
            Arrays.stream(contacts).forEach(c -> currentUsersString.add(c.replaceAll("[^a-zA-Z]", "")));
-//           System.out.println(Constants.CURRENT_USERS);
-//           for(String c :currentUsersString ){
-//               System.out.println(c);
-//           }
+           System.out.println(Constants.CURRENT_USERS);
+           for(String c :currentUsersString ){
+               System.out.println(c);
+           }
 //           System.err.println("Setting current users");
            setCurrentUsers();
             
@@ -457,6 +453,7 @@ public class Chatss extends JFrame{
                 privateChats.get(0).setText(privateChats.get(0).getText() + "\n" + m);
             }
     }
+
     public String getReciever(int tab){
         return chatsInTabs.get(tab);
     }
