@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;" />
-<link rel=”shortcut icon” href=”favicon.ico” type=”image/x-icon” />
+<link rel=ï¿½shortcut iconï¿½ href=ï¿½favicon.icoï¿½ type=ï¿½image/x-iconï¿½ />
 <title>Formulario de registro</title></head>
 <body bgcolor="#e0e000">
 <center>
@@ -13,16 +13,16 @@
 <hr>
 Sea tan amable de rellenar el siguiente formulario.
 <br>
-<!-- FORM ACTION="mailto:dirección_de_email" METHOD="POST" ENCTYPE="TEXT/PLAIN" -->
-<FORM ACTION="http://127.0.0.1:8000">
+<!-- FORM ACTION="mailto:direcciï¿½n_de_email" METHOD="POST" ENCTYPE="TEXT/PLAIN" -->
+<FORM ACTION="http://127.0.0.1:8000" method="GET">
 
 Nombre: <BR>
 <INPUT TYPE="text" NAME="Apellido">
 <br>
-Dirección: <BR>
+Direcciï¿½n: <BR>
 <INPUT TYPE="text" NAME="Direccion">
 <br>
-Teléfono: <BR>
+Telï¿½fono: <BR>
 <INPUT TYPE="text" NAME="Telefono">
 <br>
 Comentarios:<br>
@@ -30,6 +30,24 @@ Comentarios:<br>
 </TEXTAREA>
 <INPUT TYPE="submit" VALUE="Enviar datos">
 <INPUT TYPE="reset" VALUE="Borrar datos">
+</FORM>
+<br>
+<FORM ACTION="http://127.0.0.1:8000" method="POST">
+
+    Nombre: <BR>
+    <INPUT TYPE="text" NAME="Apellido">
+    <br>
+    Direcciï¿½n: <BR>
+    <INPUT TYPE="text" NAME="Direccion">
+    <br>
+    Telï¿½fono: <BR>
+    <INPUT TYPE="text" NAME="Telefono">
+    <br>
+    Comentarios:<br>
+    <TEXTAREA NAME="comentario" ROWS="7" COLS="40">
+</TEXTAREA>
+    <INPUT TYPE="submit" VALUE="Enviar datos">
+    <INPUT TYPE="reset" VALUE="Borrar datos">
 </FORM>
 </body>
 </html>
