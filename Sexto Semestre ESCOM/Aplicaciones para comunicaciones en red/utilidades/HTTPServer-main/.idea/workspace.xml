@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="89e46ad1-87b6-48eb-bdad-a8c78f839d48" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/Client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/Client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/Connection/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/Connection/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/GUI/Chatss.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/GUI/Chatss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/Server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Prácticas/Práctica 3 - Chat multicast/JavaApplication28/src/constants/Constants.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27rbPbMImuhhK2oKjWSrGgbKAXx" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/BrandMV/Documents/ESCOM/Sexto Semestre ESCOM/Aplicaciones para comunicaciones en red/utilidades/Server2"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="ServerPool" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Server.ServerPool" />
+      <module name="HTTPServer-main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ServerPool" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="89e46ad1-87b6-48eb-bdad-a8c78f839d48" name="Changes" comment="" />
+      <created>1650081128860</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650081128860</updated>
+      <workItem from="1650081131571" duration="1233000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

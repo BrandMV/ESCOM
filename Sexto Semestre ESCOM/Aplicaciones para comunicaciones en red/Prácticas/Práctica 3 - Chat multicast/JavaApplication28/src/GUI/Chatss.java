@@ -73,7 +73,7 @@ public class Chatss extends JFrame{
         window.setSize((screenSize.width / 2)+100,screenSize.height / 2);
         window.setLocation(screenSize.width / 4, screenSize.height / 4);
         System.out.println(screenSize.width / 2 + "altuura: " +  screenSize.height / 2);
-        window.setResizable(false);
+        window.setResizable(true);
         window.setTitle(String.format(Constants.WINDOW_TITLE, userName));
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(EXIT_ON_CLOSE);

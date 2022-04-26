@@ -44,7 +44,8 @@ if (!soundFile.exists())
 //      }//end for loop
 //      System.out.print("\nElige el mezclador de salida (bocinas) de tu eleccion:");
 //      int bocina = Integer.parseInt(br.readLine());
-      int bocina = 1;
+//Desktop      int bocina = 1;
+      int bocina = 2; //*Laptop
       mixer = AudioSystem.getMixer(mixerInfo[bocina]);//3
   }catch(Exception e){e.printStackTrace();
   }//catch
