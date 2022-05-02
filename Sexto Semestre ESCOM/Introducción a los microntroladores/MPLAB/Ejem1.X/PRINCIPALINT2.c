@@ -38,23 +38,24 @@ void configurarPuertos();
 
 extern void iniLCD8bits( );
 extern void banderaLCD( );
+extern void comandoLCD(short int);
+extern void ubicarCursor(short int);
+extern void printLCD(char *);
 extern void datoLCD( unsigned short int Dato );
+unsigned char uni, dec, cen, uni;
 
 int main(void) 
 {    
     configurarPuertos();
-    
     iniLCD8bits();
-    banderaLCD();
-    datoLCD('H');  //W0 = 'I'
-    banderaLCD();
-    datoLCD('O');
-    banderaLCD();
-    datoLCD('L');
-    banderaLCD();
-    datoLCD('A');
     
-   
+    
+    
+    //banderaLCD(); //*Preguntamos si esta libre el LCD
+    //comandoLCD(0x84); //DDRAM_ADDRESS_SET 4
+    ubicarCursor(4);
+    printLCD("Conteo: "); //*Imorimimos en el LCD, mandamos cadenas
+    
     for(;EVER;)
     {
         asm("nop");

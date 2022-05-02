@@ -46,13 +46,11 @@ int main(void)
     
     iniLCD8bits();
     banderaLCD();
-    datoLCD('H');  //W0 = 'I'
+    datoLCD('I');  //W0 = 'I'
     banderaLCD();
-    datoLCD('O');
+    datoLCD('P');
     banderaLCD();
-    datoLCD('L');
-    banderaLCD();
-    datoLCD('A');
+    datoLCD('N');
     
    
     for(;EVER;)
