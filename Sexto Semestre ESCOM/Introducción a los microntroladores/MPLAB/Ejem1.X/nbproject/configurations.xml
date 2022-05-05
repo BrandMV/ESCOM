@@ -16,10 +16,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>retardos.s</itemPath>
-      <itemPath>func.s</itemPath>
-      <itemPath>INTERAC.c</itemPath>
       <itemPath>LCD.s</itemPath>
       <itemPath>PRINCIPALLCD.c</itemPath>
+      <itemPath>PRINCIPALINT.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

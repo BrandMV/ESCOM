@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=retardos.s func.s INTERAC.c LCD.s PRINCIPALLCD.c
+SOURCEFILES_QUOTED_IF_SPACED=retardos.s LCD.s PRINCIPALLCD.c PRINCIPALINT.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/retardos.o ${OBJECTDIR}/func.o ${OBJECTDIR}/INTERAC.o ${OBJECTDIR}/LCD.o ${OBJECTDIR}/PRINCIPALLCD.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/retardos.o.d ${OBJECTDIR}/func.o.d ${OBJECTDIR}/INTERAC.o.d ${OBJECTDIR}/LCD.o.d ${OBJECTDIR}/PRINCIPALLCD.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/retardos.o ${OBJECTDIR}/LCD.o ${OBJECTDIR}/PRINCIPALLCD.o ${OBJECTDIR}/PRINCIPALINT.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/retardos.o.d ${OBJECTDIR}/LCD.o.d ${OBJECTDIR}/PRINCIPALLCD.o.d ${OBJECTDIR}/PRINCIPALINT.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/retardos.o ${OBJECTDIR}/func.o ${OBJECTDIR}/INTERAC.o ${OBJECTDIR}/LCD.o ${OBJECTDIR}/PRINCIPALLCD.o
+OBJECTFILES=${OBJECTDIR}/retardos.o ${OBJECTDIR}/LCD.o ${OBJECTDIR}/PRINCIPALLCD.o ${OBJECTDIR}/PRINCIPALINT.o
 
 # Source Files
-SOURCEFILES=retardos.s func.s INTERAC.c LCD.s PRINCIPALLCD.c
+SOURCEFILES=retardos.s LCD.s PRINCIPALLCD.c PRINCIPALINT.c
 
 
 
@@ -95,68 +95,56 @@ MP_LINKER_FILE_OPTION=,--script="p30F3013.gld"
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/INTERAC.o: INTERAC.c  .generated_files/flags/default/cd9642f35355b3ed282772f51faa79dcb3c68c80 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/INTERAC.o.d 
-	@${RM} ${OBJECTDIR}/INTERAC.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  INTERAC.c  -o ${OBJECTDIR}/INTERAC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/INTERAC.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/PRINCIPALLCD.o: PRINCIPALLCD.c  .generated_files/flags/default/d26217aefd4d80c64c66ebdf2962cdff62bd3abf .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
+${OBJECTDIR}/PRINCIPALLCD.o: PRINCIPALLCD.c  .generated_files/flags/default/5580118ff4ca767879bce595d5eb2142bd9dba7c .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/PRINCIPALLCD.o.d 
 	@${RM} ${OBJECTDIR}/PRINCIPALLCD.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  PRINCIPALLCD.c  -o ${OBJECTDIR}/PRINCIPALLCD.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPALLCD.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-else
-${OBJECTDIR}/INTERAC.o: INTERAC.c  .generated_files/flags/default/c2516795453e90a1650a9dd6d3d579a16f65e1c3 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
+${OBJECTDIR}/PRINCIPALINT.o: PRINCIPALINT.c  .generated_files/flags/default/e651474a08b757ee4418aee9cee1d2ffffc57fc0 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/INTERAC.o.d 
-	@${RM} ${OBJECTDIR}/INTERAC.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  INTERAC.c  -o ${OBJECTDIR}/INTERAC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/INTERAC.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/PRINCIPALINT.o.d 
+	@${RM} ${OBJECTDIR}/PRINCIPALINT.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  PRINCIPALINT.c  -o ${OBJECTDIR}/PRINCIPALINT.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPALINT.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/PRINCIPALLCD.o: PRINCIPALLCD.c  .generated_files/flags/default/88ca7ecb30f3820c0e31425cebbc00011081486e .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
+else
+${OBJECTDIR}/PRINCIPALLCD.o: PRINCIPALLCD.c  .generated_files/flags/default/741cac56ee23892049bf1077bfec6f7d38c6bf8f .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/PRINCIPALLCD.o.d 
 	@${RM} ${OBJECTDIR}/PRINCIPALLCD.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  PRINCIPALLCD.c  -o ${OBJECTDIR}/PRINCIPALLCD.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPALLCD.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/PRINCIPALINT.o: PRINCIPALINT.c  .generated_files/flags/default/8004722eb71a1f3f9205b4584babfa798dcc936f .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/PRINCIPALINT.o.d 
+	@${RM} ${OBJECTDIR}/PRINCIPALINT.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  PRINCIPALINT.c  -o ${OBJECTDIR}/PRINCIPALINT.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPALINT.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/78eef9e6547835d2691cdfcc2c520caec6564a66 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
+${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/f06eb459c202fc0f0a876bba5a168e63659b4a55 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/retardos.o.d 
 	@${RM} ${OBJECTDIR}/retardos.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  retardos.s  -o ${OBJECTDIR}/retardos.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/retardos.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/func.o: func.s  .generated_files/flags/default/fb25eef0f07384d8a8aeb248e5d97f5c19f9e4aa .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/func.o.d 
-	@${RM} ${OBJECTDIR}/func.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  func.s  -o ${OBJECTDIR}/func.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/func.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/LCD.o: LCD.s  .generated_files/flags/default/4209f5a7b9b4b99e0f3aea3b1a5fa56e3c1f3e0c .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
+${OBJECTDIR}/LCD.o: LCD.s  .generated_files/flags/default/fc199d5119fdfbea7e240a74aebffad25f67fde7 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/LCD.o.d 
 	@${RM} ${OBJECTDIR}/LCD.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  LCD.s  -o ${OBJECTDIR}/LCD.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/LCD.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/1e0c698a2788dea41b237a55f675f2e0372e8b3c .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
+${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/845a941e7581417f6df8cddb7a23848e8e4f77a9 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/retardos.o.d 
 	@${RM} ${OBJECTDIR}/retardos.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  retardos.s  -o ${OBJECTDIR}/retardos.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/retardos.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/func.o: func.s  .generated_files/flags/default/8c3c07d5060f690587ba032180c85a90f09a9dde .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/func.o.d 
-	@${RM} ${OBJECTDIR}/func.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  func.s  -o ${OBJECTDIR}/func.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/func.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/LCD.o: LCD.s  .generated_files/flags/default/b5b0298767af3b46e1d09a4ecdd3d55818492dcc .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
+${OBJECTDIR}/LCD.o: LCD.s  .generated_files/flags/default/c10c1b093f6e54869ea7eff0e88c0f4f5a789b38 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/LCD.o.d 
 	@${RM} ${OBJECTDIR}/LCD.o 
