@@ -4,52 +4,14 @@
 	.global _datoLCD
 	.global _banderaLCD
 	.global _iniLCD8bits
-	.global _printLCD
-	.global _ubicarCursor
-
 	
 	.EQU	RS_LCD,	RF4
 	.EQU	RW_LCD,	RF5
 	.EQU	E_LCD,	RD8
 	.EQU	BF_LCD,	RB7
-
-;@BRIEF: ESTA RUTINA UBICA EL CURSOR EN EL LCD
-;@PARAM: W0, DIRECCION DEL LCD
-;@RETURN: NADA
-_ubicarCursor:
-    
-   IOR	    #0X80,  W0
-   CALL	    _banderaLCD
-   CALL	    _comandoLCD
-    
-   RETURN
-    
-;@BRIEF: ESTA RUTINA IMPRIME UNA CADENA EN EL LCD
-;@PARAM: W0, TIENE LA DIRECCION DE LA CADENA
-;@RETURN: NADA
-_printLCD:
-    PUSH    W1
-    ;LENGUAJE C COLOCA UNA CADENA EN MEMORIA DE DATOS
-    ;PAARA LEER DE MEMORIA DE DATOS USAMOS MOV
-    ;EN W0 ESTA LA DIRECCION DE LA CADENA Y LA COLOCAMOS EN W0
-    MOV		    W0,	    W1
-SGT_LETRA:
-    MOV.B	    [W1++],   W0
-    ;PREGUNTANDO POR EL FIN DE LA CADENA
-    CP0.B   W0
-    BRA	    Z,	    FIN_PRINT
-    
-    CALL    _banderaLCD
-    CALL    _datoLCD
-    GOTO    SGT_LETRA
-    
-FIN_PRINT:
-    POP	    W1
-    RETURN
-    
-	    
+	
 ;@BRIEF: ESTA RUTINA INICIALIZA EL LCD EN MODO DE 8 BITS
-;@PARAM: NINGUNO
+;@PARAM: NONGUNO
 ;@RETURN: NADA
 _iniLCD8bits:
     ;CICLO QUE SE HACE 3 VECES

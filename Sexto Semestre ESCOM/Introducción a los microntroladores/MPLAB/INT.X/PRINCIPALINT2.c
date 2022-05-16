@@ -38,15 +38,20 @@ void configurarPuertos();
 
 extern void iniLCD8bits( );
 extern void banderaLCD( );
-extern void datoLCD( unsigned short int Dato );
+extern void comandoLCD(short int);
 extern void ubicarCursor(short int);
 extern void printLCD(char *);
+extern void datoLCD( unsigned short int Dato );
+unsigned char uni, dece, cen, umi;
+char contador[5];
 
 int main(void) 
 {    
     configurarPuertos();
     iniLCD8bits();
     
+    //banderaLCD(); //*Preguntamos si esta libre el LCD
+    //comandoLCD(0x84); //DDRAM_ADDRESS_SET 4
     ubicarCursor(4);
     printLCD("Conteo:");
     
@@ -57,17 +62,26 @@ int main(void)
 
     configurarInterrupciones();
     
-   
+    //contador[4] = 0; //nulo
+    
     for(;EVER;)
     {
-        asm("nop");
+        contador[0] = umi + 0X30;
+        contador[1] = cen + 0X30;        
+        contador[2] = dece + 0X30;
+        contador[3] = uni + 0X30;
+        contador[4] = 0; //nulo
+        ubicarCursor(0X46);
+        printLCD(contador);
+     //   asm("nop");
     }
     
     return 0;
 }
-
 void configurarInterrupciones(){
     IFS0bits.INT0IF = 0;
+    INTCON2BITS.INT0EP = 1; //FLANCO BAJADA
+    IEC0bits.INT0IE = 1; //HABILITAMOS
     
 }
 void configurarPuertos()

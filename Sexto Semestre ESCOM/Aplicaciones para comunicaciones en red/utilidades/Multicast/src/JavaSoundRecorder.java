@@ -102,13 +102,13 @@ public class JavaSoundRecorder {
                                       //Get and display a list of
                     // available mixers.
                   Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
-//                  System.out.println("Mezcladores disponibles:");
-//                  for(int cnt = 0; cnt < mixerInfo.length;cnt++){
-//                    System.out.println("["+cnt+"]->"+mixerInfo[cnt].getName());
-//                  }//end for loop
-//                  System.out.print("\nElige el mezclador de entrada (microfono) de tu eleccion:");
-                  //int micro = Integer.parseInt(br.readLine());
-                  int micro = 5;
+                  System.out.println("Mezcladores disponibles:");
+                  for(int cnt = 0; cnt < mixerInfo.length;cnt++){
+                    System.out.println("["+cnt+"]->"+mixerInfo[cnt].getName());
+                  }//end for loop
+                System.out.print("\nElige el mezclador de entrada (microfono) de tu eleccion:");
+                  int micro = Integer.parseInt(br.readLine());
+                  //int micro = 5;
 		// creates a new thread that waits for a specified
 		// of time before stopping
 		Thread stopper = new Thread(new Runnable() {
