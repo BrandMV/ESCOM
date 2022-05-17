@@ -18,7 +18,7 @@
 ;@RETURN: NADA
 _ubicarCursor:
     
-   IOR	    #0X84,  W0
+   IOR	    #0X80,  W0
    CALL	    _banderaLCD
    CALL	    _comandoLCD
     
@@ -53,31 +53,32 @@ FIN_PRINT:
 ;@RETURN: NADA
 _iniLCD8bits:
     ;CICLO QUE SE HACE 3 VECES
-    DO	    #2	    INI_LCD
-	    MOV	    #15,    W0
-	    CALL    _RETARDO_1mS
-	    MOV	    #0X30,  W0
-INI_LCD:    CALL    _comandoLCD
-    ;Preguntamos si esta ocupado BF
-    ;PODRIAMOS HACER LO MISMO QUE EN EL PROGRAMA DE LA BOLETA
+DO  #2,	    INI_LCD
+    MOV	    #15,	W0
+    CALL    _RETARDO_1mS
+    MOV	    #0x30,	W0
+    CALL    _comandoLCD
+INI_LCD:    
+    NOP
+
     CALL    _banderaLCD
-    MOV	    #0X38,	W0
+    MOV	    #0x38,	W0
     CALL    _comandoLCD
     
     CALL    _banderaLCD
-    MOV	    #0X08,	W0
+    MOV	    #0x08,	W0
     CALL    _comandoLCD
-    
+
     CALL    _banderaLCD
-    MOV	    #0X01,	W0
+    MOV	    #0x01,	W0
     CALL    _comandoLCD
-    
+
     CALL    _banderaLCD
-    MOV	    #0X06,	W0
+    MOV	    #0x06,	W0
     CALL    _comandoLCD
-    
+
     CALL    _banderaLCD
-    MOV	    #0X0F,	W0
+    MOV	    #0x0F,	W0
     CALL    _comandoLCD
     
     RETURN

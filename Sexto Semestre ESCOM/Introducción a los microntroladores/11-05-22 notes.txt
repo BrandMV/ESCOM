@@ -1,0 +1,21 @@
+se necesitan 2 interrupciones para genererar 1 periodo --- fint = 2f
+TIMER TIPO B
+-Se puede concatenar con tipo C para formar uno de 32 bits
+-La sincronización del reloj se llva despues de l preescalador
+TIMER TIPO C
+-Se usa con el convertidor analogico
+-Tiene la habilidad de lanzar el inicio de conversion del ADC
+
+NUESTRO MICRO
+-Timer1 - TIPOA
+-Timer2 - TIPOB
+-Timer3 - TIPOC
+
+PRACTICA TIMER
+-USAR LCD MODO 4 BITS (SE CONECNTAN 4 LINEAS DEL BUS DE DATOS (ULTIMAS 4 LINEAS BIT 4 AL 7))
+-SE MODIFICA RUTINA COMANDO Y DATO, CREAREMOS NUEVAS PARA MANEJAR 4 BITS
+-SOSCI, SOSCO, TERMINALES PARA CONECTAR CRISTAL EN EL TIMER A
+-CONECTAR DOS CAPACITORES DE 15 A 30 PF, TIPICAMENTE UNO DE 22PF
+-A partir de posicion 44 mostrar reloj
+-variable para unidadsegundo, decenasegund, unidadminuto, decenaminuto, unidadhora, decenahora
+-

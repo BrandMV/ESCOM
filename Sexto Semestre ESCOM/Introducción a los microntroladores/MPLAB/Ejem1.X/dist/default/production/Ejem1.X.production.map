@@ -1,26 +1,27 @@
 Microchip Technology Inc, v2.00 (B)
 
 Tool Name:
-  d:\programas\microchip\xc16\bin\bin\..\bin/elf-ld.exe
+  c:\program files\microchip\xc16\v2.00\bin\bin\..\bin/elf-ld.exe
 
 Command:
   -p30F3013 \
-  --mdfp=D:/Programas/Microchip/MPLABX/packs/Microchip/dsPIC30F_DFP/1.4.104/xc16 \
+  --mdfp=C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/dsPIC30F_DFP/1.4.104/xc16 \
   -o \
   dist/default/production/Ejem1.X.production.elf \
-  -Ld:/programas/microchip/xc16/bin/bin/.. \
-  -LD:/Programas/Microchip/MPLABX/packs/Microchip/dsPIC30F_DFP/1.4.104/xc16/bin/../support/dsPIC30F/gld \
-  -Ld:/programas/microchip/xc16/bin/bin/../../lib \
-  -Ld:/programas/microchip/xc16/bin/bin/../../support/PIC24E/gld \
-  -Ld:/programas/microchip/xc16/bin/bin/../../support/PIC24F/gld \
-  -Ld:/programas/microchip/xc16/bin/bin/../../support/PIC24H/gld \
-  -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC30F/gld \
-  -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33C/gld \
-  -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33E/gld \
-  -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33F/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/.. \
+  -LC:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/dsPIC30F_DFP/1.4.104/xc16/bin/../support/dsPIC30F/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../lib \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/PIC24E/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/PIC24F/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/PIC24H/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/dsPIC30F/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/dsPIC33C/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/dsPIC33E/gld \
+  -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/retardos.o \
-  build/default/production/func.o \
-  build/default/production/INTERAC.o \
+  build/default/production/PRINCIPALINT2.o \
+  build/default/production/interrupciones.o \
+  build/default/production/LCDg.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp30F3013.gld.00 \
   --stack=16 \
@@ -48,11 +49,11 @@ Command:
 Optional library libp30F3013.a not found
 Archive member included because of file (symbol)
 
-d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                               (__resetPRI)
-d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
-                              d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o) (__data_init_standard)
-d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                              c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o) (__data_init_standard)
+c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
                               (__crt_start_mode_normal)
 
 
@@ -87,20 +88,20 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100                0xd6           0x141  (321)
-.const                       0x1d6                 0xc            0x12  (18)
-.text                        0x1e2                0xde           0x14d  (333)
-.dinit                       0x2c0                 0x8             0xc  (12)
+.const                       0x1d6                 0x8             0xc  (12)
+.text                        0x1de               0x18e           0x255  (597)
+.dinit                       0x36c                 0x8             0xc  (12)
 
-                 Total "program" memory used (bytes):          0x2ac  (684) 2%
+                 Total "program" memory used (bytes):          0x3ae  (942) 3%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x2  (2)
+.nbss                        0x800                   0             0xa  (10)
 
-                 Total "data" memory used (bytes):            0x2  (2) <1%
+                 Total "data" memory used (bytes):            0xa  (10) <1%
 
 
 Dynamic Memory Usage
@@ -108,60 +109,72 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x802                               0x7fe  (2046)
+stack                        0x80a                               0x7f6  (2038)
 
-                 Maximum dynamic memory (bytes):          0x7fe  (2046)
+                 Maximum dynamic memory (bytes):          0x7f6  (2038)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0800                  _longitud
+                    0x0800                  _uni
+                    0x0801                  _dece
+                    0x0802                  _cen
+                    0x0803                  _umi
+                    0x0804                  _contador
 
 External Symbols in Data Memory (by name):
 
-                    0x0800                  _longitud
+                    0x0802                  _cen
+                    0x0804                  _contador
+                    0x0801                  _dece
+                    0x0803                  _umi
+                    0x0800                  _uni
 
 External Symbols in Program Memory (by address):
 
                   0x000100                  __resetPRI
                   0x00013c                  __psv_init
-                  0x000152                  __data_init_standard
                   0x000152                  __data_init
+                  0x000152                  __data_init_standard
                   0x0001c8                  __U2RXInterrupt
                   0x0001d0                  __DefaultInterrupt
-                  0x0001e2                  _main
-                  0x00021c                  _configurarPuertos
-                  0x00024e                  _funcion1
-                  0x00025a                  _funcion2
-                  0x000262                  _funcion3
-                  0x000266                  _funcion4
-                  0x00026c                  _funcion5
-                  0x000286                  _funcion6
-                  0x00029a                  _RETARDO_1S
-                  0x0002b0                  _RETARDO_1mS
+                  0x0001de                  _ubicarCursor
+                  0x0001ea                  _printLCD
+                  0x000204                  _iniLCD8bits
+                  0x00024a                  _banderaLCD
+                  0x00026e                  _comandoLCD
+                  0x000284                  _datoLCD
+                  0x00029a                  _main
+                  0x0002d6                  _configurarInterrupciones
+                  0x0002e2                  _configurarPuertos
+                  0x000318                  __INT0Interrupt
+                  0x000346                  _RETARDO_1S
+                  0x00035c                  _RETARDO_1mS
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x00029a                  _RETARDO_1S
-                  0x0002b0                  _RETARDO_1mS
+                  0x000346                  _RETARDO_1S
+                  0x00035c                  _RETARDO_1mS
                   0x0001d0                  __DefaultInterrupt
                   0xf8000a                  __FGS.sec
+                  0x000318                  __INT0Interrupt
                   0x0001c8                  __U2RXInterrupt
                   0x000152                  __data_init
                   0x000152                  __data_init_standard
                   0x00013c                  __psv_init
                   0x000100                  __resetPRI
-                  0x00021c                  _configurarPuertos
-                  0x00024e                  _funcion1
-                  0x00025a                  _funcion2
-                  0x000262                  _funcion3
-                  0x000266                  _funcion4
-                  0x00026c                  _funcion5
-                  0x000286                  _funcion6
-                  0x0001e2                  _main
+                  0x00024a                  _banderaLCD
+                  0x00026e                  _comandoLCD
+                  0x0002d6                  _configurarInterrupciones
+                  0x0002e2                  _configurarPuertos
+                  0x000284                  _datoLCD
+                  0x000204                  _iniLCD8bits
+                  0x00029a                  _main
+                  0x0001ea                  _printLCD
+                  0x0001de                  _ubicarCursor
 
 Memory Configuration
 
@@ -189,11 +202,12 @@ FICD             0xf8000c           0x000002
 Linker script and memory map
 
 LOAD build/default/production/retardos.o
-LOAD build/default/production/func.o
-LOAD build/default/production/INTERAC.o
+LOAD build/default/production/PRINCIPALINT2.o
+LOAD build/default/production/interrupciones.o
+LOAD build/default/production/LCDg.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p30F3013
-LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
+LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libfx-elf.a
                     0x8005c0                  __FUID0 = 0x8005c0
                     0x8005c2                  __FUID1 = 0x8005c2
                     0x8005c4                  __FUID2 = 0x8005c4
@@ -223,17 +237,17 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
 
 .text             0x000100         0xd6
  *(.init)
- .init            0x000100         0x4c d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+ .init            0x000100         0x4c c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                   0x000100                  __resetPRI
                   0x000100                  __reset
                   0x00013c                  __psv_init
- .init            0x00014c         0x7c d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+ .init            0x00014c         0x7c c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
                   0x000152                  __data_init_standard
                   0x000152                  __data_init
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0001c8          0x8 build/default/production/INTERAC.o
+ .isr.text        0x0001c8          0x8 build/default/production/PRINCIPALINT2.o
                   0x0001c8                  __U2RXInterrupt
  .isr             0x0001d0          0x4 default_isr
                   0x0001d0                  __DefaultInterrupt
@@ -242,7 +256,7 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0001d4          0x2 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+                  0x0001d4          0x2 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
                   0x0001d4                  __crt_start_mode
                   0x0001d4                  __crt_start_mode_normal
 
@@ -278,7 +292,7 @@ __RESERVED2
 
 __FGS             0xf8000a          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf8000a          0x2 /CW/_FGSPdÇ
+ __FGS.sec        0xf8000a          0x2 /CW/_FGS@2Ë
                   0xf8000a                  __FGS.sec
 
 __FICD
@@ -293,32 +307,35 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x657
+.debug_info       0x000000        0xb64
  *(.debug_info)
- .debug_info      0x000000         0xb1 build/default/production/retardos.o
- .debug_info      0x0000b1         0xad build/default/production/func.o
- .debug_info      0x00015e        0x4f9 build/default/production/INTERAC.o
+ .debug_info      0x000000         0xc0 build/default/production/retardos.o
+ .debug_info      0x0000c0        0x922 build/default/production/PRINCIPALINT2.o
+ .debug_info      0x0009e2         0xc6 build/default/production/interrupciones.o
+ .debug_info      0x000aa8         0xbc build/default/production/LCDg.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x121
+.debug_abbrev     0x000000        0x157
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x14 build/default/production/retardos.o
- .debug_abbrev    0x000014         0x14 build/default/production/func.o
- .debug_abbrev    0x000028         0xf9 build/default/production/INTERAC.o
+ .debug_abbrev    0x000014        0x11b build/default/production/PRINCIPALINT2.o
+ .debug_abbrev    0x00012f         0x14 build/default/production/interrupciones.o
+ .debug_abbrev    0x000143         0x14 build/default/production/LCDg.o
 
-.debug_line       0x000000        0x15f
+.debug_line       0x000000        0x1f1
  *(.debug_line)
  .debug_line      0x000000         0x49 build/default/production/retardos.o
- .debug_line      0x000049         0x5a build/default/production/func.o
- .debug_line      0x0000a3         0xbc build/default/production/INTERAC.o
+ .debug_line      0x000049         0xda build/default/production/PRINCIPALINT2.o
+ .debug_line      0x000123         0x51 build/default/production/interrupciones.o
+ .debug_line      0x000174         0x7d build/default/production/LCDg.o
 
-.debug_frame      0x000000         0x62
+.debug_frame      0x000000         0x7c
  *(.debug_frame)
- .debug_frame     0x000000         0x62 build/default/production/INTERAC.o
+ .debug_frame     0x000000         0x7c build/default/production/PRINCIPALINT2.o
 
-.debug_str        0x000000         0x1d
+.debug_str        0x000000         0x44
  *(.debug_str)
- .debug_str       0x000000         0x1d build/default/production/INTERAC.o
+ .debug_str       0x000000         0x44 build/default/production/PRINCIPALINT2.o
 
 .debug_loc
  *(.debug_loc)
@@ -327,22 +344,24 @@ userdata
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x51
+                  0x000000         0x8f
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x51 build/default/production/INTERAC.o
+                  0x000000         0x8f build/default/production/PRINCIPALINT2.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x48
+.debug_aranges    0x000000         0x60
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/retardos.o
  .debug_aranges
-                  0x000018         0x18 build/default/production/func.o
+                  0x000018         0x18 build/default/production/PRINCIPALINT2.o
  .debug_aranges
-                  0x000030         0x18 build/default/production/INTERAC.o
+                  0x000030         0x18 build/default/production/interrupciones.o
+ .debug_aranges
+                  0x000048         0x18 build/default/production/LCDg.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -730,66 +749,78 @@ userdata
                     0x0216                  UART2 = 0x216
                     0x0216                  _UART2 = 0x216
 START GROUP
-LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a
-LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libm-elf.a
-LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libc99-elf.a
+LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a
+LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libm-elf.a
+LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/Ejem1.X.production.elf elf32-pic30)
-LOAD /CW/_FGSPdÇ
+LOAD /CW/_FGS@2Ë
 LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000048         0x7a
+                  0x000060         0xd7
  .debug_pubtypes
-                  0x000048         0x7a build/default/production/INTERAC.o
+                  0x000060         0xd7 build/default/production/PRINCIPALINT2.o
 
 __c30_signature
-                  0x0000c2         0x12
+                  0x000137         0x12
  __c30_signature
-                  0x0000c2          0x6 build/default/production/INTERAC.o
+                  0x000137          0x6 build/default/production/PRINCIPALINT2.o
  __c30_signature
-                  0x0000c8          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+                  0x00013d          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0000ce          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                  0x000143          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.nbss               0x0800          0x2
- .nbss              0x0800          0x2 build/default/production/INTERAC.o
-                    0x0800                  _longitud
+.nbss               0x0800          0xa
+ .nbss              0x0800          0xa build/default/production/PRINCIPALINT2.o
+                    0x0800                  _uni
+                    0x0801                  _dece
+                    0x0802                  _cen
+                    0x0803                  _umi
+                    0x0804                  _contador
 
 .config_MCLRE     0xf80004          0x2
- .config_MCLRE    0xf80004          0x2 build/default/production/INTERAC.o
+ .config_MCLRE    0xf80004          0x2 build/default/production/PRINCIPALINT2.o
 
 .config_WDT       0xf80002          0x2
- .config_WDT      0xf80002          0x2 build/default/production/INTERAC.o
+ .config_WDT      0xf80002          0x2 build/default/production/PRINCIPALINT2.o
 
 .config_FCKSMEN
                   0xf80000          0x2
  .config_FCKSMEN
-                  0xf80000          0x2 build/default/production/INTERAC.o
+                  0xf80000          0x2 build/default/production/PRINCIPALINT2.o
 
 .ivt._U2RXInterrupt
                   0x000044          0x2
  .ivt._U2RXInterrupt
-                  0x000044          0x2 build/default/production/INTERAC.o
+                  0x000044          0x2 build/default/production/PRINCIPALINT2.o
 
-.const              0x81d6          0xc load address 0x0001d6  
- .const             0x81d6          0xc build/default/production/INTERAC.o
+.ivt._INT0Interrupt
+                  0x000014          0x2
+ .ivt._INT0Interrupt
+                  0x000014          0x2 build/default/production/interrupciones.o
 
-.text             0x0001e2         0xde
- .text            0x0001e2         0x6c build/default/production/INTERAC.o
-                  0x0001e2                  _main
-                  0x00021c                  _configurarPuertos
- .text            0x00024e         0x4c build/default/production/func.o
-                  0x00024e                  _funcion1
-                  0x00025a                  _funcion2
-                  0x000262                  _funcion3
-                  0x000266                  _funcion4
-                  0x00026c                  _funcion5
-                  0x000286                  _funcion6
- .text            0x00029a         0x26 build/default/production/retardos.o
-                  0x00029a                  _RETARDO_1S
-                  0x0002b0                  _RETARDO_1mS
+.const              0x81d6          0x8 load address 0x0001d6  
+ .const             0x81d6          0x8 build/default/production/PRINCIPALINT2.o
 
-.dinit            0x0002c0          0x8
- .dinit           0x0002c0          0x8 data_init
+.text             0x0001de        0x18e
+ .text            0x0001de         0xbc build/default/production/LCDg.o
+                  0x0001de                  _ubicarCursor
+                  0x0001ea                  _printLCD
+                  0x000204                  _iniLCD8bits
+                  0x00024a                  _banderaLCD
+                  0x00026e                  _comandoLCD
+                  0x000284                  _datoLCD
+ .text            0x00029a         0x7e build/default/production/PRINCIPALINT2.o
+                  0x00029a                  _main
+                  0x0002d6                  _configurarInterrupciones
+                  0x0002e2                  _configurarPuertos
+ .text            0x000318         0x2e build/default/production/interrupciones.o
+                  0x000318                  __INT0Interrupt
+ .text            0x000346         0x26 build/default/production/retardos.o
+                  0x000346                  _RETARDO_1S
+                  0x00035c                  _RETARDO_1mS
+
+.dinit            0x00036c          0x8
+ .dinit           0x00036c          0x8 data_init

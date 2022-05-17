@@ -17,8 +17,8 @@
                    projectFiles="true">
       <itemPath>retardos.s</itemPath>
       <itemPath>PRINCIPALINT2.c</itemPath>
-      <itemPath>LCD.s</itemPath>
-      <itemPath>PRINCIPALLCD.c</itemPath>
+      <itemPath>interrupciones.s</itemPath>
+      <itemPath>LCDg.s</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
