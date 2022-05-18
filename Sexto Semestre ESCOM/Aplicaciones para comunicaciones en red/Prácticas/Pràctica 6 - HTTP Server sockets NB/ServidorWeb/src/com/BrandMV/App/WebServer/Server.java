@@ -14,7 +14,7 @@ import java.util.Iterator;
 
 /**
  * @author BrandMV
- * Threads pool used for create many servers in different ports
+ * Server connection using non blocking sockets
  */
 public class Server{
     protected int port;
@@ -25,7 +25,7 @@ public class Server{
     }
 
     /**
-     * Method that initialize the server using not blocking sockets
+     * Method that initialize the server using non blocking sockets
      */
     private void initServer(){
         try {

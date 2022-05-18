@@ -21,6 +21,9 @@ public class HTTPServer extends Thread{
         this.socket = socket;
     }
 
+    /**
+     * Method that create the connection and read the dara coming form the socket
+     */
     public void connection(){
         try {
             b = ByteBuffer.allocate(Constants.INPUT_STREAM_BYTES_SIZE);
@@ -29,7 +32,6 @@ public class HTTPServer extends Thread{
             b.flip();
             String request = new String(b.array(),0,t);
             System.out.println("t: " + t);
-
             if(request == null){
                 StringBuilder sb = new StringBuilder();
                 sb.append("<html><head><title>Servidor WEB\n");
@@ -40,13 +42,10 @@ public class HTTPServer extends Thread{
                 socket.close();
                 return;
             }
-
             System.out.println(String.format(Constants.CONNECTED_CLIENT_MESSAGE,socket.socket().getInetAddress(), socket.socket().getPort()));
             System.out.println(String.format(Constants.CONNECTED_CLIENT_DATA, request));
-
             StringTokenizer stl = new StringTokenizer(request, "\n");
             String line = stl.nextToken();
-
             if(line.indexOf("?") == -1){
                 if(line.toUpperCase().startsWith("HEAD")){
                     getFile(line);
