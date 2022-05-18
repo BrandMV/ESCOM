@@ -36,6 +36,7 @@ void __attribute__((__interrupt__)) _U2RXInterrupt( void );
 
 void configurarPuertos();
 void configurarInterrupciones();
+void timer1();
 
 extern void iniLCD8bits( );
 extern void banderaLCD( );
@@ -43,8 +44,8 @@ extern void comandoLCD(short int);
 extern void ubicarCursor(short int);
 extern void printLCD(char *);
 extern void datoLCD( unsigned short int Dato );
-unsigned char uni, dece, cen, umi;
-char contador[5];
+unsigned char DSEG, USEG, DMIN, UMIN, DHR, UHR;
+char reloj[8];
 
 int main(void) 
 {    
@@ -53,37 +54,50 @@ int main(void)
     
     //banderaLCD(); //*Preguntamos si esta libre el LCD
     //comandoLCD(0x84); //DDRAM_ADDRESS_SET 4
-    ubicarCursor(4);
-    printLCD("Conteo:");
+    ubicarCursor(5);
+    printLCD("RELOJ:");
     
-    uni = 0;
-    dece = 0;
-    cen = 0;
-    umi = 0;
+    timer1();
+    
+    DHR = 2;
+    UHR = 3;
+    DMIN = 5;
+    UMIN = 9;
+    DSEG = 5;
+    USEG = 0;
 
     configurarInterrupciones();
     
-    //contador[4] = 0; //nulo
+
     
     for(;EVER;)
     {
-        contador[0] = umi + 0X30;
-        contador[1] = cen + 0X30;        
-        contador[2] = dece + 0X30;
-        contador[3] = uni + 0X30;
-        contador[4] = 0; //nulo
-        ubicarCursor(0X46);
-        printLCD(contador);
-     //   asm("nop");
+        reloj[0] = DHR + 0X30;
+        reloj[1] = UHR + 0X30;        
+        reloj[2] = ':';
+        reloj[3] = DMIN + 0X30;
+        reloj[4] = UMIN + 0X30;
+        reloj[5] = ':';
+        reloj[6] = USEG + 0X30;
+        reloj[7] = DSEG + 0X30;
+        reloj[8] = 0; //nulo
+        ubicarCursor(0X44);
+        printLCD(reloj);
+     
     }
     
     return 0;
 }
+
+void timer1(){
+    TMR1 = 0X0000;
+    PR1 = 0X8000;
+    T1CON = 0X0002;
+}
 void configurarInterrupciones(){
-    IFS0bits.INT0IF = 0;
-    INTCON2bits.INT0EP = 1;     //set up INTO on negative edge (falling edge 1, rising edge 0) 
-    //INTCON2BITS.INT0EP = 1; //FLANCO BAJADA
-    IEC0bits.INT0IE = 1; //HABILITAMOS
+    IFS0bits.T1IF = 0;
+    IEC0bits.T1IE = 1;
+    T1CONbits.TON = 1; //Activamos Timer
     
 }
 void configurarPuertos()
@@ -93,6 +107,15 @@ void configurarPuertos()
     LATD = 0;               //CLR       LATD
     asm("nop");
     TRISDbits.TRISD8 = 0;   //BCLR TRISD, #TRISD8
+    asm("nop");
+    
+    PORTC = 0;
+    asm("nop");
+    LATC = 0;
+    asm("nop");
+    TRISCbits.TRISC13 = 1;
+    asm("nop");
+    TRISCbits.TRISC14 = 1;
     asm("nop");
 
     PORTF = 0;
