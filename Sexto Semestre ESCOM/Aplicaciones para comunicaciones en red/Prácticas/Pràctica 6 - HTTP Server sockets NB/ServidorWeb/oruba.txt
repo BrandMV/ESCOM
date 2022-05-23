@@ -1,1 +1,0 @@
-Accept: */*Postman-Token: 49653dca-7019-4027-9d4e-a5848a8eac6fHost: localhost:8000Accept-Encoding: gzip, deflate, brConnection: keep-aliveContent-Length: 29hola este es un nuevo archivo

@@ -15,7 +15,7 @@ public class Constants {
     public static final String SERVER_CONNECTION_STOPPED_ERROR = "Error al cerrar el socket del servidor";
 
     //*Utilities
-    public static final int INPUT_STREAM_BYTES_SIZE = 1024;
+    public static final int INPUT_STREAM_BYTES_SIZE = 65535;
     public static final String CONNECTED_CLIENT_MESSAGE = "\nCliente conectado desde: %s\nPor el puerto: %d";
     public static final String CONNECTED_CLIENT_DATA = "Datos: %s\r\n\r\n";
 
