@@ -247,7 +247,7 @@ public class HTTPServer extends Thread{
             if(f.canWrite()){
                 f.delete();
                 //*Getting response
-                response("200", "OK", "File deleted");
+                response("200", "OK", "Archivo eliminado");
             }else{
                 response("403", "Forbidden", "403 FORBIDDEN");
             }
