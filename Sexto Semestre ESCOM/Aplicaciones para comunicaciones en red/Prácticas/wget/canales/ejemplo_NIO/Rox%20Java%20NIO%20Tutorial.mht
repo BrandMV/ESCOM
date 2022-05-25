@@ -1,0 +1,3191 @@
+From: "Guardado por Microsoft Internet Explorer 7"
+Subject: Rox Java NIO Tutorial
+Date: Tue, 26 May 2009 21:27:00 -0500
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01C9DE48.B47EF300"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.0.6001.18049
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01C9DE48.B47EF300
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://rox-xmlrpc.sourceforge.net/niotut/
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" =
+"http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML=20
+xmlns=3D"http://www.w3.org/1999/xhtml"><HEAD><TITLE>Rox Java NIO =
+Tutorial</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3DISO-8859-1"><LINK=20
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/index.css" =
+type=3Dtext/css=20
+rel=3Dstylesheet>
+<META content=3D"MSHTML 6.00.6001.18226" name=3DGENERATOR></HEAD>
+<BODY>
+<H1>The Rox Java NIO Tutorial</H1>
+<H2>Contents</H2>
+<P>
+<OL>
+  <LI><A=20
+  =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#Introduction">Introduct=
+ion</A>=20
+
+  <LI><A =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#Credits">Credits</A>=20
+  <LI><A=20
+  href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#General =
+principles">General=20
+  principles</A>=20
+  <LI><A href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#The =
+server">The=20
+  server</A>=20
+  <LI><A href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#The =
+client">The=20
+  client</A>=20
+  <LI><A href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#NIO and SSL =
+on 1.4">NIO=20
+  and SSL on 1.4</A>=20
+  <LI><A href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#The code">The =
+code</A>=20
+  <LI><A href=3D"http://rox-xmlrpc.sourceforge.net/niotut/#About the =
+author">About=20
+  the author</A> </LI></OL>
+<P></P>
+<H2><A name=3DIntroduction>Introduction</A></H2>
+<P>This tutorial is intended to collect together my own experiences =
+using the=20
+Java NIO libraries and the dozens of hints, tips, suggestions and =
+caveats that=20
+litter the Internet. When I wrote <A=20
+href=3D"http://rox-xmlrpc.sourceforge.net/">Rox</A> all of the useful =
+information=20
+existed as just that: hints, tips, suggestions and caveats on a handful =
+of=20
+forums. This tutorial actually only covers using NIO for asynchronous =
+networking=20
+(non-blocking sockets), and not the NIO libraries in all their glory. =
+When I use=20
+the term NIO in this tutorial I'm taking liberties and only talking =
+about the=20
+non-blocking IO part of the API. </P>
+<P>If you've spent any time looking at the JavaDoc documentation for the =
+NIO=20
+libraries then you know they're not the most transparent docs floating =
+around.=20
+And if you've spent any time trying to write code based on the NIO =
+libraries and=20
+you use more than one platform you've probably run into something that =
+works on=20
+one platform but locks up on another. This is particularly true if you =
+started=20
+on Windows and moved over to Linux (using Sun's implementation). </P>
+<P>This tutorial takes you from nothing to a working client-server=20
+implementation, and will hopefully help you avoid all of the pitfalls =
+waiting to=20
+trap the unwary. I've turned it around and start with a server =
+implementation,=20
+since that's the most common use-case for the NIO libraries. </P>
+<P>Comments, criticisms, suggestions and, most important, corrections =
+are=20
+welcome. The examples here have been developed and tested on Sun's NIO=20
+implementation using version 1.4.2 and 1.5.0 of Sun's Hotspot JVM on =
+Windows and=20
+Linux. Your mileage may vary but if you do run into funnies please let =
+me know=20
+and I'll incorporate them into this page. </P>
+<P>Drop me a line at <A =
+href=3D"mailto:nio@flat502.com">nio@flat502.com</A>. </P>
+<H2><A name=3DCredits>Credits</A></H2>
+<P>Credit where credit is due. This tutorial pulls together a lot of =
+ideas, none=20
+of which I can claim original ownership. Sources vary widely and I =
+haven't=20
+managed to keep track of all of them, but an incomplete list of some of =
+the=20
+larger contributors would include: </P>
+<P>
+<UL>
+  <LI><A href=3D"http://javaalmanac.com/egs/java.nio/pkg.html">The Java =
+Developers=20
+  Almanac</A>=20
+  <LI><A=20
+  =
+href=3D"http://www.realityinteractive.com/rgrzywinski/archives/000067.htm=
+l">Rob=20
+  Grzywinski's thoroughly entertaining rant about getting SSL and the =
+NIO=20
+  libraries to play together on Java 1.4</A>=20
+  <LI><A=20
+  =
+href=3D"http://forum.java.sun.com/thread.jspa?threadID=3D592674&amp;tstar=
+t=3D0">This=20
+  post in the Java Forums regarding SSL and NIO on 1.4</A>=20
+  <LI><A=20
+  =
+href=3D"http://forums.java.sun.com/thread.jspa?threadID=3D459338&amp;mess=
+ageID=3D3327526">The=20
+  "Taming the NIO Circus" thread in the Java Forums</A>=20
+  <LI><A=20
+  =
+href=3D"http://forum.java.sun.com/thread.jspa?threadID=3D353135&amp;messa=
+geID=3D1468837">A=20
+  discussion in the Java Forums on multithreaded access to NIO</A>=20
+  <LI>Half a dozen other posts in various forums and on various blogs =
+</LI></UL>
+<P></P>
+<P>Source source code in this tutorial was generated from Java source =
+using <A=20
+href=3D"http://www.java2html.de/">Java2Html</A>. </P>
+<H2><A name=3D"General principles">General principles</A></H2>
+<P>A few general principles inform the approach I've taken. There may be =
+other=20
+approaches (I've certainly seen a few other suggestions) but I know this =
+one=20
+works, and I know it performs. Sometimes it's worth spending time =
+finding the=20
+best possible approach. Sometimes it's enough to find an approach that =
+works.=20
+</P>
+<P>These general ideas apply on both the client and server side. In =
+fact, given=20
+that the only difference between the client and the server is whether or =
+not a=20
+connection is initiated or accepted, the bulk of the logic for using NIO =
+for a=20
+comms implementation can be factored out and shared. </P>
+<P>So, without further ado: </P>
+<H3>Use a single selecting thread</H3>
+<P>Although NIO selectors are threadsafe their key sets are not. The =
+upshot of=20
+this is that if you try to build a solution that depends on multiple =
+threads=20
+accessing your selector you very quickly end up in one of two =
+situations:=20
+<OL>
+  <LI>Plagued by deadlocks and race conditions as you build up an =
+increasingly=20
+  fragile house of cards (or rather house of locks) to avoid stepping on =
+your=20
+  own toes while accessing the selector and its key sets.=20
+  <LI>Effectively single-threading access to the selector and its key =
+sets in an=20
+  attempt to avoid, well, stepping on your own toes. </LI></OL>The =
+upshot of this=20
+is that if you want to build a solution based on NIO then trust me and =
+stick to=20
+a single selecting thread. Offload events as you see fit but stick to =
+one thread=20
+on the selector.=20
+<P></P>
+<P>I tend to handle all I/O within the selecting thread too. This means =
+queuing=20
+writes and having the selecting thread perform the actual I/O, and =
+having the=20
+selecting thread read off ready channels and offload the read data to a =
+worker=20
+thread. In general I've found this scales well enough so I've not yet =
+had a need=20
+to have other threads perform the I/O on the side. </P>
+<H3>Modify the selector from the selecting thread only</H3>
+<P>If you look closely at the NIO documentation you'll come across the=20
+occasional mention of naive implementations blocking where more =
+efficient=20
+implementations might not, usually in the context of altering the state =
+of the=20
+selector from another thread. If you plan on writing code against the =
+NIO=20
+libraries that must run on multiple platforms you have to assume the =
+worst. This=20
+isn't just hypothetical either, a little experimentation should be =
+enough to=20
+convince you that Sun's Linux implementation is "naive". If you plan on=20
+targeting one platform only feel free to ignore this advice but I'd =
+recommend=20
+against it. The thing about code is that it oftens ends up in the oddest =
+of=20
+places. </P>
+<P>As a result, if you plan to hang onto your sanity don't modify the =
+selector=20
+from any thread other than the selecting thread. This includes modifying =
+the=20
+interest ops set for a selection key, registering new channels with the=20
+selector, and cancelling existing channels. </P>
+<P>A number of these changes are naturally initiated by threads that =
+aren't the=20
+selecting thread. Think about sending data. This pretty much always has =
+to be=20
+initiated by a calling thread that isn't the selecting thread. Don't try =
+to=20
+modify the selector (or a selection key) from the calling thread. Queue =
+the=20
+operation where the selecting thread can get to it and call=20
+<CODE>Selector.wakeup</CODE>. This will wake the selecting thread up. =
+All it=20
+needs to do is check if there are any pending changes, and if there are =
+apply=20
+them and go back to selecting on the selector. There are variations on =
+this but=20
+that's the general idea. </P>
+<H3>Set OP_WRITE only when you have data ready</H3>
+<P>A common mistake is to enable OP_WRITE on a selection key and leave =
+it set.=20
+This results in the selecting thread spinning because 99% of the time a =
+socket=20
+channel is ready for writing. In fact the only times it's not going to =
+be ready=20
+for writing is during connection establishment or if the local OS socket =
+buffer=20
+is full. The correct way to do this is to enable OP_WRITE only when you =
+have=20
+data ready to be written on that socket channel. And don't forget to do =
+it from=20
+within the selecting thread. </P>
+<H3>Alternate between OP_READ and OP_WRITE</H3>
+<P>If you try to mix OP_READ and OP_WRITE you'll quickly get yourself =
+into=20
+trouble. The Sun Windows implementation has been seen to deadlock if you =
+do=20
+this. Other implementations may fare better, but I prefer to play it =
+safe and=20
+alternate between OP_READ and OP_WRITE, rather than trying to use them =
+together.=20
+</P>
+<P>With those out of the way, let's take a look at some actual code. The =
+code=20
+presented here could do with a little cleaning up. I've simplified a few =
+things=20
+in an attempt to stick to the core issue, using the NIO libraries, =
+without=20
+getting bogged down in too many abstractions or design discussions. </P>
+<H2><A name=3D"The server">The server</A></H2>
+<H3>A starting point</H3>
+<P>We need a little infrastructure before we can start building a NIO =
+server.=20
+First, we'll need a thread. This will be our selecting thread and most =
+of our=20
+logic will live in the class that is home to it. And I'm going to have =
+the=20
+selecting thread perform reads itself, so we'll need a ByteBuffer to =
+read into.=20
+I'm going to use a non-direct buffer rather than a direct buffer. The=20
+performance difference is minor in this case and the code is slightly =
+clearer.=20
+We're also going to need a selector and a server socket channel on which =
+to=20
+accept connections. Throwing in a few other minor odds and ends we end =
+up with=20
+something like this. </P>
+<P class=3Dsample><FONT =
+color=3D#7f0055><B>public&nbsp;class&nbsp;</B></FONT><FONT=20
+color=3D#000000>NioServer&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>implements&nbsp;</B></FONT><FONT=20
+color=3D#000000>Runnable&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;host:port&nbsp;combination&nbsp;to&nbsp;=
+listen&nbsp;on</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>InetAddress&nbsp;hostAddress;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT =
+color=3D#000000>port;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;channel&nbsp;on&nbsp;which&nbsp;we'll&nb=
+sp;accept&nbsp;connections</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>ServerSocketChannel&nbsp;serverChannel;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;selector&nbsp;we'll&nbsp;be&nbsp;monitor=
+ing</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>Selector&nbsp;selector;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;buffer&nbsp;into&nbsp;which&nbsp;we'll&n=
+bsp;read&nbsp;data&nbsp;when&nbsp;it's&nbsp;available</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>ByteBuffer&nbsp;readBuffer&nbsp;=3D&nbsp;ByteBuffer.alloc=
+ate</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#990000>8192</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#000000>NioServer</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>InetAddress&nbsp;hostAddress,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT =
+color=3D#000000>port</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.hostAddress&nbsp;=3D&nbsp;hostAddress;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.port&nbsp;=3D&nbsp;port;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.initSelector</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT =
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff></FONT><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;static&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>main</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>String</FONT><FONT=20
+color=3D#000000>[]&nbsp;</FONT><FONT color=3D#000000>args</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>Thread</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>NioServer</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>null,&nbsp;</FONT><FONT color=3D#990000>9090</FONT><FONT =
+
+color=3D#000000>))</FONT><FONT color=3D#000000>.start</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>IOException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>e.printStackTrace</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#000000>}</FONT> </P>
+<H3>Creating the selector and server channel</H3>
+<P>The astute will have noticed the call to <CODE>initSelector()</CODE> =
+in the=20
+constructor. Needless to say this method doesn't exist yet. So let's =
+write it.=20
+It's job is to create and initialize a non-blocking server channel and a =
+
+selector. It must and then register the server channel with that =
+selector. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>Selector&nbsp;initSelector</FONT><FONT=20
+color=3D#000000>()&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Create&nbsp;a&nbsp;new&nbsp;selector</FONT><BR><F=
+ONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>Selector&nbsp;socketSelector&nbsp;=3D&nbsp;SelectorProvid=
+er.provider</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>.openSelector</FONT><FONT =
+
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Create&nbsp;a&nbsp;new&nbsp;non-blocking&nbsp;ser=
+ver&nbsp;socket&nbsp;channel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.serverChannel&nbsp;=3D&nbsp;ServerSocketChannel.open</FO=
+NT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>serverChannel.configureBlocking</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>false</B></FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Bind&nbsp;the&nbsp;server&nbsp;socket&nbsp;to&nbs=
+p;the&nbsp;specified&nbsp;address&nbsp;and&nbsp;port</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>InetSocketAddress&nbsp;isa&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>InetSocketAddress</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.hostAddress,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.port</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>serverChannel.socket</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.bind</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>isa</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;the&nbsp;server&nbsp;socket&nbsp;ch=
+annel,&nbsp;indicating&nbsp;an&nbsp;interest&nbsp;in&nbsp;</FONT><BR><FON=
+T=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;accepting&nbsp;new&nbsp;connections</FONT><BR><FO=
+NT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>serverChannel.register</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socketSelector,&nbsp;SelectionKey.OP_ACCEPT</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return&nbsp;</B></FONT><FONT=20
+color=3D#000000>socketSelector;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> </P>
+<H3>Accepting connections</H3>
+<P>Right. At this point we have a server socket channel ready and =
+waiting and=20
+we've indicated that we'd like to know when a new connection is =
+available to be=20
+accepted. Now we need to actually accept it. Which brings us to our =
+"select=20
+loop". This is where most of the action kicks off. In a nutshell our =
+selecting=20
+thread sits in a loop waiting until one of the channels registered with =
+the=20
+selector is in a state that matches the interest operations we've =
+registered for=20
+it. In this case the operation we're waiting for on the server socket =
+channel is=20
+an accept (indicated by OP_ACCEPT). So let's take a look at the first =
+iteration=20
+(I couldn't resist) of our <CODE>run()</CODE> method. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>run</FONT><FONT=20
+color=3D#000000>()&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>while&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>true</B></FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;Wait&nbsp;for&nbsp;an&nbsp;event&nbsp;one&nbsp;of=
+&nbsp;the&nbsp;registered&nbsp;channels</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.selector.select</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;Iterate&nbsp;over&nbsp;the&nbsp;set&nbsp;of&nbsp;=
+keys&nbsp;for&nbsp;which&nbsp;events&nbsp;are&nbsp;available</FONT><BR><F=
+ONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>Iterator&nbsp;selectedKeys&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector.selectedKeys</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.iterator</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>while&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>selectedKeys.hasNext</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>SelectionKey&nbsp;key&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SelectionKey</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>selectedKeys.next</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>selectedKeys.remove</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>!key.isValid</FONT><FONT =
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>continue</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Check&nbsp;what&nbsp;event&nbsp;is&nbsp;available=
+&nbsp;and&nbsp;deal&nbsp;with&nbsp;it</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isAcceptable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.accept</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>Exception&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>e.printStackTrace</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>This only takes us half way though. We still need to accept =
+connections.=20
+Which means, you guessed it, an <CODE>accept()</CODE> method. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>accept</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;For&nbsp;an&nbsp;accept&nbsp;to&nbsp;be&nbsp;pend=
+ing&nbsp;the&nbsp;channel&nbsp;must&nbsp;be&nbsp;a&nbsp;server&nbsp;socke=
+t&nbsp;channel.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>ServerSocketChannel&nbsp;serverSocketChannel&nbsp;=3D&nbs=
+p;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>ServerSocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Accept&nbsp;the&nbsp;connection&nbsp;and&nbsp;mak=
+e&nbsp;it&nbsp;non-blocking</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;serverSock=
+etChannel.accept</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>Socket&nbsp;socket&nbsp;=3D&nbsp;socketChannel.socket</FO=
+NT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.configureBlocking</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>false</B></FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;the&nbsp;new&nbsp;SocketChannel&nbs=
+p;with&nbsp;our&nbsp;Selector,&nbsp;indicating</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;we'd&nbsp;like&nbsp;to&nbsp;be&nbsp;notified&nbsp=
+;when&nbsp;there's&nbsp;data&nbsp;waiting&nbsp;to&nbsp;be&nbsp;read</FONT=
+><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.register</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector,&nbsp;SelectionKey.OP_READ</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> </P>
+<H3>Reading data</H3>
+<P>Once we've accepted a connection it's only of any use if we can read =
+(or=20
+write) data on it. If you look back at the <CODE>accept()</CODE> method =
+you'll=20
+notice that the newly accepted socket channel was registered with our =
+selector=20
+with OP_READ specified at the operation we're interested in. That means =
+our=20
+selecting thread will be released from the call to <CODE>select()</CODE> =
+when=20
+data becomes available on the socket channel. But what do we do with it? =
+Well,=20
+the first thing we need is a small change to our <CODE>run()</CODE> =
+method. We=20
+need to check if a socket channel is readable (and deal with it if it =
+is). </P>
+<P class=3Dsample><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Check&nbsp;what&nbsp;event&nbsp;is&nbsp;available=
+&nbsp;and&nbsp;deal&nbsp;with&nbsp;it</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isAcceptable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.accept</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>else&nbsp;if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isReadable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT></CODE> </P>
+<P>Which means we need a <CODE>read()</CODE> method... </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;</FONT><FO=
+NT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Clear&nbsp;out&nbsp;our&nbsp;read&nbsp;buffer&nbs=
+p;so&nbsp;it's&nbsp;ready&nbsp;for&nbsp;new&nbsp;data</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.readBuffer.clear</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Attempt&nbsp;to&nbsp;read&nbsp;off&nbsp;the&nbsp;=
+channel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT=20
+color=3D#000000>numRead;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>numRead&nbsp;=3D&nbsp;socketChannel.read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.readBuffer</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>IOException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;remote&nbsp;forcibly&nbsp;closed&nbsp;th=
+e&nbsp;connection,&nbsp;cancel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;the&nbsp;selection&nbsp;key&nbsp;and&nbsp;close&n=
+bsp;the&nbsp;channel.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.cancel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.close</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>numRead&nbsp;=3D=3D&nbsp;-</FONT><FONT =
+color=3D#990000>1</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Remote&nbsp;entity&nbsp;shut&nbsp;the&nbsp;socket=
+&nbsp;down&nbsp;cleanly.&nbsp;Do&nbsp;the</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;same&nbsp;from&nbsp;our&nbsp;end&nbsp;and&nbsp;ca=
+ncel&nbsp;the&nbsp;channel.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.channel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.close</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.cancel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Hand&nbsp;the&nbsp;data&nbsp;off&nbsp;to&nbsp;our=
+&nbsp;worker&nbsp;thread</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.worker.processData</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>this,&nbsp;socketChannel,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.readBuffer.array</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>,&nbsp;numRead</FONT><FONT color=3D#000000>)</FONT><FONT =
+
+color=3D#000000>;</FONT> <FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> </P>
+<P>Hang on, where did <CODE>worker</CODE> come from? This is the worker =
+thread=20
+we hand data off to once we've read it. For our purposes all we'll do is =
+echo=20
+that data back. We'll take a look at the code for the worker shortly. =
+However,=20
+assuming the existence of an <CODE>EchoWorker</CODE> class, our =
+infrastructure=20
+needs a little updating. We need an extra instance member, a change to =
+our=20
+constructor and one or two extras in our <CODE>main()</CODE> method. =
+</P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>EchoWorker&nbsp;worker;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#000000>NioServer</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>InetAddress&nbsp;hostAddress,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT=20
+color=3D#000000>port,&nbsp;EchoWorker&nbsp;worker</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.hostAddress&nbsp;=3D&nbsp;hostAddress;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.port&nbsp;=3D&nbsp;port;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.initSelector</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.worker&nbsp;=3D&nbsp;worker;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> <FONT=20
+color=3D#ffffff></FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;static&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>main</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>String</FONT><FONT=20
+color=3D#000000>[]&nbsp;</FONT><FONT color=3D#000000>args</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>EchoWorker&nbsp;worker&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>EchoWorker</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>Thread</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>worker</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>.start</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>Thread</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>NioServer</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>null,&nbsp;</FONT><FONT color=3D#990000>9090</FONT><FONT =
+
+color=3D#000000>,&nbsp;worker</FONT><FONT color=3D#000000>))</FONT><FONT =
+
+color=3D#000000>.start</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>IOException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>e.printStackTrace</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>Let's take a closer look at <CODE>EchoWorker</CODE>. Our echo worker=20
+implementation is implemented as a second thread. For the purposes of =
+this=20
+example we're only going to have a single worker thread. This means we =
+can hand=20
+events directly to it. We'll do this by calling a method on the =
+instance. This=20
+method will stash the event in a local queue and notify the worker =
+thread that=20
+there's work available. Needless to say, the worker thread itself will =
+sit in a=20
+loop waiting for events to arrive and when they do it will process them. =
+Events=20
+in this case are just data packets. All we're going to do is echo those =
+packets=20
+back to the sender. </P>
+<P>Normally, instead of calling a method on the worker directly, you'll =
+want to=20
+use a form of blocking queue that you can share with as many workers as =
+you=20
+like. Java 1.5's concurrency package introduces a =
+<CODE>BlockingQueue</CODE>=20
+interface and some implementations, but it's not that hard to roll your =
+own. The=20
+logic in the <CODE>EchoWorker</CODE> code below is a good start. </P>
+<P class=3Dsample><FONT =
+color=3D#7f0055><B>public&nbsp;class&nbsp;</B></FONT><FONT=20
+color=3D#000000>EchoWorker&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>implements&nbsp;</B></FONT><FONT=20
+color=3D#000000>Runnable&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>List&nbsp;queue&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>LinkedList</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT=20
+color=3D#000000>processData</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>NioServer&nbsp;server,&nbsp;SocketChannel&nbsp;socket,&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>byte</B></FONT><FONT =
+color=3D#000000>[]&nbsp;</FONT><FONT=20
+color=3D#000000>data,&nbsp;</FONT><FONT =
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT=20
+color=3D#000000>count</FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>byte</B></FONT><FONT =
+color=3D#000000>[]&nbsp;</FONT><FONT=20
+color=3D#000000>dataCopy&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#7f0055><B>byte</B></FONT><FONT=20
+color=3D#000000>[</FONT><FONT color=3D#000000>count</FONT><FONT=20
+color=3D#000000>]</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>System.arraycopy</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>data,&nbsp;</FONT><FONT color=3D#990000>0</FONT><FONT=20
+color=3D#000000>,&nbsp;dataCopy,&nbsp;</FONT><FONT =
+color=3D#990000>0</FONT><FONT=20
+color=3D#000000>,&nbsp;count</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>queue</FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>queue.add</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>ServerDataEvent</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>server,&nbsp;socket,&nbsp;dataCopy</FONT><FONT=20
+color=3D#000000>))</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>queue.notify</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>run</FONT><FONT=20
+color=3D#000000>()&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>ServerDataEvent&nbsp;dataEvent;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>while</B></FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>true</B></FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Wait&nbsp;for&nbsp;data&nbsp;to&nbsp;become&nbsp;=
+available</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>queue</FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>while</B></FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>queue.isEmpty</FONT><FONT =
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>queue.wait</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>InterruptedException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>dataEvent&nbsp;=3D&nbsp;</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>ServerDataEvent</FONT><FONT =
+color=3D#000000>)&nbsp;</FONT><FONT=20
+color=3D#000000>queue.remove</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#990000>0</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Return&nbsp;to&nbsp;sender</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>dataEvent.server.send</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>dataEvent.socket,&nbsp;dataEvent.data</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#000000>}</FONT> </P>
+<P>If you look at the last line of the <CODE>run()</CODE> method you'll =
+see=20
+we're calling a new method on the server. Let's take a look at what we =
+need to=20
+do to send data back to a client. </P>
+<H3>Writing data</H3>
+<P>Writing data to a socket channel is pretty straightforward. However, =
+before=20
+we can do that we need to know that the channel is ready for more data. =
+Which=20
+means setting the OP_WRITE interest op flag on that channel's selection =
+key.=20
+Since the thread that wants to do this is not the selecting thread we =
+need to=20
+queue this request somewhere and wake the selecting thread up. Putting =
+all of=20
+this together we need a <CODE>write()</CODE> method and a few additional =
+members=20
+in our server class. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;A&nbsp;list&nbsp;of&nbsp;ChangeRequest&nbsp;insta=
+nces</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>List&nbsp;changeRequests&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>LinkedList</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Maps&nbsp;a&nbsp;SocketChannel&nbsp;to&nbsp;a&nbs=
+p;list&nbsp;of&nbsp;ByteBuffer&nbsp;instances</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>Map&nbsp;pendingData&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>HashMap</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>send</FONT><FONT=20
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socket,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>byte</B></FONT><FONT =
+color=3D#000000>[]&nbsp;</FONT><FONT=20
+color=3D#000000>data</FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.changeRequests</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Indicate&nbsp;we&nbsp;want&nbsp;the&nbsp;interest=
+&nbsp;ops&nbsp;set&nbsp;changed</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.changeRequests.add</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket,&nbsp;ChangeRequest.CHANGEOPS,&nbsp;SelectionKey.O=
+P_WRITE</FONT><FONT=20
+color=3D#000000>))</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;And&nbsp;queue&nbsp;the&nbsp;data&nbsp;we&nbsp;wa=
+nt&nbsp;written</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.pendingData</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>List&nbsp;queue&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>List</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.pendingData.get</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>queue&nbsp;=3D=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>null</B></FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>queue&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>ArrayList</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.pendingData.put</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>socket,&nbsp;queue</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>queue.add</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>ByteBuffer.wrap</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>data</FONT><FONT color=3D#000000>))</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Finally,&nbsp;wake&nbsp;up&nbsp;our&nbsp;selectin=
+g&nbsp;thread&nbsp;so&nbsp;it&nbsp;can&nbsp;make&nbsp;the&nbsp;required&n=
+bsp;changes</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.selector.wakeup</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> </P>
+<P>We've introduced another class: <CODE>ChangeRequest</CODE>. There's =
+no magic=20
+here, it just gives us an easy way to indicate a change that we want =
+made on a=20
+particular socket channel. I've jumped ahead a little with this class, =
+in=20
+anticipation of some of the other changes we'll ultimately want to =
+queue. </P>
+<P class=3Dsample><FONT =
+color=3D#7f0055><B>public&nbsp;class&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;static&nbsp;final&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT=20
+color=3D#000000>REGISTER&nbsp;=3D&nbsp;</FONT><FONT =
+color=3D#990000>1</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;static&nbsp;final&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT=20
+color=3D#000000>CHANGEOPS&nbsp;=3D&nbsp;</FONT><FONT =
+color=3D#990000>2</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socket;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT =
+color=3D#000000>type;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT =
+color=3D#000000>ops;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socket,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT =
+color=3D#000000>type,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT =
+color=3D#000000>ops</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.socket&nbsp;=3D&nbsp;socket;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.type&nbsp;=3D&nbsp;type;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.ops&nbsp;=3D&nbsp;ops;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT =
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>Waking the selecting thread up is of no use until we modify our =
+selecting=20
+thread's logic to do what needs to be done. So let's update our=20
+<CODE>run()</CODE> method. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>run</FONT><FONT=20
+color=3D#000000>()&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>while&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>true</B></FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;Process&nbsp;any&nbsp;pending&nbsp;changes</FONT>=
+<BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>synchronized</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.changeRequests</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>Iterator&nbsp;changes&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.changeRequests.iterator</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>while&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>changes.hasNext</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>ChangeRequest&nbsp;change&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>ChangeRequest</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>changes.next</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>switch</B></FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>change.type</FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>case&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest.CHANGEOPS:</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SelectionKey&nbsp;key&nbsp;=3D&nbsp;change.socket.keyFor<=
+/FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.interestOps</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>change.ops</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.changeRequests.clear</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT> <FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><B=
+R><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;Wait&nbsp;for&nbsp;an&nbsp;event&nbsp;one&nbsp;of=
+&nbsp;the&nbsp;registered&nbsp;channels</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.selector.select</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;Iterate&nbsp;over&nbsp;the&nbsp;set&nbsp;of&nbsp;=
+keys&nbsp;for&nbsp;which&nbsp;events&nbsp;are&nbsp;available</FONT><BR><F=
+ONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>Iterator&nbsp;selectedKeys&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector.selectedKeys</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.iterator</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>while&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>selectedKeys.hasNext</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>SelectionKey&nbsp;key&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SelectionKey</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>selectedKeys.next</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>selectedKeys.remove</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>!key.isValid</FONT><FONT =
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>continue</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Check&nbsp;what&nbsp;event&nbsp;is&nbsp;available=
+&nbsp;and&nbsp;deal&nbsp;with&nbsp;it</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isAcceptable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.accept</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>else&nbsp;if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isReadable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>Exception&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>e.printStackTrace</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>Waking up the selector will usually result in an empty selection key =
+set. So=20
+our logic above will skip right over the key set loop and jump into =
+processing=20
+pending changes. In truth the order of events here probably doesn't =
+matter all=20
+that much. This is just how I prefer to do it. If you take a look at the =
+logic=20
+we've added for handling those pending events there are a few things to =
+point=20
+out. One is that it's pretty simple. All we do is update the interest =
+ops for=20
+the selection key on a given socket channel. The other is that at the =
+end of the=20
+loop we clear out the list of pending changes. This is easy to miss, in =
+which=20
+case the selecting thread will continually reapply "old" changes. </P>
+<P>We're almost done on the writing front, we just need one more piece, =
+the=20
+actual write. This means another change to our <CODE>run()</CODE> method =
+to=20
+check for a selection key in a writeable state. </P>
+<P class=3Dsample><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Check&nbsp;what&nbsp;event&nbsp;is&nbsp;available=
+&nbsp;and&nbsp;deal&nbsp;with&nbsp;it</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isAcceptable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.accept</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>else&nbsp;if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isReadable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>else&nbsp;if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isWritable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.write</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>And of course, we'll need a <CODE>write()</CODE> method. This method =
+just has=20
+to pull data off the appropriate queue and keep writing it until it =
+either runs=20
+out or can't write anymore. I add ByteBuffers to the per-socket internal =
+queue=20
+because we'll need a ByteBuffer for the socket write anyway and =
+ByteBuffer's=20
+conveniently track how much data remains in the buffer. This last bit is =
+
+important because a given write operation may end up only writing a part =
+of the=20
+buffer (at which point we can stop writing to that socket because =
+further writes=20
+will achieve nothing: the socket's local buffer is full). Using a =
+ByteBuffer=20
+saves us having to either resize byte arrays in the queue or track an =
+index into=20
+the byte array at the head of the queue. </P>
+<P>But I've digressed so let's take a look at <CODE>write()</CODE>. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>write</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;</FONT><FO=
+NT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.pendingData</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>List&nbsp;queue&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>List</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.pendingData.get</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socketChannel</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Write&nbsp;until&nbsp;there's&nbsp;not&nbsp;more&=
+nbsp;data&nbsp;...</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>while&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>!queue.isEmpty</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>ByteBuffer&nbsp;buf&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>ByteBuffer</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>queue.get</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#990000>0</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>socketChannel.write</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>buf</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>buf.remaining</FONT><FONT =
+color=3D#000000>()&nbsp;</FONT><FONT=20
+color=3D#000000>&gt;&nbsp;</FONT><FONT color=3D#990000>0</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;...&nbsp;or&nbsp;the&nbsp;socket's&nbsp;buffer&nb=
+sp;fills&nbsp;up</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>break</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>queue.remove</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#990000>0</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>queue.isEmpty</FONT><FONT =
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;We&nbsp;wrote&nbsp;away&nbsp;all&nbsp;data,&nbsp;=
+so&nbsp;we're&nbsp;no&nbsp;longer&nbsp;interested</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;in&nbsp;writing&nbsp;on&nbsp;this&nbsp;socket.&nb=
+sp;Switch&nbsp;back&nbsp;to&nbsp;waiting&nbsp;for</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;data.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>key.interestOps</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SelectionKey.OP_READ</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>The only point I want to make about the above code is this. You'll =
+notice=20
+that it writes as much data as it can, stopping only when there's no =
+more to=20
+write or the socket can't take any more. This is one approach. Another =
+is to=20
+write only the first piece of data queued and then continue. The first =
+approach=20
+is likely to result in better per-client service while the second is =
+probably=20
+more fair in the face of multiple active connections. I suggest you play =
+around=20
+a bit before choosing an approach. </P>
+<P>We now have the bulk of a working NIO server implementation. In fact, =
+the=20
+server you've written so far (if you've been following along diligently) =
+will=20
+accept connections, read data off those connections, and echo back the =
+read data=20
+to the client that sent it. It will also handle clients disconnecting by =
+
+deregistering the socket channel from the selector. There's not a whole =
+lot more=20
+to a server. </P>
+<H2><A name=3D"The client">The client</A></H2>
+<P>Before getting started it's worth mentioning that the client =
+implementation=20
+is going to end up looking a <I>lot</I> like the server implementation =
+we just=20
+finished writing. There's going to be a lot of common functionality that =
+can be=20
+factored out and shared between the client and server implementation. =
+For the=20
+most part I'm going to totally ignore that and write the client as a =
+standalone=20
+piece of code to avoid clouding the picture with layer upon layer of=20
+abstraction. I'll leave that as an exercise to the reader. However, =
+there are=20
+one or two little bits of code we've already written that will be shared =
+between=20
+the implementations, because not doing so may reduce clarity. It's a =
+judgement=20
+call on my part so if you disagree, forgive me and try not to let it =
+bother you=20
+too much. </P>
+<P>That said, let's get on with the client code. Once again, we're going =
+to need=20
+some infrastructure. We can actually borrow a lot from the server code, =
+since=20
+once a connection is accepted/established there's not a lot of =
+difference=20
+between a client and server. A client still needs to read and write =
+data, so at=20
+the very least we're going to need that logic. Given the similarities =
+I'm going=20
+to build the client implementation by starting with the server =
+implementation=20
+and tweaking it as needed. </P>
+<P>First, let's remove some bits we don't need. The server socket =
+channel can=20
+go, we won't be needing that. We can also remove the =
+<CODE>accept()</CODE>=20
+method and the logic in the <CODE>run()</CODE> method that invokes it. =
+</P>
+<P>Next we can throw out most of the logic in the =
+<CODE>initSelector()</CODE>=20
+method. In fact, we only need the first line, leaving us with a method =
+that=20
+looks like this. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>Selector&nbsp;initSelector</FONT><FONT=20
+color=3D#000000>()&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Create&nbsp;a&nbsp;new&nbsp;selector</FONT><BR><F=
+ONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return&nbsp;</B></FONT><FONT=20
+color=3D#000000>SelectorProvider.provider</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.openSelector</FONT><FONT color=3D#000000>()</FONT><FONT =
+
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>We're still missing the most important piece of client-side logic:=20
+establishing a connection. This usually goes hand in hand with wanting =
+to send=20
+some data. There are scenarios where that's not true: you might, for =
+example,=20
+want to establish a bunch of connections to a remote server up front and =
+then=20
+send all traffic over those connections. I'm not going to take that =
+approach but=20
+it's not hard to get there from here. While we're on the topic of what =
+I'm=20
+<I>not</I> going to do, I'm also not going to implement connection =
+pooling. I'm=20
+not going to implement a client that talks to a bunch of remote servers =
+on=20
+different addresses; the client here will talk to one remote server =
+(albeit=20
+using multiple simultaneous connections). What I <I>am</I> going to =
+implement is=20
+a client that establishes a new connection, sends a message, waits for a =
+
+response and then disconnects (oh, and I'm not going to handle the case =
+where a=20
+response isn't received). Anything beyond that adds very little beyond =
+more code=20
+to confuse the issue. </P>
+<P>Phew, that paragraph really got away from me. Back to the code! What =
+we'll=20
+need is a <CODE>send()</CODE> method that requests a new connection and =
+queues=20
+data to be sent on that connection when it comes up. We'll also need =
+some way of=20
+notifying the caller when the response is received, but one step at a =
+time. </P>
+<P>But before we can put together the <CODE>send()</CODE> method we =
+really need=20
+a method for initiating a new connection. The <CODE>send()</CODE> method =
+will=20
+make more sense if we introduce <CODE>initiateConnection()</CODE> first. =
+</P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;initiateConnection</FONT><FONT=20
+color=3D#000000>()&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Create&nbsp;a&nbsp;non-blocking&nbsp;socket&nbsp;=
+channel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;SocketChan=
+nel.open</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.configureBlocking</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>false</B></FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Kick&nbsp;off&nbsp;connection&nbsp;establishment<=
+/FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.connect</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>InetSocketAddress</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.hostAddress,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.port</FONT><FONT=20
+color=3D#000000>))</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Queue&nbsp;a&nbsp;channel&nbsp;registration&nbsp;=
+since&nbsp;the&nbsp;caller&nbsp;is&nbsp;not&nbsp;the&nbsp;</FONT><BR><FON=
+T=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;selecting&nbsp;thread.&nbsp;As&nbsp;part&nbsp;of&=
+nbsp;the&nbsp;registration&nbsp;we'll&nbsp;register</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;an&nbsp;interest&nbsp;in&nbsp;connection&nbsp;eve=
+nts.&nbsp;These&nbsp;are&nbsp;raised&nbsp;when&nbsp;a&nbsp;channel</FONT>=
+<BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;is&nbsp;ready&nbsp;to&nbsp;complete&nbsp;connecti=
+on&nbsp;establishment.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.pendingChanges</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.pendingChanges.add</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socketChannel,&nbsp;ChangeRequest.REGISTER,&nbsp;Selectio=
+nKey.OP_CONNECT</FONT><FONT=20
+color=3D#000000>))</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return&nbsp;</B></FONT><FONT=20
+color=3D#000000>socketChannel;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> </P>
+<P>In a nutshell, initiating a connection means creating a new =
+non-blocking=20
+socket channel, initiating a (non-blocking) connection and registering =
+an=20
+interest in finishing the connection. The only wrinkle is that, since =
+the=20
+calling thread is not the selecting thread, the last step must be =
+deferred. We=20
+<I>don't</I> wake the selecting thread up because the method that calls =
+this=20
+will want to queue some data to be written when the connection is =
+completed.=20
+Waking the selecting thread up here opens us up to a race condition =
+where the=20
+connection is completed by the selecting thread before the calling =
+thread queues=20
+the data and OP_WRITE is never set on the channel's selection key. </P>
+<P>Given the requirements we discussed earlier and the=20
+<CODE>initiateConnection()</CODE> above, our <CODE>send()</CODE> method =
+needs to=20
+look something like this (with an additional instance member which will =
+be=20
+clarified later). </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Maps&nbsp;a&nbsp;SocketChannel&nbsp;to&nbsp;a&nbs=
+p;RspHandler</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#000000>Map&nbsp;rspHandlers&nbsp;=3D&nbsp;Collections.synchroniz=
+edMap</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>HashMap</FONT><FONT color=3D#000000>())</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>send</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>byte</B></FONT><FONT=20
+color=3D#000000>[]&nbsp;</FONT><FONT=20
+color=3D#000000>data,&nbsp;RspHandler&nbsp;handler</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Start&nbsp;a&nbsp;new&nbsp;connection</FONT><BR><=
+FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socket&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.initiateConnection</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;the&nbsp;response&nbsp;handler</FON=
+T><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.rspHandlers.put</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>socket,&nbsp;handler</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;And&nbsp;queue&nbsp;the&nbsp;data&nbsp;we&nbsp;wa=
+nt&nbsp;written</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.pendingData</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>List&nbsp;queue&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>List</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.pendingData.get</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>queue&nbsp;=3D=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>null</B></FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>queue&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>ArrayList</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.pendingData.put</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>socket,&nbsp;queue</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>queue.add</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>ByteBuffer.wrap</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>data</FONT><FONT color=3D#000000>))</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Finally,&nbsp;wake&nbsp;up&nbsp;our&nbsp;selectin=
+g&nbsp;thread&nbsp;so&nbsp;it&nbsp;can&nbsp;make&nbsp;the&nbsp;required&n=
+bsp;changes</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.selector.wakeup</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> </P>
+<P>It's important to note that nowhere in the two methods just =
+introduced do we=20
+request that the OP_CONNECT flag be set on the socket channel's =
+selection key.=20
+If we did that we'd overwrite the OP_CONNECT flag and never complete the =
+
+connection. And if we combined them then we'd run the risk of trying to =
+write on=20
+an unconnected channel (or at least having to deal with that case). =
+Instead what=20
+we'll do is set the OP_WRITE flag when the connection is established (we =
+could=20
+do this based on whether or not data was queued but for our scenario =
+it's=20
+acceptable to do it this way). </P>
+<P>Which brings us to the second change to our <CODE>run()</CODE> =
+method.=20
+Remember that we started out with the server implementation, so we still =
+have=20
+the logic for handling a pending change to the interest operation set =
+for a=20
+selection key. To that we need to handle a pending channel registration. =
+
+Voila... </P>
+<P class=3Dsample><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>switch&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>change.type</FONT><FONT =
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>case&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest.CHANGEOPS:</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SelectionKey&nbsp;key&nbsp;=3D&nbsp;change.socket.keyFor<=
+/FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.interestOps</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>change.ops</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>break</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>case&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest.REGISTER:</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>change.socket.register</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector,&nbsp;change.ops</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>break</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>And, of course, we'll need to handle the connectable event... </P>
+<P class=3Dsample><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Check&nbsp;what&nbsp;event&nbsp;is&nbsp;available=
+&nbsp;and&nbsp;deal&nbsp;with&nbsp;it</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isConnectable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.finishConnection</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>else&nbsp;if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isReadable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>else&nbsp;if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>key.isWritable</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.write</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>key</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR></P>
+<P>And of course we need an implementation for =
+<CODE>finishConnection()</CODE>.=20
+</P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT=20
+color=3D#000000>finishConnection</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;</FONT><FO=
+NT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Finish&nbsp;the&nbsp;connection.&nbsp;If&nbsp;the=
+&nbsp;connection&nbsp;operation&nbsp;failed</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;this&nbsp;will&nbsp;raise&nbsp;an&nbsp;IOExceptio=
+n.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.finishConnection</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>IOException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Cancel&nbsp;the&nbsp;channel's&nbsp;registration&=
+nbsp;with&nbsp;our&nbsp;selector</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.cancel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;an&nbsp;interest&nbsp;in&nbsp;writi=
+ng&nbsp;on&nbsp;this&nbsp;channel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.interestOps</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SelectionKey.OP_WRITE</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>As I mentioned before, once the connection is complete we immediately =
+
+register an interest in writing on the channel. Data has already been =
+queued (or=20
+we wouldn't be establishing a connection in the first place). Since the =
+current=20
+thread in this case is the selecting thread we're free to modify the =
+selection=20
+key directly. </P>
+<P>One last change before we're ready to put it all together. Our server =
+
+implementation's <CODE>read()</CODE> handed the data off to a worker =
+thread=20
+(that just echoed it back). For the client side we really want to hand =
+the data=20
+(the response) back to whoever initiated the original send (the =
+request). Scroll=20
+back up the page until you find mention of a <CODE>RspHandler</CODE> (it =
+was=20
+passed as a parameter to <CODE>send()</CODE>). That's our conduit back =
+to the=20
+original caller and it replaces our call to the <CODE>EchoServer</CODE> =
+in the=20
+<CODE>read()</CODE> method. So the last line looks like this: </P>
+<P class=3Dsample><FONT =
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Handle&nbsp;the&nbsp;response</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.handleResponse</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>socketChannel,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.readBuffer.array</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>,&nbsp;numRead</FONT><FONT color=3D#000000>)</FONT><FONT =
+
+color=3D#000000>;</FONT> </P>
+<P>Which begs an implementation of <CODE>handleResponse</CODE>. All this =
+method=20
+has to do is look up the handler we stashed for this channel and pass it =
+the=20
+data we've read. We let the handler indicate whether or not it's seen =
+enough. If=20
+it has we'll close the connection. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT=20
+color=3D#000000>handleResponse</FONT><FONT color=3D#000000>(</FONT><FONT =
+
+color=3D#000000>SocketChannel&nbsp;socketChannel,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>byte</B></FONT><FONT =
+color=3D#000000>[]&nbsp;</FONT><FONT=20
+color=3D#000000>data,&nbsp;</FONT><FONT =
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT=20
+color=3D#000000>numRead</FONT><FONT color=3D#000000>)&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Make&nbsp;a&nbsp;correctly&nbsp;sized&nbsp;copy&n=
+bsp;of&nbsp;the&nbsp;data&nbsp;before&nbsp;handing&nbsp;it</FONT><BR><FON=
+T=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;to&nbsp;the&nbsp;client</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>byte</B></FONT><FONT =
+color=3D#000000>[]&nbsp;</FONT><FONT=20
+color=3D#000000>rspData&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#7f0055><B>byte</B></FONT><FONT=20
+color=3D#000000>[</FONT><FONT color=3D#000000>numRead</FONT><FONT=20
+color=3D#000000>]</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>System.arraycopy</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>data,&nbsp;</FONT><FONT color=3D#990000>0</FONT><FONT=20
+color=3D#000000>,&nbsp;rspData,&nbsp;</FONT><FONT =
+color=3D#990000>0</FONT><FONT=20
+color=3D#000000>,&nbsp;numRead</FONT><FONT color=3D#000000>)</FONT><FONT =
+
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Look&nbsp;up&nbsp;the&nbsp;handler&nbsp;for&nbsp;=
+this&nbsp;channel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>RspHandler&nbsp;handler&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>RspHandler</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.rspHandlers.get</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socketChannel</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;And&nbsp;pass&nbsp;the&nbsp;response&nbsp;to&nbsp=
+;it</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>handler.handleResponse</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>rspData</FONT><FONT =
+color=3D#000000>))&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;handler&nbsp;has&nbsp;seen&nbsp;enough,&=
+nbsp;close&nbsp;the&nbsp;connection</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.close</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.keyFor</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.selector</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>.cancel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>The response handler itself is pretty simple but for it to make =
+complete=20
+sense we need to see how all of this hangs together in the form of our =
+client's=20
+<CODE>main()</CODE> method. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>public&nbsp;static&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>main</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>String</FONT><FONT=20
+color=3D#000000>[]&nbsp;</FONT><FONT color=3D#000000>args</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>NioClient&nbsp;client&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>NioClient</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>InetAddress.getByName</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#2a00ff>"localhost"</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>,&nbsp;</FONT><FONT=20
+color=3D#990000>9090</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>Thread&nbsp;t&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>Thread</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>client</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>t.setDaemon</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>true</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>t.start</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>RspHandler&nbsp;handler&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT =
+color=3D#000000>RspHandler</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>client.send</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#2a00ff>"Hello&nbsp;World"</FONT><FONT =
+color=3D#000000>.getBytes</FONT><FONT=20
+color=3D#000000>()</FONT><FONT =
+color=3D#000000>,&nbsp;handler</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>handler.waitForResponse</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>Exception&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>e.printStackTrace</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>The response handler implementation is shown below. I waited until =
+last so=20
+that the <CODE>waitForResponse()</CODE> would make sense, along with =
+some of the=20
+synchronization logic. It's entirely possible to pull this logic into =
+the=20
+<CODE>send()</CODE> method, effectively making it a synchronous call. =
+But this=20
+tutorial is illustrating <I>asynchronous</I> I/O so that seems kind of =
+silly.=20
+It's not as silly as it sounds, mind you, since you might want to handle =
+a large=20
+number of active connections even if the client is forced to <I>use</I> =
+them one=20
+at a time. But this illustrates how to perform the send asynchronously.=20
+Everything else is merely details. </P>
+<H2><A name=3D"NIO and SSL on 1.4">NIO and SSL on 1.4</A></H2>
+<P>It's possible with a little craftiness to use SSL over NIO under Java =
+1.4=20
+with no external libraries. Java 1.5 introduced the SSLEngine which I =
+have yet=20
+to spend any "quality time" with. But from the outset my intention was =
+to get=20
+Rox working on Java 1.4. </P>
+<P>Before looking at some code it's worth outlining the basic approach. =
+Under=20
+Java 1.4 the SSL libraries are written around blocking I/O. So the =
+general idea=20
+is to use NIO to figure out efficiently when a socket has data available =
+to be=20
+read, or is ready for data to be written. Then we cancel it's =
+registration with=20
+our selector, configure it for blocking I/O, and read or write using the =
+
+socket's blocking input or output streams. When we're done we configure =
+the=20
+socket for non-blocking I/O and reregister it with our selector. To =
+avoid=20
+blocking indefinitely when we've read all the data available on the =
+socket we=20
+set the socket timeout to a very small value (1ms) and rely on a timeout =
+when=20
+we've exhausted the socket's data. The actual SSL connection is =
+established by=20
+wrapping the Socket in an SSLSocket instance when the connection is =
+first=20
+established. </P>
+<P>So the first thing we need is a very small change to our server's=20
+<CODE>accept()</CODE> method ... </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>accept</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;For&nbsp;an&nbsp;accept&nbsp;to&nbsp;be&nbsp;pend=
+ing&nbsp;the&nbsp;channel&nbsp;must&nbsp;be&nbsp;a&nbsp;server&nbsp;socke=
+t&nbsp;channel.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>ServerSocketChannel&nbsp;serverSocketChannel&nbsp;=3D&nbs=
+p;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>ServerSocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Accept&nbsp;the&nbsp;connection&nbsp;and&nbsp;mak=
+e&nbsp;it&nbsp;non-blocking</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;serverSock=
+etChannel.accept</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>Socket&nbsp;socket&nbsp;=3D&nbsp;socketChannel.socket</FO=
+NT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.configureBlocking</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#7f0055><B>false</B></FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;the&nbsp;new&nbsp;socket.&nbsp;This=
+&nbsp;will&nbsp;promote&nbsp;it&nbsp;to&nbsp;an&nbsp;SSLSocket</FONT><BR>=
+<FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.registerSocket</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>socket,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.host,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.port,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>false</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;the&nbsp;new&nbsp;SocketChannel&nbs=
+p;with&nbsp;our&nbsp;Selector,&nbsp;indicating</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;we'd&nbsp;like&nbsp;to&nbsp;be&nbsp;notified&nbsp=
+;when&nbsp;there's&nbsp;data&nbsp;waiting&nbsp;to&nbsp;be&nbsp;read</FONT=
+><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.register</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.selector,&nbsp;SelectionKey.OP_READ</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT color=3D#000000>}</FONT> </P>
+<P>... and our client's <CODE>finishConnection()</CODE> method. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT=20
+color=3D#000000>finishConnection</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;</FONT><FO=
+NT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Finish&nbsp;the&nbsp;connection.&nbsp;If&nbsp;the=
+&nbsp;connection&nbsp;operation&nbsp;failed</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;this&nbsp;will&nbsp;raise&nbsp;an&nbsp;IOExceptio=
+n.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.finishConnection</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>IOException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Cancel&nbsp;the&nbsp;channel's&nbsp;registration&=
+nbsp;with&nbsp;our&nbsp;selector</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.cancel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;the&nbsp;new&nbsp;socket.&nbsp;This=
+&nbsp;will&nbsp;promote&nbsp;it&nbsp;to&nbsp;an&nbsp;SSLSocket</FONT><BR>=
+<FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.registerSocket</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>socket,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.host,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.port,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>false</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Register&nbsp;an&nbsp;interest&nbsp;in&nbsp;writi=
+ng&nbsp;on&nbsp;this&nbsp;channel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.interestOps</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SelectionKey.OP_WRITE</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>The <CODE>registerSocket()</CODE> method is responsible for wrapping =
+the=20
+plain socket connection in an SSL socket, and tracking it using a=20
+<CODE>Map</CODE> member. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>protected&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT=20
+color=3D#000000>registerSocket</FONT><FONT color=3D#000000>(</FONT><FONT =
+
+color=3D#000000>Socket&nbsp;socket,&nbsp;String&nbsp;host,&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT =
+color=3D#000000>port,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>boolean&nbsp;</B></FONT><FONT =
+color=3D#000000>client</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;"Upgrade"&nbsp;the&nbsp;new&nbsp;socket&nbsp;to&n=
+bsp;an&nbsp;SSLSocket</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SSLSocketFactory&nbsp;factory&nbsp;=3D&nbsp;</FONT><FONT =
+
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SSLSocketFactory</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT=20
+color=3D#000000>SSLSocketFactory.getDefault</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SSLSocket&nbsp;sslSocket&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SSLSocket</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>factory.createSocket</FONT><FONT=20
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket,&nbsp;host,&nbsp;port,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>true</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Ensure&nbsp;that&nbsp;when&nbsp;we&nbsp;start&nbs=
+p;reading&nbsp;on&nbsp;this&nbsp;socket&nbsp;it</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;acts&nbsp;the&nbsp;part&nbsp;of&nbsp;the&nbsp;ser=
+ver&nbsp;during&nbsp;the&nbsp;SSL&nbsp;handshake.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>sslSocket.setUseClientMode</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>client</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Configure&nbsp;acceptable&nbsp;cipher&nbsp;suites=
+&nbsp;here</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslSocketMap.put</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket,&nbsp;sslSocket</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>And we'll need a <CODE>deregisterSocket()</CODE> method so we can =
+clean up=20
+when we handle errors and disconnections. The <CODE>sslSessionMap</CODE> =
+member=20
+is another <CODE>Map</CODE> we'll see shortly. Simply put, we use it to =
+track=20
+established SSL sessions so we know whether we're still handshaking. =
+</P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>protected&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT=20
+color=3D#000000>deregisterSocket</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>Socket&nbsp;socket</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslSocketMap.remove</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslSessionMap.remove</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>Our <CODE>read()</CODE> method looks quite different when we're using =
+SSL.=20
+The only thing to point out here that's not explicit is the use of a=20
+<CODE>blockingReadBuf</CODE> member. This is just a plain old byte =
+array. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;</FONT><FO=
+NT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>Socket&nbsp;socket&nbsp;=3D&nbsp;socketChannel.socket</FO=
+NT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SSLSocket&nbsp;sslSocket&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SSLSocket</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslSocketMap.get</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.cancel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.channel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.configureBlocking</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>true</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.configureSSLSocket</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket,&nbsp;sslSocket</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>InputStream&nbsp;is&nbsp;=3D&nbsp;sslSocket.getInputStrea=
+m</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>int&nbsp;</B></FONT><FONT=20
+color=3D#000000>numRead;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>numRead&nbsp;=3D&nbsp;is.read</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>blockingReadBuf,&nbsp;</FONT><FONT=20
+color=3D#990000>0</FONT><FONT=20
+color=3D#000000>,&nbsp;blockingReadBuf.length</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>SocketTimeoutException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;read&nbsp;timed&nbsp;out&nbsp;so&nbsp;we=
+'re&nbsp;done.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>numRead&nbsp;=3D&nbsp;</FONT><FONT =
+color=3D#990000>0</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch&nbsp;</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>IOException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.deregisterSocket</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;remote&nbsp;entity&nbsp;probably&nbsp;fo=
+rcibly&nbsp;closed&nbsp;the&nbsp;connection.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Nothing&nbsp;to&nbsp;see&nbsp;here.&nbsp;Move&nbs=
+p;on.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;No&nbsp;need&nbsp;to&nbsp;cancel,&nbsp;already&nb=
+sp;done</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>return</B></FONT><FONT =
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>numRead&nbsp;=3D=3D&nbsp;-</FONT><FONT =
+color=3D#990000>1</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Don't&nbsp;queue&nbsp;a&nbsp;cancellation&nbsp;si=
+nce&nbsp;we&nbsp;have&nbsp;alread&nbsp;cancelled&nbsp;the&nbsp;</FONT><BR=
+><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;channel's&nbsp;registration.&nbsp;Just&nbsp;close=
+&nbsp;the&nbsp;socket.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.deregisterSocket</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>sslSocket.close</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;The&nbsp;caller&nbsp;needs&nbsp;to&nbsp;be&nbsp;n=
+otifed.&nbsp;Although&nbsp;this&nbsp;is</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;a&nbsp;"clean"&nbsp;close&nbsp;from&nbsp;the&nbsp=
+;caller's&nbsp;perspective&nbsp;this</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;is&nbsp;unexpected.&nbsp;So&nbsp;we&nbsp;manufact=
+ure&nbsp;an&nbsp;exception.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>throw</B></FONT>&nbsp;<FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>RemoteSocketClosedException</FONT><FONT=20
+color=3D#000000>(</FONT><FONT=20
+color=3D#2a00ff>"Remote&nbsp;entity&nbsp;closed&nbsp;connection"</FONT><F=
+ONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>numRead&nbsp;&gt;&nbsp;</FONT><FONT =
+color=3D#990000>0</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;Hand&nbsp;the&nbsp;data&nbsp;off&nbsp;to&nbsp;our=
+&nbsp;worker&nbsp;thread</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.worker.processData</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>this,&nbsp;socketChannel,&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.blockingReadBuf</FONT><FONT=20
+color=3D#000000>()</FONT><FONT =
+color=3D#000000>,&nbsp;numRead</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>finally&nbsp;</B></FONT><FONT=20
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.channel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.configureBlocking</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>false</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Queue&nbsp;a&nbsp;channel&nbsp;reregistration</FO=
+NT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>synchronized</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.pendingChanges</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.pendingChanges.add</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>new&nbsp;</B></FONT><FONT=20
+color=3D#000000>ChangeRequest</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socketChannel,&nbsp;ChangeRequest.REGISTER,&nbsp;Selectio=
+nKey.OP_CONNECT</FONT><FONT=20
+color=3D#000000>))</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>This introduces one additional method, shown below. The=20
+<CODE>configureSSLSocket</CODE> method forces the SSL handshake, =
+validates the=20
+SSL handshake completed successfully, and handles the weird case where =
+the=20
+client is using SSL and the server is not. The way the SSL protocol is =
+laid out=20
+means an SSL client connecting to a non-SSL server will tend to sit =
+waiting=20
+patiently doing nothing. This is because the SSL protocol starts with =
+the server=20
+sending a message to newly connecting clients. But a non-SSL HTTP server =
+waits=20
+for a request from the client. To combat this we time the session out =
+after 30=20
+seconds. It's not pretty, but it works. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT=20
+color=3D#000000>configureSSLSocket</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>Socket&nbsp;socket,&nbsp;SSLSocket&nbsp;sslSocket</FONT><=
+FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>!</FONT><FONT color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslSessionMap.containsKey</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT =
+color=3D#000000>))&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;We&nbsp;need&nbsp;a&nbsp;timeout&nbsp;here&nbsp;f=
+or&nbsp;the&nbsp;case&nbsp;where&nbsp;the&nbsp;server&nbsp;is&nbsp;not&nb=
+sp;using&nbsp;SSL,</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;in&nbsp;which&nbsp;case&nbsp;both&nbsp;sides&nbsp=
+;simply&nbsp;sit&nbsp;waiting&nbsp;for&nbsp;something&nbsp;from&nbsp;the<=
+/FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;other&nbsp;side.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>sslSocket.setSoTimeout</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslHandshakeTimeout</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Get&nbsp;the&nbsp;SSL&nbsp;session.&nbsp;This&nbs=
+p;forces&nbsp;a&nbsp;handshake&nbsp;and&nbsp;is&nbsp;used</FONT><BR><FONT=
+=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;to&nbsp;indicate&nbsp;that&nbsp;we've&nbsp;perfor=
+med&nbsp;the&nbsp;handshake&nbsp;for&nbsp;this</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;SSLSocket.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SSLSession&nbsp;session&nbsp;=3D&nbsp;sslSocket.getSessio=
+n</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslSessionMap.put</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket,&nbsp;session</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Since&nbsp;we&nbsp;don't&nbsp;have&nbsp;isValid()=
+&nbsp;in&nbsp;1.4&nbsp;this&nbsp;is&nbsp;the&nbsp;closest&nbsp;we&nbsp;ca=
+n&nbsp;get&nbsp;to</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;a&nbsp;validity&nbsp;check.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>session.getId</FONT><FONT =
+color=3D#000000>()&nbsp;</FONT><FONT=20
+color=3D#000000>!=3D&nbsp;</FONT><FONT =
+color=3D#7f0055><B>null&nbsp;</B></FONT><FONT=20
+color=3D#000000>&amp;&amp;&nbsp;session.getId</FONT><FONT=20
+color=3D#000000>()</FONT><FONT =
+color=3D#000000>.length&nbsp;!=3D&nbsp;</FONT><FONT=20
+color=3D#990000>0</FONT><FONT color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>log.logTrace</FONT><FONT =
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#000000>log.trace</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#2a00ff>"SSL&nbsp;session&nbsp;details:&nbsp;"&nbsp;</FONT><FONT =
+
+color=3D#000000>+&nbsp;session</FONT><FONT color=3D#000000>)</FONT><FONT =
+
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>else&nbsp;</B></FONT><FONT=20
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#7f0055><B>if&nbsp;</B></FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>sslSocket.getUseClientMode</FONT><FONT=20
+color=3D#000000>())&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;</FONT><FONT=20
+color=3D#7f0055><B>throw&nbsp;new&nbsp;</B></FONT><FONT=20
+color=3D#000000>SSLException</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#2a00ff>"SSL&nbsp;session&nbsp;handshake&nbsp;failed&nbsp;(is&nbs=
+p;the&nbsp;server&nbsp;SSL&nbsp;enabled?)"</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;For&nbsp;server's&nbsp;we'll&nbsp;leave&nbsp;it&n=
+bsp;to&nbsp;JSSE&nbsp;to&nbsp;raise&nbsp;an&nbsp;exception</FONT><BR><FON=
+T=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><F=
+ONT=20
+color=3D#3f7f5f>//&nbsp;when&nbsp;the&nbsp;client&nbsp;first&nbsp;tries&n=
+bsp;to&nbsp;communicate&nbsp;with&nbsp;us.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Set&nbsp;the&nbsp;read&nbsp;timeout&nbsp;to&nbsp;=
+the&nbsp;smallest&nbsp;legal&nbsp;value&nbsp;so</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;when&nbsp;data&nbsp;is&nbsp;available&nbsp;we&nbs=
+p;can&nbsp;read&nbsp;it&nbsp;in&nbsp;blocking&nbsp;mode.</FONT><BR><FONT =
+
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;This&nbsp;must&nbsp;be&nbsp;done&nbsp;only&nbsp;a=
+fter&nbsp;the&nbsp;handshake&nbsp;has&nbsp;completed.</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>sslSocket.setSoTimeout</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#990000>1</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT></CODE> </P>
+<P>That about covers reading. Writing is quite similar and uses some of =
+the same=20
+building blocks. </P>
+<P class=3Dsample><FONT color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>private&nbsp;</B></FONT><FONT=20
+color=3D#7f0055><B>void&nbsp;</B></FONT><FONT =
+color=3D#000000>write</FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SelectionKey&nbsp;key</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>throws&nbsp;</B></FONT><FONT=20
+color=3D#000000>IOException&nbsp;</FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SocketChannel&nbsp;socketChannel&nbsp;=3D&nbsp;</FONT><FO=
+NT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SocketChannel</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#000000>key.channel</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>Socket&nbsp;socket&nbsp;=3D&nbsp;socketChannel.socket</FO=
+NT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff></FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>try&nbsp;</B></FONT><FONT =
+color=3D#000000>{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>SSLSocket&nbsp;sslSocket&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>SSLSocket</FONT><FONT=20
+color=3D#000000>)&nbsp;</FONT><FONT =
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.sslSocketMap.get</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.cancel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.channel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.configureBlocking</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>true</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.configureSSLSocket</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socket,&nbsp;sslSocket</FONT><FONT =
+color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>OutputStream&nbsp;os&nbsp;=3D&nbsp;sslSocket.getOutputStr=
+eam</FONT><FONT=20
+color=3D#000000>()</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>ByteBuffer&nbsp;buf&nbsp;=3D&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT =
+color=3D#000000>.getWriteBuffer</FONT><FONT=20
+color=3D#000000>(</FONT><FONT color=3D#000000>socket</FONT><FONT=20
+color=3D#000000>)</FONT><FONT color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>os.write</FONT><FONT color=3D#000000>(</FONT><FONT=20
+color=3D#000000>buf.array</FONT><FONT color=3D#000000>())</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;We've&nbsp;written&nbsp;the&nbsp;data,&nbsp;rereg=
+ister&nbsp;the&nbsp;channel</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.channel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>.configureBlocking</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#7f0055><B>false</B></FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.queueRegistration</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socketChannel</FONT><FONT color=3D#000000>)</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>SSLException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;Don't&nbsp;suppress&nbsp;this,&nbsp;since&nbsp;we=
+&nbsp;depend&nbsp;on&nbsp;it&nbsp;to&nbsp;detect&nbsp;non-SSL&nbsp;remote=
+&nbsp;entities</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>throw&nbsp;</B></FONT><FONT =
+color=3D#000000>e;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}&nbsp;</FONT><FONT =
+color=3D#7f0055><B>catch</B></FONT><FONT=20
+color=3D#000000>(</FONT><FONT =
+color=3D#000000>IOException&nbsp;e</FONT><FONT=20
+color=3D#000000>)&nbsp;{</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#3f7f5f>//&nbsp;An&nbsp;error&nbsp;occurred,&nbsp;close&nbsp;the&=
+nbsp;channel&nbsp;to&nbsp;prevent&nbsp;spinning&nbsp;in&nbsp;a&nbsp;loop&=
+nbsp;here</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#7f0055><B>this</B></FONT><FONT=20
+color=3D#000000>.deregisterSocket</FONT><FONT =
+color=3D#000000>(</FONT><FONT=20
+color=3D#000000>socketChannel.socket</FONT><FONT =
+color=3D#000000>())</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>key.cancel</FONT><FONT color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>socketChannel.close</FONT><FONT =
+color=3D#000000>()</FONT><FONT=20
+color=3D#000000>;</FONT><BR><FONT=20
+color=3D#ffffff>&nbsp;&nbsp;&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT><BR><FONT =
+color=3D#ffffff>&nbsp;&nbsp;</FONT><FONT=20
+color=3D#000000>}</FONT> </P>
+<P>That's a pretty quick run through of how I mixed SSL and NIO under =
+Java 1.4.=20
+I rushed this section a little so if there are errors or omissions =
+forgive me=20
+(and let me know so I can fix them). </P>
+<H2><A name=3D"The code">The code</A></H2>
+<P>The code samples here are not entirely complete. I've left out a few =
+minor=20
+details for clarity. Things like import statements. Complete working =
+source code=20
+is available here: </P>
+<P>
+<UL>
+  <LI><A=20
+  =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/src/NioServer.java">NioS=
+erver.java</A>=20
+
+  <LI><A=20
+  =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/src/EchoWorker.java">Ech=
+oWorker.java</A>=20
+
+  <LI><A=20
+  =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/src/ServerDataEvent.java=
+">ServerDataEvent.java</A>=20
+
+  <LI><A=20
+  =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/src/ChangeRequest.java">=
+ChangeRequest.java</A>=20
+
+  <LI><A=20
+  =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/src/NioClient.java">NioC=
+lient.java</A>=20
+
+  <LI><A=20
+  =
+href=3D"http://rox-xmlrpc.sourceforge.net/niotut/src/RspHandler.java">Rsp=
+Handler.java</A>=20
+  </LI></UL>
+<P></P>
+<H2><A name=3D"About the author">About the author</A></H2>
+<P>My name is James Greenfield. I'm currently employed by <A=20
+href=3D"http://za.amazon.com/">Amazon</A> in Cape Town, South Africa. =
+</P>
+<P>I enjoy writing code that other people actually use. Most of all =
+though, I=20
+enjoy writing code for other programmer's. When the mood takes me I also =
+enjoy=20
+writing documentation for other programmer's. I'm happiest when I can =
+take=20
+something complicated, or unpleasant, or opaque, or just plain hard, and =
+make it=20
+a non-issue. </P>
+<P>I can be reached at <A =
+href=3D"mailto:nio@flat502.com">nio@flat502.com</A> (I=20
+sense a lame "For a good time..." joke lurking in there). =
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01C9DE48.B47EF300
+Content-Type: text/css;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://rox-xmlrpc.sourceforge.net/niotut/index.css
+
+A:link {
+	COLOR: #000099; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+A:hover {
+	COLOR: #ff0000; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: #444444; TEXT-DECORATION: underline
+}
+BODY {
+	MARGIN-LEFT: 5%; COLOR: #000000; MARGIN-RIGHT: 5%; FONT-FAMILY: arial, =
+helvetica; BACKGROUND-COLOR: #f5f5f5
+}
+H1 {
+	FONT-WEIGHT: normal; FONT-SIZE: x-large; TEXT-ALIGN: center; =
+TEXT-DECORATION: underline
+}
+H2 {
+	FONT-WEIGHT: normal; FONT-SIZE: large; TEXT-DECORATION: underline
+}
+H3 {
+	FONT-WEIGHT: normal; FONT-SIZE: medium; TEXT-DECORATION: underline
+}
+.sample {
+	PADDING-LEFT: 10px; FONT-SIZE: medium; PADDING-BOTTOM: 10px; MARGIN: =
+0px; WIDTH: 100%; BORDER-TOP-STYLE: double; PADDING-TOP: 10px; =
+FONT-FAMILY: monospace; BORDER-RIGHT-STYLE: double; BORDER-LEFT-STYLE: =
+double; BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM-STYLE: double
+}
+
+------=_NextPart_000_0000_01C9DE48.B47EF300--

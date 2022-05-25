@@ -52,7 +52,7 @@ public class FileDownloader extends Thread{
     }
 
     /**
-     * Method that obtains the file na,e
+     * Method that obtains the file name
      * @param file The file which name will be obtained
      * @return The file nime
      */
