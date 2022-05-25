@@ -29,18 +29,20 @@ public class Server{
      */
     private void initServer(){
         try {
+            int aux;
             Selector selector = Selector.open();
             s = ServerSocketChannel.open();
             s.configureBlocking(false);
             s.setOption(StandardSocketOptions.SO_REUSEADDR, true);
-            s.socket().bind(new InetSocketAddress(port));
+            s.socket().bind(new InetSocketAddress("localhost",port));
             s.register(selector, SelectionKey.OP_ACCEPT);
             System.out.println(Constants.SERVER_CONNECTION_START);
             while(true){
-                selector.select();
+                if((aux = selector.select()) == 0 ) continue;
+                //selector.select();
                 Iterator<SelectionKey> it = selector.selectedKeys().iterator();
                 while(it.hasNext()){
-                    SelectionKey k = (SelectionKey) it.next();
+                    SelectionKey k = it.next();
                     it.remove();
                     if(k.isAcceptable()){
                         SocketChannel cl = s.accept();

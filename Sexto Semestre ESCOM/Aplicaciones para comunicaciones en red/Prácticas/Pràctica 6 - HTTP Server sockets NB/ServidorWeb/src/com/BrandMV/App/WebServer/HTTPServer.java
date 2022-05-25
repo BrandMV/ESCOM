@@ -37,8 +37,8 @@ public class HTTPServer extends Thread{
                 sb.append("<html><head><title>Servidor WEB\n");
                 sb.append("</title><body bgcolor=\"#AACCFF\"<br>Linea Vacia</br>\n");
                 sb.append("</body></html>\n");
-                dos.write(sb.toString().getBytes());
-                dos.flush();
+                b = ByteBuffer.wrap(sb.toString().getBytes());
+                socket.write(b);
                 socket.close();
                 return;
             }
