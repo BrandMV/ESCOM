@@ -95,14 +95,14 @@ MP_LINKER_FILE_OPTION=,--script="p30F3013.gld"
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/RTC.o: RTC.c  .generated_files/flags/default/940339f07daffc4238296f7cec87518ecf0b1084 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/RTC.o: RTC.c  .generated_files/flags/default/9093b69e5508bc809c790c542bad5ad8c8d6fac1 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/RTC.o.d 
 	@${RM} ${OBJECTDIR}/RTC.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  RTC.c  -o ${OBJECTDIR}/RTC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/RTC.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/RTC.o: RTC.c  .generated_files/flags/default/ddc52f3f930da4ed455e8e613b8848b7b49866ce .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/RTC.o: RTC.c  .generated_files/flags/default/ec60a3e244ee29c450ed8cd9b2da15118c02bd56 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/RTC.o.d 
 	@${RM} ${OBJECTDIR}/RTC.o 
@@ -113,38 +113,38 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/LCDg.o: LCDg.s  .generated_files/flags/default/526a2904bda1ffa181eccbcbf21fb2f2a4cc7644 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/LCDg.o: LCDg.s  .generated_files/flags/default/645100495764a297ae456e9f19564a076b7ab1bd .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/LCDg.o.d 
 	@${RM} ${OBJECTDIR}/LCDg.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  LCDg.s  -o ${OBJECTDIR}/LCDg.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/LCDg.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/ISRRTC.o: ISRRTC.s  .generated_files/flags/default/5460908911534301e101a3c740dadc70e77adbd9 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/ISRRTC.o: ISRRTC.s  .generated_files/flags/default/75bb019116d1b70a21f42edc0e4a767129156e6a .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/ISRRTC.o.d 
 	@${RM} ${OBJECTDIR}/ISRRTC.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  ISRRTC.s  -o ${OBJECTDIR}/ISRRTC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/ISRRTC.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/1a6f5d1f656be03423c18cdc742234cb0774759e .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/4eed823816beb3a765247a9f5459cfc64aaa29d4 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/retardos.o.d 
 	@${RM} ${OBJECTDIR}/retardos.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  retardos.s  -o ${OBJECTDIR}/retardos.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/retardos.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/LCDg.o: LCDg.s  .generated_files/flags/default/a4dde6ade40ce1606acc623a0d2fa1ba4cd2f7bc .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/LCDg.o: LCDg.s  .generated_files/flags/default/e595da1bf6e0609b9ad5290da06fcd37211f22c4 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/LCDg.o.d 
 	@${RM} ${OBJECTDIR}/LCDg.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  LCDg.s  -o ${OBJECTDIR}/LCDg.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/LCDg.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/ISRRTC.o: ISRRTC.s  .generated_files/flags/default/ff034ab87a1d4f376d6ccbe553538a7f3bf7c23c .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/ISRRTC.o: ISRRTC.s  .generated_files/flags/default/d96492028f49907613245643340065ed219d8ca .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/ISRRTC.o.d 
 	@${RM} ${OBJECTDIR}/ISRRTC.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  ISRRTC.s  -o ${OBJECTDIR}/ISRRTC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/ISRRTC.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/5b579282dbf5ef337600f9c01556288cee5dacea .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/79d70d1edd9932c52987bc37901b61496b6e8868 .generated_files/flags/default/fd67b544a79261c2fe49714d5749bb13d89b49dc
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/retardos.o.d 
 	@${RM} ${OBJECTDIR}/retardos.o 
