@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=LCDg.s RTC.c ISRRTC.s retardos.s
+SOURCEFILES_QUOTED_IF_SPACED=LCDg.s retardos.s MOTORISR.s PRINCIPALMOTOR.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/LCDg.o ${OBJECTDIR}/RTC.o ${OBJECTDIR}/ISRRTC.o ${OBJECTDIR}/retardos.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/LCDg.o.d ${OBJECTDIR}/RTC.o.d ${OBJECTDIR}/ISRRTC.o.d ${OBJECTDIR}/retardos.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/LCDg.o ${OBJECTDIR}/retardos.o ${OBJECTDIR}/MOTORISR.o ${OBJECTDIR}/PRINCIPALMOTOR.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/LCDg.o.d ${OBJECTDIR}/retardos.o.d ${OBJECTDIR}/MOTORISR.o.d ${OBJECTDIR}/PRINCIPALMOTOR.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/LCDg.o ${OBJECTDIR}/RTC.o ${OBJECTDIR}/ISRRTC.o ${OBJECTDIR}/retardos.o
+OBJECTFILES=${OBJECTDIR}/LCDg.o ${OBJECTDIR}/retardos.o ${OBJECTDIR}/MOTORISR.o ${OBJECTDIR}/PRINCIPALMOTOR.o
 
 # Source Files
-SOURCEFILES=LCDg.s RTC.c ISRRTC.s retardos.s
+SOURCEFILES=LCDg.s retardos.s MOTORISR.s PRINCIPALMOTOR.c
 
 
 
@@ -95,18 +95,18 @@ MP_LINKER_FILE_OPTION=,--script="p30F3013.gld"
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/RTC.o: RTC.c  .generated_files/flags/default/940339f07daffc4238296f7cec87518ecf0b1084 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/PRINCIPALMOTOR.o: PRINCIPALMOTOR.c  .generated_files/flags/default/1eb0f16758477e3f248aaa2db118c00c928eb710 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/RTC.o.d 
-	@${RM} ${OBJECTDIR}/RTC.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  RTC.c  -o ${OBJECTDIR}/RTC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/RTC.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/PRINCIPALMOTOR.o.d 
+	@${RM} ${OBJECTDIR}/PRINCIPALMOTOR.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  PRINCIPALMOTOR.c  -o ${OBJECTDIR}/PRINCIPALMOTOR.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPALMOTOR.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
-${OBJECTDIR}/RTC.o: RTC.c  .generated_files/flags/default/ddc52f3f930da4ed455e8e613b8848b7b49866ce .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+${OBJECTDIR}/PRINCIPALMOTOR.o: PRINCIPALMOTOR.c  .generated_files/flags/default/4194a1a816f1070bddd30bbbcdb0efc0724db151 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/RTC.o.d 
-	@${RM} ${OBJECTDIR}/RTC.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  RTC.c  -o ${OBJECTDIR}/RTC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/RTC.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	@${RM} ${OBJECTDIR}/PRINCIPALMOTOR.o.d 
+	@${RM} ${OBJECTDIR}/PRINCIPALMOTOR.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  PRINCIPALMOTOR.c  -o ${OBJECTDIR}/PRINCIPALMOTOR.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/PRINCIPALMOTOR.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 
@@ -119,17 +119,17 @@ ${OBJECTDIR}/LCDg.o: LCDg.s  .generated_files/flags/default/526a2904bda1ffa181ec
 	@${RM} ${OBJECTDIR}/LCDg.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  LCDg.s  -o ${OBJECTDIR}/LCDg.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/LCDg.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/ISRRTC.o: ISRRTC.s  .generated_files/flags/default/5460908911534301e101a3c740dadc70e77adbd9 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ISRRTC.o.d 
-	@${RM} ${OBJECTDIR}/ISRRTC.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  ISRRTC.s  -o ${OBJECTDIR}/ISRRTC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/ISRRTC.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
-	
 ${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/1a6f5d1f656be03423c18cdc742234cb0774759e .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/retardos.o.d 
 	@${RM} ${OBJECTDIR}/retardos.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  retardos.s  -o ${OBJECTDIR}/retardos.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/retardos.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/MOTORISR.o: MOTORISR.s  .generated_files/flags/default/62dff6eab3f2bf122e8265846f14b698afea886 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/MOTORISR.o.d 
+	@${RM} ${OBJECTDIR}/MOTORISR.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  MOTORISR.s  -o ${OBJECTDIR}/MOTORISR.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/MOTORISR.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
 else
 ${OBJECTDIR}/LCDg.o: LCDg.s  .generated_files/flags/default/a4dde6ade40ce1606acc623a0d2fa1ba4cd2f7bc .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
@@ -138,17 +138,17 @@ ${OBJECTDIR}/LCDg.o: LCDg.s  .generated_files/flags/default/a4dde6ade40ce1606acc
 	@${RM} ${OBJECTDIR}/LCDg.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  LCDg.s  -o ${OBJECTDIR}/LCDg.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/LCDg.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/ISRRTC.o: ISRRTC.s  .generated_files/flags/default/ff034ab87a1d4f376d6ccbe553538a7f3bf7c23c .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ISRRTC.o.d 
-	@${RM} ${OBJECTDIR}/ISRRTC.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  ISRRTC.s  -o ${OBJECTDIR}/ISRRTC.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/ISRRTC.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
-	
 ${OBJECTDIR}/retardos.o: retardos.s  .generated_files/flags/default/5b579282dbf5ef337600f9c01556288cee5dacea .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/retardos.o.d 
 	@${RM} ${OBJECTDIR}/retardos.o 
 	${MP_CC} $(MP_EXTRA_AS_PRE)  retardos.s  -o ${OBJECTDIR}/retardos.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/retardos.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/MOTORISR.o: MOTORISR.s  .generated_files/flags/default/38fbe7dd54e8d291c0536530f6f98d209f704a24 .generated_files/flags/default/33ed45b91679709b1183172806be222f11ad8a4f
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/MOTORISR.o.d 
+	@${RM} ${OBJECTDIR}/MOTORISR.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  MOTORISR.s  -o ${OBJECTDIR}/MOTORISR.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/MOTORISR.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
 	
 endif
 

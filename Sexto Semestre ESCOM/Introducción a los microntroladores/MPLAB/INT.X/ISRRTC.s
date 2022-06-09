@@ -11,47 +11,41 @@
 __T1Interrupt:
     PUSH    W0
     
-    INC.B	    _USEG
+    INC	    _USEG
     MOV	    #10,    W0
-    CP.B    _USEG   
+    CP	    _USEG   
     BRA	    NZ,	    FIN_ISR_INTO
-    CLR.B   _USEG
+    CLR	    _USEG
     
-    INC.B	    _DSEG   
+    INC	    _DSEG   
     MOV	    #6,    W0
-    CP.B    _DSEG   
+    CP	    _DSEG   
     BRA	    NZ,	    FIN_ISR_INTO
-    CLR.B   _DSEG
+    CLR	    _DSEG
     
-    INC.B	    _UMIN   
+    INC	    _UMIN   
     MOV	    #10,    W0
-    CP.B    _UMIN   
+    CP	    _UMIN   
     BRA	    NZ,	    FIN_ISR_INTO
-    CLR.B   _UMIN
+    CLR	    _UMIN
     
-    INC.B	    _DMIN   
+    INC	    _DMIN   
     MOV	    #6,    W0
-    CP.B    _DMIN   
+    CP	    _DMIN   
     BRA	    NZ,	    FIN_ISR_INTO
-    CLR.B   _DMIN
-    
-    INC.B	    _DMIN   
-    MOV	    #6,    W0
-    CP.B    _DMIN   
-    BRA	    NZ,	    FIN_ISR_INTO
-    CLR.B   _DMIN
+    CLR	    _DMIN
     
     MOV	    #2,	    W0
-    CP.B    _DHR
+    CP	    _DHR
     BRA	    Z,	    AUX_HR
     
-    INC.B   _UHR
+    INC   _UHR
     MOV	    #10,    W0
-    CP.B    _UHR
+    CP    _UHR
     BRA	    NZ,	    FIN_ISR_INTO
-    CLR.B   _UHR
+    CLR   _UHR
     
-    INC.B   _DHR
+    INC   _DHR
     
     
 FIN_ISR_INTO:
@@ -60,13 +54,13 @@ FIN_ISR_INTO:
     RETFIE
     
 AUX_HR:
-    INC.B   _UHR
+    INC	   _UHR
     MOV	    #4,	    W0
-    CP.B    _UHR
+    CP	    _UHR
     BRA	    NZ,	    FIN_ISR_INTO
-    CLR.B   _DHR
-    CLR.B   _UHR
-    GOTO    FIN_ISR_INTO
+    CLR	    _UHR
+    CLR	    _DHR
+    GOTO   FIN_ISR_INTO
     
     
 ;@BRIEF: ESTA RUTINA QUITA LA PROYECTTION DEL REGISTRO OSCCONL

@@ -1,42 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b7a79636-3f40-43d7-9d77-923ea4cec771" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/SO/Proyecto" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/SO/Proyecto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/reactApp/my-first-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/reactApp/my-first-app" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/todo-list" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/todo-list" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/use-effect" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/use-effect" afterDir="false" />
+    <list default="true" id="97633230-4fdc-4207-b8a2-3b2457819ae6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/SO/Proyecto" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/SO/Proyecto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/reactApp/my-first-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/reactApp/my-first-app" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/todo-list" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/todo-list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/use-effect" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Cuarto Semestre ESCOM/Web/Curso fronted/React/use-effect" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/UDPEchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/UDPEchoServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/UDPS.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/UDPS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/USNB.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/USNB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/USNBC.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/USNBC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/ChangeRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/ChangeRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/ChangeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/ChangeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoWorker.class" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoWorker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/EchoWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/NioClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/NioClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/NioClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/NioClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/NioServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/NioServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/NioServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/NioServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/RspHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/RspHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/RspHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/RspHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/ServerDataEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/ServerDataEvent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/ServerDataEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/ServerDataEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/ejemplo_NIO/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/canales/ejemplo_NIO/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/flujo/ClienteNB.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/flujo/ClienteNB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/flujo/ServidorNB.java" beforeDir="false" afterPath="$PROJECT_DIR$/canales/flujo/ServidorNB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/flujo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/canales/flujo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canales/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/canales/input.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
-  <component name="ProjectId" id="29MXZJlJDTg1k1KUdHTkpwjdBVh" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="29MY0qS8C5aZVfdM71R8skV5pXW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled104" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="company" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../descargas/lm/Practica5" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.brandmv.app.Main" />
+      <module name="wget" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b7a79636-3f40-43d7-9d77-923ea4cec771" name="Changes" comment="" />
-      <created>1652923985513</created>
+      <changelist id="97633230-4fdc-4207-b8a2-3b2457819ae6" name="Changes" comment="" />
+      <created>1652924205883</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1652923985513</updated>
-      <workItem from="1652924038358" duration="117000" />
-      <workItem from="1652924182057" duration="22000" />
+      <updated>1652924205883</updated>
+      <workItem from="1652924207342" duration="2213000" />
+      <workItem from="1653009048626" duration="40000" />
+      <workItem from="1653065593427" duration="3527000" />
+      <workItem from="1653258275896" duration="715000" />
+      <workItem from="1653435025798" duration="3123000" />
+      <workItem from="1653567582976" duration="643000" />
+      <workItem from="1653657961736" duration="1129000" />
     </task>
     <servers />
   </component>

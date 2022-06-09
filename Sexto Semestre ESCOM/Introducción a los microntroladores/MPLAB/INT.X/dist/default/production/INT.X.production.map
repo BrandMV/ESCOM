@@ -19,9 +19,9 @@ Command:
   -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33E/gld \
   -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/LCDg.o \
-  build/default/production/RTC.o \
-  build/default/production/ISRRTC.o \
   build/default/production/retardos.o \
+  build/default/production/ISRUART.o \
+  build/default/production/PRINCIPALUART.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp30F3013.gld.00 \
   --stack=16 \
@@ -88,20 +88,19 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100                0xd6           0x141  (321)
-.const                       0x1d6                 0x8             0xc  (12)
-.text                        0x1de               0x21a           0x327  (807)
-.dinit                       0x3f8                 0x8             0xc  (12)
+.text                        0x1d6               0x172           0x22b  (555)
+.dinit                       0x348                 0x8             0xc  (12)
 
-                 Total "program" memory used (bytes):          0x480  (1152) 4%
+                 Total "program" memory used (bytes):          0x378  (888) 3%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0xe  (14)
+.nbss                        0x800                   0             0x4  (4)
 
-                 Total "data" memory used (bytes):            0xe  (14) <1%
+                 Total "data" memory used (bytes):            0x4  (4) <1%
 
 
 Dynamic Memory Usage
@@ -109,32 +108,22 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x80e                               0x7f2  (2034)
+stack                        0x804                               0x7fc  (2044)
 
-                 Maximum dynamic memory (bytes):          0x7f2  (2034)
+                 Maximum dynamic memory (bytes):          0x7fc  (2044)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0800                  _DSEG
-                    0x0801                  _USEG
-                    0x0802                  _DMIN
-                    0x0803                  _UMIN
-                    0x0804                  _DHR
-                    0x0805                  _UHR
-                    0x0806                  _reloj
+                    0x0800                  _caracter
+                    0x0802                  _datoRCV
 
 External Symbols in Data Memory (by name):
 
-                    0x0804                  _DHR
-                    0x0802                  _DMIN
-                    0x0800                  _DSEG
-                    0x0805                  _UHR
-                    0x0803                  _UMIN
-                    0x0801                  _USEG
-                    0x0806                  _reloj
+                    0x0800                  _caracter
+                    0x0802                  _datoRCV
 
 External Symbols in Program Memory (by address):
 
@@ -144,43 +133,43 @@ External Symbols in Program Memory (by address):
                   0x000152                  __data_init
                   0x0001c8                  __U2RXInterrupt
                   0x0001d0                  __DefaultInterrupt
-                  0x0001de                  _main
-                  0x00023e                  _timer1
-                  0x00024e                  _configurarInterrupciones
-                  0x00025a                  _configurarPuertos
-                  0x0002a0                  _ubicarCursor
-                  0x0002ac                  _printLCD
-                  0x0002c6                  _iniLCD8bits
-                  0x00030c                  _banderaLCD
-                  0x000330                  _comandoLCD
-                  0x000346                  _datoLCD
-                  0x0003b8                  _habilitarRTC
-                  0x0003d2                  _RETARDO_1S
-                  0x0003e8                  _RETARDO_1mS
+                  0x0001d6                  _ubicarCursor
+                  0x0001e2                  _printLCD
+                  0x0001fc                  _iniLCD8bits
+                  0x000242                  _banderaLCD
+                  0x000266                  _comandoLCD
+                  0x00027c                  _datoLCD
+                  0x000292                  _main
+                  0x0002b4                  _configurarUART
+                  0x0002c6                  _configurarInterrupciones
+                  0x0002d0                  _configurarPuertos
+                  0x000312                  _RETARDO_1S
+                  0x000328                  _RETARDO_1mS
+                  0x000338                  __U1RXInterrupt
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x0003d2                  _RETARDO_1S
-                  0x0003e8                  _RETARDO_1mS
+                  0x000312                  _RETARDO_1S
+                  0x000328                  _RETARDO_1mS
                   0x0001d0                  __DefaultInterrupt
                   0xf8000a                  __FGS.sec
+                  0x000338                  __U1RXInterrupt
                   0x0001c8                  __U2RXInterrupt
                   0x000152                  __data_init
                   0x000152                  __data_init_standard
                   0x00013c                  __psv_init
                   0x000100                  __resetPRI
-                  0x00030c                  _banderaLCD
-                  0x000330                  _comandoLCD
-                  0x00024e                  _configurarInterrupciones
-                  0x00025a                  _configurarPuertos
-                  0x000346                  _datoLCD
-                  0x0003b8                  _habilitarRTC
-                  0x0002c6                  _iniLCD8bits
-                  0x0001de                  _main
-                  0x0002ac                  _printLCD
-                  0x00023e                  _timer1
-                  0x0002a0                  _ubicarCursor
+                  0x000242                  _banderaLCD
+                  0x000266                  _comandoLCD
+                  0x0002c6                  _configurarInterrupciones
+                  0x0002d0                  _configurarPuertos
+                  0x0002b4                  _configurarUART
+                  0x00027c                  _datoLCD
+                  0x0001fc                  _iniLCD8bits
+                  0x000292                  _main
+                  0x0001e2                  _printLCD
+                  0x0001d6                  _ubicarCursor
 
 Memory Configuration
 
@@ -208,9 +197,9 @@ FICD             0xf8000c           0x000002
 Linker script and memory map
 
 LOAD build/default/production/LCDg.o
-LOAD build/default/production/RTC.o
-LOAD build/default/production/ISRRTC.o
 LOAD build/default/production/retardos.o
+LOAD build/default/production/ISRUART.o
+LOAD build/default/production/PRINCIPALUART.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p30F3013
 LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
@@ -253,7 +242,7 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0001c8          0x8 build/default/production/RTC.o
+ .isr.text        0x0001c8          0x8 build/default/production/PRINCIPALUART.o
                   0x0001c8                  __U2RXInterrupt
  .isr             0x0001d0          0x4 default_isr
                   0x0001d0                  __DefaultInterrupt
@@ -298,7 +287,7 @@ __RESERVED2
 
 __FGS             0xf8000a          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf8000a          0x2 /CW/_FGS`¯Ü
+ __FGS.sec        0xf8000a          0x2 /CW/_FGS0~à
                   0xf8000a                  __FGS.sec
 
 __FICD
@@ -313,35 +302,35 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000        0xcf2
+.debug_info       0x000000        0xc92
  *(.debug_info)
  .debug_info      0x000000         0xab build/default/production/LCDg.o
- .debug_info      0x0000ab        0xaeb build/default/production/RTC.o
- .debug_info      0x000b96         0xad build/default/production/ISRRTC.o
- .debug_info      0x000c43         0xaf build/default/production/retardos.o
+ .debug_info      0x0000ab         0xaf build/default/production/retardos.o
+ .debug_info      0x00015a         0xae build/default/production/ISRUART.o
+ .debug_info      0x000208        0xa8a build/default/production/PRINCIPALUART.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x15f
+.debug_abbrev     0x000000        0x16f
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x14 build/default/production/LCDg.o
- .debug_abbrev    0x000014        0x123 build/default/production/RTC.o
- .debug_abbrev    0x000137         0x14 build/default/production/ISRRTC.o
- .debug_abbrev    0x00014b         0x14 build/default/production/retardos.o
+ .debug_abbrev    0x000014         0x14 build/default/production/retardos.o
+ .debug_abbrev    0x000028         0x14 build/default/production/ISRUART.o
+ .debug_abbrev    0x00003c        0x133 build/default/production/PRINCIPALUART.o
 
-.debug_line       0x000000        0x20e
+.debug_line       0x000000        0x1d7
  *(.debug_line)
  .debug_line      0x000000         0x7d build/default/production/LCDg.o
- .debug_line      0x00007d         0xda build/default/production/RTC.o
- .debug_line      0x000157         0x6e build/default/production/ISRRTC.o
- .debug_line      0x0001c5         0x49 build/default/production/retardos.o
+ .debug_line      0x00007d         0x49 build/default/production/retardos.o
+ .debug_line      0x0000c6         0x3b build/default/production/ISRUART.o
+ .debug_line      0x000101         0xd6 build/default/production/PRINCIPALUART.o
 
 .debug_frame      0x000000         0x96
  *(.debug_frame)
- .debug_frame     0x000000         0x96 build/default/production/RTC.o
+ .debug_frame     0x000000         0x96 build/default/production/PRINCIPALUART.o
 
-.debug_str        0x000000         0x43
+.debug_str        0x000000         0x4d
  *(.debug_str)
- .debug_str       0x000000         0x43 build/default/production/RTC.o
+ .debug_str       0x000000         0x4d build/default/production/PRINCIPALUART.o
 
 .debug_loc
  *(.debug_loc)
@@ -350,10 +339,10 @@ userdata
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0xaa
+                  0x000000         0x8d
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0xaa build/default/production/RTC.o
+                  0x000000         0x8d build/default/production/PRINCIPALUART.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -363,11 +352,11 @@ userdata
  .debug_aranges
                   0x000000         0x18 build/default/production/LCDg.o
  .debug_aranges
-                  0x000018         0x18 build/default/production/RTC.o
+                  0x000018         0x18 build/default/production/retardos.o
  .debug_aranges
-                  0x000030         0x18 build/default/production/ISRRTC.o
+                  0x000030         0x18 build/default/production/ISRUART.o
  .debug_aranges
-                  0x000048         0x18 build/default/production/retardos.o
+                  0x000048         0x18 build/default/production/PRINCIPALUART.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -760,71 +749,68 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libm-elf.a
 LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/INT.X.production.elf elf32-pic30)
-LOAD /CW/_FGS`¯Ü
+LOAD /CW/_FGS0~à
 LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000060         0xf2
+                  0x000060         0xf4
  .debug_pubtypes
-                  0x000060         0xf2 build/default/production/RTC.o
+                  0x000060         0xf4 build/default/production/PRINCIPALUART.o
 
 __c30_signature
-                  0x000152         0x12
+                  0x000154         0x12
  __c30_signature
-                  0x000152          0x6 build/default/production/RTC.o
+                  0x000154          0x6 build/default/production/PRINCIPALUART.o
  __c30_signature
-                  0x000158          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+                  0x00015a          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x00015e          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                  0x000160          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.nbss               0x0800          0xe
- .nbss              0x0800          0xe build/default/production/RTC.o
-                    0x0800                  _DSEG
-                    0x0801                  _USEG
-                    0x0802                  _DMIN
-                    0x0803                  _UMIN
-                    0x0804                  _DHR
-                    0x0805                  _UHR
-                    0x0806                  _reloj
+.nbss               0x0800          0x4
+ .nbss              0x0800          0x4 build/default/production/PRINCIPALUART.o
+                    0x0800                  _caracter
+                    0x0802                  _datoRCV
+
+.ivt._U1RXInterrupt
+                  0x000026          0x2
+ .ivt._U1RXInterrupt
+                  0x000026          0x2 build/default/production/ISRUART.o
 
 .config_MCLRE     0xf80004          0x2
- .config_MCLRE    0xf80004          0x2 build/default/production/RTC.o
+ .config_MCLRE    0xf80004          0x2 build/default/production/PRINCIPALUART.o
 
 .config_WDT       0xf80002          0x2
- .config_WDT      0xf80002          0x2 build/default/production/RTC.o
+ .config_WDT      0xf80002          0x2 build/default/production/PRINCIPALUART.o
 
 .config_FCKSMEN
                   0xf80000          0x2
  .config_FCKSMEN
-                  0xf80000          0x2 build/default/production/RTC.o
+                  0xf80000          0x2 build/default/production/PRINCIPALUART.o
 
 .ivt._U2RXInterrupt
                   0x000044          0x2
  .ivt._U2RXInterrupt
-                  0x000044          0x2 build/default/production/RTC.o
+                  0x000044          0x2 build/default/production/PRINCIPALUART.o
 
-.const              0x81d6          0x8 load address 0x0001d6  
- .const             0x81d6          0x8 build/default/production/RTC.o
+.text             0x0001d6        0x172
+ .text            0x0001d6         0xbc build/default/production/LCDg.o
+                  0x0001d6                  _ubicarCursor
+                  0x0001e2                  _printLCD
+                  0x0001fc                  _iniLCD8bits
+                  0x000242                  _banderaLCD
+                  0x000266                  _comandoLCD
+                  0x00027c                  _datoLCD
+ .text            0x000292         0x80 build/default/production/PRINCIPALUART.o
+                  0x000292                  _main
+                  0x0002b4                  _configurarUART
+                  0x0002c6                  _configurarInterrupciones
+                  0x0002d0                  _configurarPuertos
+ .text            0x000312         0x26 build/default/production/retardos.o
+                  0x000312                  _RETARDO_1S
+                  0x000328                  _RETARDO_1mS
+ .text            0x000338         0x10 build/default/production/ISRUART.o
+                  0x000338                  __U1RXInterrupt
 
-.text             0x0001de        0x21a
- .text            0x0001de         0xc2 build/default/production/RTC.o
-                  0x0001de                  _main
-                  0x00023e                  _timer1
-                  0x00024e                  _configurarInterrupciones
-                  0x00025a                  _configurarPuertos
- .text            0x0002a0         0xbc build/default/production/LCDg.o
-                  0x0002a0                  _ubicarCursor
-                  0x0002ac                  _printLCD
-                  0x0002c6                  _iniLCD8bits
-                  0x00030c                  _banderaLCD
-                  0x000330                  _comandoLCD
-                  0x000346                  _datoLCD
- .text            0x00035c         0x76 build/default/production/ISRRTC.o
-                  0x0003b8                  _habilitarRTC
- .text            0x0003d2         0x26 build/default/production/retardos.o
-                  0x0003d2                  _RETARDO_1S
-                  0x0003e8                  _RETARDO_1mS
-
-.dinit            0x0003f8          0x8
- .dinit           0x0003f8          0x8 data_init
+.dinit            0x000348          0x8
+ .dinit           0x000348          0x8 data_init
