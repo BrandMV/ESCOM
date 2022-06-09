@@ -1,0 +1,5 @@
+<<<<<<<< HEAD:Sexto Semestre ESCOM/Introducci√≥n a los microntroladores/MPLAB/INT.X/.generated_files/flags/default/645100495764a297ae456e9f19564a076b7ab1bd
+ -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"C:\Users\BrandMV\Documents\ESCOM\Sexto Semestre ESCOM\IntroducciÛn a los microntroladores\MPLAB\INT.X\LCDg.s
+========
+ -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"D:\PC\ESCOM\ESCOM\Sexto Semestre ESCOM\IntroducciÛn a los microntroladores\MPLAB\INT.X\MOTORISR.s
+>>>>>>>> 4d77c2bc12f4fa625a7708322c832525d47befc3:Sexto Semestre ESCOM/Introducci√≥n a los microntroladores/MPLAB/INT.X/.generated_files/flags/default/62dff6eab3f2bf122e8265846f14b698afea886

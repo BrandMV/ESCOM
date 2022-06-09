@@ -44,7 +44,8 @@ extern void comandoLCD(short int);
 extern void ubicarCursor(short int);
 extern void printLCD(char *);
 extern void datoLCD( unsigned short int Dato );
-unsigned char DSEG, USEG, DMIN, UMIN, DHR, UHR;
+extern void habilitarRTC();
+short int DSEG, USEG, DMIN, UMIN, DHR, UHR;
 char reloj[8];
 
 int main(void) 
@@ -65,7 +66,8 @@ int main(void)
     UMIN = 9;
     DSEG = 5;
     USEG = 0;
-
+    
+    habilitarRTC();
     configurarInterrupciones();
     
 
@@ -78,8 +80,8 @@ int main(void)
         reloj[3] = DMIN + 0X30;
         reloj[4] = UMIN + 0X30;
         reloj[5] = ':';
-        reloj[6] = USEG + 0X30;
-        reloj[7] = DSEG + 0X30;
+        reloj[6] = DSEG + 0X30;
+        reloj[7] = USEG + 0X30;
         reloj[8] = 0; //nulo
         ubicarCursor(0X44);
         printLCD(reloj);
