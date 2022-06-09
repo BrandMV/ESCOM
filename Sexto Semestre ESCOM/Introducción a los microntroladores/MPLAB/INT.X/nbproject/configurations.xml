@@ -17,8 +17,6 @@
                    projectFiles="true">
       <itemPath>LCDg.s</itemPath>
       <itemPath>retardos.s</itemPath>
-      <itemPath>MOTORISR.s</itemPath>
-      <itemPath>PRINCIPALMOTOR.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

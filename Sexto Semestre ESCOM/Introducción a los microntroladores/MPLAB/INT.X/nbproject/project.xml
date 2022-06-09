@@ -6,7 +6,7 @@
             <name>INT</name>
             <creation-uuid>ed303f2b-ac82-418e-9fba-ffa90a31b05f</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions>c</c-extensions>
+            <c-extensions/>
             <cpp-extensions/>
             <header-extensions>h</header-extensions>
             <asminc-extensions>inc</asminc-extensions>
