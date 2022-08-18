@@ -12,6 +12,7 @@ public class Cliente {
     public static void main(String[] args) {
         try {
             Socket conexion = new Socket("Localhost", 50000);
+            System.out.println("Cliente iniciado");
 
             DataOutputStream salida = new DataOutputStream(conexion.getOutputStream());
             DataInputStream entrada = new DataInputStream(conexion.getInputStream());

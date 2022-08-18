@@ -12,6 +12,7 @@ public class Server {
     public static void main(String[] args) {
         try {
             ServerSocket servidor = new ServerSocket(50000);
+            System.out.println("Servidor iniciado");
 
             Socket conexion = servidor.accept();
 
