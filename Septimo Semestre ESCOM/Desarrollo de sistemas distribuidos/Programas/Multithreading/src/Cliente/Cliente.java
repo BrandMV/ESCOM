@@ -1,4 +1,4 @@
-package cliente;
+package Cliente;
 
 import Utils.Utils;
 

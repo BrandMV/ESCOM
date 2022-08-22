@@ -22,8 +22,14 @@ public class Server {
             int n = entrada.readInt();
             System.out.println(n);
 
-            double x = entrada.readDouble();
-            System.out.println(x);
+            /**Leyendo 10,000 double*/
+            long timeStart = System.currentTimeMillis();
+            for(double i = 0; i < 10000.0; i++){
+                double x = entrada.readDouble();
+                System.out.println(x);
+            }
+            long timeEnd = System.currentTimeMillis();
+            Utils.getElapsedTime(timeStart, timeEnd);
 
             byte[] buffer = new byte[4];
             Utils.read(entrada, buffer, 0, 4);
@@ -31,11 +37,15 @@ public class Server {
 
             salida.write("Hola".getBytes());
 
-            byte[] a = new byte[5*8];
-            Utils.read(entrada, a, 0, 5*8);
+            /**Leyendo 10,000 empaquetados*/
+            timeStart = System.currentTimeMillis();
+            byte[] a = new byte[10000*8];
+            Utils.read(entrada, a, 0, 10000*8);
+            timeEnd = System.currentTimeMillis();
 
+            Utils.getElapsedTime(timeStart, timeEnd);
             ByteBuffer b = ByteBuffer.wrap(a);
-            for(int i = 0 ; i < 5; i++) System.out.println(b.getDouble());
+            for(int i = 0 ; i < 10000; i++) System.out.println(b.getDouble());
 
             conexion.close();
         }
