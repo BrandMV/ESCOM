@@ -36,8 +36,6 @@ void __attribute__((__interrupt__)) _U2RXInterrupt( void );
 
 void configurarPuertos();
 void configurarInterrupciones();
-void configurarTimer();
-
 
 extern void iniLCD8bits( );
 extern void banderaLCD( );
@@ -45,60 +43,57 @@ extern void comandoLCD(short int);
 extern void ubicarCursor(short int);
 extern void printLCD(char *);
 extern void datoLCD( unsigned short int Dato );
-extern void RETARDO_1S();
 
+
+short int detectorInt0,detectorInt1,detectorInt2 = 0;
+short int detectorPISO;
 
 int main(void) 
 {    
- 
     configurarPuertos();
-    configurarTimer();
+    iniLCD8bits();
     configurarInterrupciones();
-    //banderaLCD(); //*Preguntamos si esta libre el LCD
-    //comandoLCD(0x84); //DDRAM_ADDRESS_SET 4
     
-    //PROBANDO MOTOR DE PISO
-    PORTBbits.RB8 = 0;
-    RETARDO_1S();
-    RETARDO_1S();
-    RETARDO_1S();
-    RETARDO_1S();    
-    PORTBbits.RB8 = 1;
+    //contador[4] = 0; //nulo
     
-    //PROBANDO MOTOR DE PUERTA
-    PORTBbits.RB9 = 0;
-    RETARDO_1S();
-    RETARDO_1S();
-    RETARDO_1S();
-    RETARDO_1S();    
-    PORTBbits.RB9 = 1;
-    
-    ubicarCursor(0);
     for(;EVER;)
-    { 
+    {
+        //Si detecta que esta en el segundo piso
+        if(detectorPISO == 1){
+            printLCD("Segundo piso");
+        }else if(detectorPISO == 2){
+            printLCD("Primer piso");
+        }else{
+            printLCD("Planta baja");
+        }
+
         
- 
+     //   asm("nop");
     }
     
     return 0;
 }
-void configurarTimer(){
-    TMR1 = 0;
-    PR1 = 900;
-    T1CON = 0;
-    //TIMER 2
-    TMR2 = 0;
-    PR2 = 900;
-    T2CON = 0;
-}
+
+
+
 void configurarInterrupciones(){
-    IFS0bits.T1IF = 0;
-    IEC0bits.T1IE = 1;
-    T1CONbits.TON = 1; //Activamos Timer
-    //TIMER 2
-    IFS0bits.T2IF = 0;
-    IEC0bits.T2IE = 1;
-    T2CONbits.TON = 1;
+    //INTERRUPCIONES SEGUNDO PISO
+    IFS0bits.INT0IF = 0;
+    INTCON2BITS.INT0EP = 1; //FLANCO BAJADA
+    IEC0bits.INT0IE = 1; //HABILITAMOS
+    
+    /***/
+    //INTERRUPCIONES PRIMER PISO
+    IFS1bits.INT1IF = 0;
+    INTCON2bits.INT1EP = 1;     //set up INTO on negative edge (falling edge 1, rising edge 0) 
+    IEC1bits.INT1IE = 1;
+    
+    //INTERRUPCIONES PLANTA BAJA
+    IFS1bits.INT2IF = 0;
+    INTCON2bits.INT2EP = 1;     //set up INTO on negative edge (falling edge 1, rising edge 0) 
+    IEC1bits.INT2IE = 1; //HABILITAMOS
+    
+    //agregar interrupcion de recepcion UART1
     
 }
 void configurarPuertos()
@@ -107,28 +102,20 @@ void configurarPuertos()
     asm("nop");             //ENSAMBLADOR EN LINEA
     LATD = 0;               //CLR       LATD
     asm("nop");
-    TRISDbits.TRISD8 = 0;   //BCLR TRISD, #TRISD8
+    TRISDbits.TRISD8 = 1;   //BCLR TRISD, #TRISD8
     asm("nop");
-    TRISDbits.TRISD9 = 0;   //BCLR TRISD, #TRISD9
-    asm("nop");
-    
-    PORTC = 0;
-    asm("nop");
-    LATC = 0;
-    asm("nop");
-    TRISCbits.TRISC13 = 0;
-    asm("nop");
-    TRISCbits.TRISC14 = 1;
+    TRISDbits.TRISD9 = 1;   //BCLR TRISD, #TRISD8
     asm("nop");
 
     PORTF = 0;
     asm("nop");
     LATF = 0;
     asm("nop");
-    //Salida para motor
     TRISFbits.TRISF4 = 0;
     asm("nop");
     TRISFbits.TRISF5 = 0;
+    asm("nop");
+    TRISFbits.TRISF6 = 1;
     asm("nop");
     
     PORTB = 0;

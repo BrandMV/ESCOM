@@ -20,6 +20,10 @@ Command:
   -Ld:/programas/microchip/xc16/bin/bin/../../support/dsPIC33F/gld \
   build/default/production/LCDg.o \
   build/default/production/retardos.o \
+  build/default/production/_ext/637208046/sensoresINT.o \
+  build/default/production/_ext/1867272583/MOTORISR.o \
+  build/default/production/_ext/2096860475/ProyectoPrincipal.o \
+  build/default/production/_ext/1696894248/ISRUART.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp30F3013.gld.00 \
   --stack=16 \
@@ -55,6 +59,26 @@ d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_
                               (__crt_start_mode_normal)
 
 
+Selected CodeGuard Options:
+  FGS:GWRP:GWRP_OFF
+  FGS:GCP:CODE_PROT_OFF
+
+CodeGuard FLASH Memory:
+  boot    (none)
+  secure  (none)
+  general 0x100 to 0x3ffe
+
+CodeGuard RAM Memory:
+  general 0x800 to 0xfff
+  secure  (none)
+  boot    (none)
+
+CodeGuard EEPROM Memory:
+  general 0x7ffc00 to 0x7fffff
+  secure  (none)
+  boot    (none)
+
+
 xc16-ld 2.00 (B)
 
 Default Code Model: Small
@@ -65,18 +89,21 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x100                0xce           0x135  (309)
-.text                        0x1ce               0x1f6           0x2f1  (753)
+.text                        0x100                0xd6           0x141  (321)
+.const                       0x1d6                0x4c            0x72  (114)
+.text                        0x222               0x39e           0x56d  (1389)
+.dinit                       0x5c0                 0x8             0xc  (12)
 
-                 Total "program" memory used (bytes):          0x426  (1062) 4%
+                 Total "program" memory used (bytes):          0x72c  (1836) 7%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
+.nbss                        0x800                   0             0xc  (12)
 
-                 Total "data" memory used (bytes):              0  (0) 
+                 Total "data" memory used (bytes):            0xc  (12) <1%
 
 
 Dynamic Memory Usage
@@ -84,10 +111,30 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x800                               0x800  (2048)
+stack                        0x80c                               0x7f4  (2036)
 
-                 Maximum dynamic memory (bytes):          0x800  (2048)
+                 Maximum dynamic memory (bytes):          0x7f4  (2036)
 
+Info: Project is using a large data memory model when small data memory model is sufficient.
+
+
+External Symbols in Data Memory (by address):
+
+                    0x0800                  _comandoUART
+                    0x0802                  _datoRCV
+                    0x0804                  _detectorInt0
+                    0x0806                  _detectorInt1
+                    0x0808                  _detectorInt2
+                    0x080a                  _detectorPiso
+
+External Symbols in Data Memory (by name):
+
+                    0x0800                  _comandoUART
+                    0x0802                  _datoRCV
+                    0x0804                  _detectorInt0
+                    0x0806                  _detectorInt1
+                    0x0808                  _detectorInt2
+                    0x080a                  _detectorPiso
 
 External Symbols in Program Memory (by address):
 
@@ -95,31 +142,75 @@ External Symbols in Program Memory (by address):
                   0x00013c                  __psv_init
                   0x000152                  __data_init_standard
                   0x000152                  __data_init
-                  0x0001c8                  __DefaultInterrupt
-                  0x0001ce                  _ubicarCursor
-                  0x000200                  _printLCD
-                  0x00021a                  _iniLCD8bits
-                  0x0002d2                  _banderaLCD
-                  0x000334                  _comandoLCD
-                  0x000388                  _datoLCD
-                  0x00039e                  _RETARDO_1S
-                  0x0003b4                  _RETARDO_1mS
+                  0x0001c8                  __U2RXInterrupt
+                  0x0001d0                  __DefaultInterrupt
+                  0x000222                  _ubicarCursor
+                  0x00022e                  _ubicarCursor4BITS
+                  0x00023a                  _printLCD4BITS
+                  0x000254                  _printLCD
+                  0x00026e                  _iniLCD8bits
+                  0x0002b4                  _iniLCD4bits
+                  0x0002fa                  _banderaLCD4BITS
+                  0x000326                  _banderaLCD
+                  0x00034a                  _comandoLCD4BITS
+                  0x000388                  _comandoLCD
+                  0x00039e                  _datoLCD4BITS
+                  0x0003dc                  _datoLCD
+                  0x0003f2                  _main
+                  0x000426                  _configurarUART
+                  0x000438                  _configurarTimer
+                  0x00044e                  _bajarPiso
+                  0x00048c                  _subirPiso
+                  0x0004ca                  _controlPuerta
+                  0x0004e4                  _configurarInterrupciones
+                  0x000500                  _configurarPuertos
+                  0x00054a                  __INT0Interrupt
+                  0x00055a                  __INT1Interrupt
+                  0x00056a                  __INT2Interrupt
+                  0x00057a                  _RETARDO_1S
+                  0x000590                  _RETARDO_1mS
+                  0x0005a0                  __T1Interrupt
+                  0x0005a8                  __T2Interrupt
+                  0x0005b0                  __U1RXInterrupt
+                  0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x00039e                  _RETARDO_1S
-                  0x0003b4                  _RETARDO_1mS
-                  0x0001c8                  __DefaultInterrupt
+                  0x00057a                  _RETARDO_1S
+                  0x000590                  _RETARDO_1mS
+                  0x0001d0                  __DefaultInterrupt
+                  0xf8000a                  __FGS.sec
+                  0x00054a                  __INT0Interrupt
+                  0x00055a                  __INT1Interrupt
+                  0x00056a                  __INT2Interrupt
+                  0x0005a0                  __T1Interrupt
+                  0x0005a8                  __T2Interrupt
+                  0x0005b0                  __U1RXInterrupt
+                  0x0001c8                  __U2RXInterrupt
                   0x000152                  __data_init
                   0x000152                  __data_init_standard
                   0x00013c                  __psv_init
                   0x000100                  __resetPRI
-                  0x0002d2                  _banderaLCD
-                  0x000334                  _comandoLCD
-                  0x000388                  _datoLCD
-                  0x00021a                  _iniLCD8bits
-                  0x000200                  _printLCD
-                  0x0001ce                  _ubicarCursor
+                  0x00044e                  _bajarPiso
+                  0x000326                  _banderaLCD
+                  0x0002fa                  _banderaLCD4BITS
+                  0x000388                  _comandoLCD
+                  0x00034a                  _comandoLCD4BITS
+                  0x0004e4                  _configurarInterrupciones
+                  0x000500                  _configurarPuertos
+                  0x000438                  _configurarTimer
+                  0x000426                  _configurarUART
+                  0x0004ca                  _controlPuerta
+                  0x0003dc                  _datoLCD
+                  0x00039e                  _datoLCD4BITS
+                  0x0002b4                  _iniLCD4bits
+                  0x00026e                  _iniLCD8bits
+                  0x0003f2                  _main
+                  0x000254                  _printLCD
+                  0x00023a                  _printLCD4BITS
+                  0x00048c                  _subirPiso
+                  0x000222                  _ubicarCursor
+                  0x00022e                  _ubicarCursor4BITS
 
 Memory Configuration
 
@@ -148,6 +239,10 @@ Linker script and memory map
 
 LOAD build/default/production/LCDg.o
 LOAD build/default/production/retardos.o
+LOAD build/default/production/_ext/637208046/sensoresINT.o
+LOAD build/default/production/_ext/1867272583/MOTORISR.o
+LOAD build/default/production/_ext/2096860475/ProyectoPrincipal.o
+LOAD build/default/production/_ext/1696894248/ISRUART.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p30F3013
 LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
@@ -178,7 +273,7 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000100         0xce
+.text             0x000100         0xd6
  *(.init)
  .init            0x000100         0x4c d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                   0x000100                  __resetPRI
@@ -190,16 +285,18 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr             0x0001c8          0x4 default_isr
-                  0x0001c8                  __DefaultInterrupt
+ .isr.text        0x0001c8          0x8 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+                  0x0001c8                  __U2RXInterrupt
+ .isr             0x0001d0          0x4 default_isr
+                  0x0001d0                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0001cc          0x2 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
-                  0x0001cc                  __crt_start_mode
-                  0x0001cc                  __crt_start_mode_normal
+                  0x0001d4          0x2 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+                  0x0001d4                  __crt_start_mode
+                  0x0001d4                  __crt_start_mode_normal
 
 usercode
  *(usercode)
@@ -231,8 +328,10 @@ __RESERVED1
 __RESERVED2
  *(__RESERVED2.sec*)
 
-__FGS
+__FGS             0xf8000a          0x2
  *(__FGS.sec*)
+ __FGS.sec        0xf8000a          0x2 /CW/_FGS0ýÙ
+                  0xf8000a                  __FGS.sec
 
 __FICD
  *(__FICD.sec*)
@@ -246,27 +345,41 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x15a
+.debug_info       0x000000       0x1337
  *(.debug_info)
  .debug_info      0x000000         0xab build/default/production/LCDg.o
  .debug_info      0x0000ab         0xaf build/default/production/retardos.o
+ .debug_info      0x00015a         0xca build/default/production/_ext/637208046/sensoresINT.o
+ .debug_info      0x000224         0xc6 build/default/production/_ext/1867272583/MOTORISR.o
+ .debug_info      0x0002ea        0xf8b build/default/production/_ext/2096860475/ProyectoPrincipal.o
+ .debug_info      0x001275         0xc2 build/default/production/_ext/1696894248/ISRUART.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000         0x28
+.debug_abbrev     0x000000        0x1bd
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x14 build/default/production/LCDg.o
  .debug_abbrev    0x000014         0x14 build/default/production/retardos.o
+ .debug_abbrev    0x000028         0x14 build/default/production/_ext/637208046/sensoresINT.o
+ .debug_abbrev    0x00003c         0x14 build/default/production/_ext/1867272583/MOTORISR.o
+ .debug_abbrev    0x000050        0x159 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+ .debug_abbrev    0x0001a9         0x14 build/default/production/_ext/1696894248/ISRUART.o
 
-.debug_line       0x000000        0x13d
+.debug_line       0x000000        0x3df
  *(.debug_line)
  .debug_line      0x000000         0xf4 build/default/production/LCDg.o
  .debug_line      0x0000f4         0x49 build/default/production/retardos.o
+ .debug_line      0x00013d         0x69 build/default/production/_ext/637208046/sensoresINT.o
+ .debug_line      0x0001a6         0x53 build/default/production/_ext/1867272583/MOTORISR.o
+ .debug_line      0x0001f9        0x197 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+ .debug_line      0x000390         0x4f build/default/production/_ext/1696894248/ISRUART.o
 
-.debug_frame
+.debug_frame      0x000000         0xfe
  *(.debug_frame)
+ .debug_frame     0x000000         0xfe build/default/production/_ext/2096860475/ProyectoPrincipal.o
 
-.debug_str
+.debug_str        0x000000         0x85
  *(.debug_str)
+ .debug_str       0x000000         0x85 build/default/production/_ext/2096860475/ProyectoPrincipal.o
 
 .debug_loc
  *(.debug_loc)
@@ -275,17 +388,28 @@ userdata
  *(.debug_macinfo)
 
 .debug_pubnames
+                  0x000000        0x116
  *(.debug_pubnames)
+ .debug_pubnames
+                  0x000000        0x116 build/default/production/_ext/2096860475/ProyectoPrincipal.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x30
+.debug_aranges    0x000000         0x90
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/LCDg.o
  .debug_aranges
                   0x000018         0x18 build/default/production/retardos.o
+ .debug_aranges
+                  0x000030         0x18 build/default/production/_ext/637208046/sensoresINT.o
+ .debug_aranges
+                  0x000048         0x18 build/default/production/_ext/1867272583/MOTORISR.o
+ .debug_aranges
+                  0x000060         0x18 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+ .debug_aranges
+                  0x000078         0x18 build/default/production/_ext/1696894248/ISRUART.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -678,23 +802,117 @@ LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libm-elf.a
 LOAD d:/programas/microchip/xc16/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/INT.X.production.elf elf32-pic30)
+LOAD /CW/_FGS0ýÙ
 LOAD default_isr
+LOAD data_init
+
+.debug_pubtypes
+                  0x000090        0x170
+ .debug_pubtypes
+                  0x000090        0x170 build/default/production/_ext/2096860475/ProyectoPrincipal.o
 
 __c30_signature
-                  0x000030          0xc
+                  0x000200         0x12
  __c30_signature
-                  0x000030          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+                  0x000200          0x6 build/default/production/_ext/2096860475/ProyectoPrincipal.o
  __c30_signature
-                  0x000036          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                  0x000206          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+ __c30_signature
+                  0x00020c          0x6 d:/programas/microchip/xc16/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.text             0x0001ce        0x1f6
- .text            0x0001ce        0x1d0 build/default/production/LCDg.o
-                  0x0001ce                  _ubicarCursor
-                  0x000200                  _printLCD
-                  0x00021a                  _iniLCD8bits
-                  0x0002d2                  _banderaLCD
-                  0x000334                  _comandoLCD
-                  0x000388                  _datoLCD
- .text            0x00039e         0x26 build/default/production/retardos.o
-                  0x00039e                  _RETARDO_1S
-                  0x0003b4                  _RETARDO_1mS
+.nbss               0x0800          0xc
+ .nbss              0x0800          0xc build/default/production/_ext/2096860475/ProyectoPrincipal.o
+                    0x0800                  _comandoUART
+                    0x0802                  _datoRCV
+                    0x0804                  _detectorInt0
+                    0x0806                  _detectorInt1
+                    0x0808                  _detectorInt2
+                    0x080a                  _detectorPiso
+
+.ivt._INT0Interrupt
+                  0x000014          0x2
+ .ivt._INT0Interrupt
+                  0x000014          0x2 build/default/production/_ext/637208046/sensoresINT.o
+
+.ivt._INT1Interrupt
+                  0x000034          0x2
+ .ivt._INT1Interrupt
+                  0x000034          0x2 build/default/production/_ext/637208046/sensoresINT.o
+
+.ivt._INT2Interrupt
+                  0x000042          0x2
+ .ivt._INT2Interrupt
+                  0x000042          0x2 build/default/production/_ext/637208046/sensoresINT.o
+
+.ivt._T1Interrupt
+                  0x00001a          0x2
+ .ivt._T1Interrupt
+                  0x00001a          0x2 build/default/production/_ext/1867272583/MOTORISR.o
+
+.ivt._T2Interrupt
+                  0x000020          0x2
+ .ivt._T2Interrupt
+                  0x000020          0x2 build/default/production/_ext/1867272583/MOTORISR.o
+
+.config_MCLRE     0xf80004          0x2
+ .config_MCLRE    0xf80004          0x2 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+
+.config_WDT       0xf80002          0x2
+ .config_WDT      0xf80002          0x2 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+
+.config_FCKSMEN
+                  0xf80000          0x2
+ .config_FCKSMEN
+                  0xf80000          0x2 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+
+.ivt._U2RXInterrupt
+                  0x000044          0x2
+ .ivt._U2RXInterrupt
+                  0x000044          0x2 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+
+.ivt._U1RXInterrupt
+                  0x000026          0x2
+ .ivt._U1RXInterrupt
+                  0x000026          0x2 build/default/production/_ext/1696894248/ISRUART.o
+
+.const              0x81d6         0x4c load address 0x0001d6  
+ .const             0x81d6         0x4c build/default/production/_ext/2096860475/ProyectoPrincipal.o
+
+.text             0x000222        0x39e
+ .text            0x000222        0x1d0 build/default/production/LCDg.o
+                  0x000222                  _ubicarCursor
+                  0x00022e                  _ubicarCursor4BITS
+                  0x00023a                  _printLCD4BITS
+                  0x000254                  _printLCD
+                  0x00026e                  _iniLCD8bits
+                  0x0002b4                  _iniLCD4bits
+                  0x0002fa                  _banderaLCD4BITS
+                  0x000326                  _banderaLCD
+                  0x00034a                  _comandoLCD4BITS
+                  0x000388                  _comandoLCD
+                  0x00039e                  _datoLCD4BITS
+                  0x0003dc                  _datoLCD
+ .text            0x0003f2        0x158 build/default/production/_ext/2096860475/ProyectoPrincipal.o
+                  0x0003f2                  _main
+                  0x000426                  _configurarUART
+                  0x000438                  _configurarTimer
+                  0x00044e                  _bajarPiso
+                  0x00048c                  _subirPiso
+                  0x0004ca                  _controlPuerta
+                  0x0004e4                  _configurarInterrupciones
+                  0x000500                  _configurarPuertos
+ .text            0x00054a         0x30 build/default/production/_ext/637208046/sensoresINT.o
+                  0x00054a                  __INT0Interrupt
+                  0x00055a                  __INT1Interrupt
+                  0x00056a                  __INT2Interrupt
+ .text            0x00057a         0x26 build/default/production/retardos.o
+                  0x00057a                  _RETARDO_1S
+                  0x000590                  _RETARDO_1mS
+ .text            0x0005a0         0x10 build/default/production/_ext/1867272583/MOTORISR.o
+                  0x0005a0                  __T1Interrupt
+                  0x0005a8                  __T2Interrupt
+ .text            0x0005b0         0x10 build/default/production/_ext/1696894248/ISRUART.o
+                  0x0005b0                  __U1RXInterrupt
+
+.dinit            0x0005c0          0x8
+ .dinit           0x0005c0          0x8 data_init

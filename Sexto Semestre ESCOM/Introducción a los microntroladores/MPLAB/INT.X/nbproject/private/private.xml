@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/BrandMV/Documents/ESCOM/Sexto%20Semestre%20ESCOM/Introducción%20a%20los%20microntroladores/MPLAB/INT.X/LCDg.s</file>
+            <file>file:/D:/PC/ESCOM/ESCOM/Sexto%20Semestre%20ESCOM/Introducción%20a%20los%20microntroladores/MPLAB/INT.X/LCDg.s</file>
+            <file>file:/D:/PC/ESCOM/ESCOM/Sexto%20Semestre%20ESCOM/Introducción%20a%20los%20microntroladores/Proyecto/ProyectoPrincipal.c</file>
+            <file>file:/D:/PC/ESCOM/ESCOM/Sexto%20Semestre%20ESCOM/Introducción%20a%20los%20microntroladores/Proyecto/UART/ISRUART.s</file>
+            <file>file:/D:/PC/ESCOM/ESCOM/Sexto%20Semestre%20ESCOM/Introducción%20a%20los%20microntroladores/Proyecto/Motores/MOTORISR.s</file>
+            <file>file:/D:/PC/ESCOM/ESCOM/Sexto%20Semestre%20ESCOM/Introducción%20a%20los%20microntroladores/Proyecto/Sensores/sensoresINT.s</file>
+            <file>file:/D:/PC/ESCOM/ESCOM/Sexto%20Semestre%20ESCOM/Introducción%20a%20los%20microntroladores/MPLAB/INT.X/retardos.s</file>
         </group>
     </open-files>
 </project-private>
