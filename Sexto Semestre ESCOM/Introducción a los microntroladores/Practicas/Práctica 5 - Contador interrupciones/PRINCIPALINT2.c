@@ -43,7 +43,6 @@ extern void comandoLCD(short int);
 extern void ubicarCursor(short int);
 extern void printLCD(char *);
 extern void datoLCD( unsigned short int Dato );
-unsigned char uni, dece, cen, umi;
 char contador[5];
 
 int main(void) 
@@ -54,12 +53,7 @@ int main(void)
     //banderaLCD(); //*Preguntamos si esta libre el LCD
     //comandoLCD(0x84); //DDRAM_ADDRESS_SET 4
     ubicarCursor(4);
-    printLCD("Conteo:");
-    
-    uni = 0;
-    dece = 0;
-    cen = 0;
-    umi = 0;
+
 
     configurarInterrupciones();
     
@@ -67,11 +61,7 @@ int main(void)
     
     for(;EVER;)
     {
-        contador[0] = umi + 0X30;
-        contador[1] = cen + 0X30;        
-        contador[2] = dece + 0X30;
-        contador[3] = uni + 0X30;
-        contador[4] = 0; //nulo
+
         ubicarCursor(0X46);
         printLCD(contador);
      //   asm("nop");
@@ -80,10 +70,23 @@ int main(void)
     return 0;
 }
 void configurarInterrupciones(){
+    //INTERRUPCIONES SEGUNDO PISO
     IFS0bits.INT0IF = 0;
     INTCON2bits.INT0EP = 1;     //set up INTO on negative edge (falling edge 1, rising edge 0) 
     //INTCON2BITS.INT0EP = 1; //FLANCO BAJADA
     IEC0bits.INT0IE = 1; //HABILITAMOS
+    
+    //INTERRUPCIONES PRIMER PISO
+    IFS0bits.INT1IF = 0;
+    INTCON2bits.INT1EP = 1;     //set up INTO on negative edge (falling edge 1, rising edge 0) 
+    //INTCON2BITS.INT0EP = 1; //FLANCO BAJADA
+    IEC0bits.INT1IE = 1; //HABILITAMOS
+    
+    //INTERRUPCIONES PLANTA BAJA
+    IFS0bits.INT2IF = 0;
+    INTCON2bits.INT2EP = 1;     //set up INTO on negative edge (falling edge 1, rising edge 0) 
+    //INTCON2BITS.INT0EP = 1; //FLANCO BAJADA
+    IEC0bits.INT2IE = 1; //HABILITAMOS
     
 }
 void configurarPuertos()

@@ -17,6 +17,10 @@
                    projectFiles="true">
       <itemPath>LCDg.s</itemPath>
       <itemPath>retardos.s</itemPath>
+      <itemPath>../../Proyecto/Sensores/sensoresINT.s</itemPath>
+      <itemPath>../../Proyecto/Motores/MOTORISR.s</itemPath>
+      <itemPath>../../Proyecto/ProyectoPrincipal.c</itemPath>
+      <itemPath>../../Proyecto/UART/ISRUART.s</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -26,6 +30,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
+    <Elem>../../Proyecto</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

@@ -24,7 +24,7 @@ public class ServidorHTTP {
                 String s = entrada.readLine();
                 System.out.println(s);
 
-                if(s.startsWith("GET /hola")){
+                if(s.startsWith("GET /primo?numero")){
                     String respuesta = "<html><button onclick='alert(\"OK\")'>Boton</button></html>";
 
                     salida.println("HTTP/1.1 200 OK");
@@ -52,7 +52,7 @@ public class ServidorHTTP {
     }
 
     public static void main(String[] args) throws Exception{
-        ServerSocket servidor = new ServerSocket(80);
+        ServerSocket servidor = new ServerSocket(8081);
         for(;;){
             Socket conexion = servidor.accept();
             new Worker(conexion).start();
