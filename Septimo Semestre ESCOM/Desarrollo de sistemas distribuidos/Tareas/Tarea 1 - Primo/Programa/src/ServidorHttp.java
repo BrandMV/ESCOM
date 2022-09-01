@@ -22,13 +22,14 @@ public class ServidorHttp {
                 String verificacion = null;
 
                 if (s.startsWith("GET /primo?")) {
-                    long numero = Long.parseLong(getNumero(s)) / 2;
+                    long numero = Long.parseLong(getNumero(s));
+                    long numeroDividido = numero / 2;
 
                     /**Obteniendo los intervalos para mandar al Servidor A*/
                     long numeroInicial = 2;
                     long numeroFinal = 0;
 
-                    int port = 50000;
+                    int port = 60000;
                     Socket conexion = null;
                     int primo = 0;
 
@@ -45,7 +46,7 @@ public class ServidorHttp {
                             if (i != 0) {
                                 numeroInicial = numeroFinal + 1;
                             }
-                            numeroFinal = (numero / 4) * (i + 1);
+                            numeroFinal = (numeroDividido / 4) * (i + 1);
 
                             salidaSocket.writeLong(numero);
                             salidaSocket.writeLong(numeroInicial);
@@ -74,7 +75,7 @@ public class ServidorHttp {
                     // Si al menos un servidor devolvio la palabra DIVIDE el número no es primo
                     if (primo > 0) {
                         System.out.println("Numero " + numero + "no es primo");
-                        String respuesta = "<html><h1>El número " + (numero*2) + " no es primo</h1>></html>";
+                        String respuesta = "<html><h1>El número " + numero + " no es primo</h1>></html>";
                         salida.println("HTTP/1.1 200 OK");
                         salida.println("Server: Primo");
                         salida.println("Date: " + new Date());
