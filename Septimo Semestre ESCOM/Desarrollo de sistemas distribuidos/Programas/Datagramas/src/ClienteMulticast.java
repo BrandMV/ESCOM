@@ -14,7 +14,7 @@ public class ClienteMulticast {
     }
 
     public static void main(String[] args) throws IOException {
-        System.setProperty("java.net.preferIPv4Stack", "true");
+        // System.setProperty("java.net.preferIPv4Stack", "true");
         // Grupo al que se suscribe el cliente
         InetSocketAddress grupo = new InetSocketAddress(InetAddress.getByName("239.0.0.0"), 50000);
         MulticastSocket socket = new MulticastSocket(50000);
