@@ -9,18 +9,34 @@ public class Cliente {
     static int port = 50000;
     static class Worker extends Thread {
         String fileName;
+        // Contructor que recibe el nombre del archivo a mandar al servidor
         public Worker(String fileName){
             this.fileName = fileName;
         }
+
         public void run() {
+            Socket conexion = null;
             File f = new File("");
 
             // 1. Leyendo archivo del disco
             File archivo = new File(f.getAbsolutePath() + "/" + fileName);
 
-            // 2. Conectandonos al
+            // 2. Conectandonos al servidor
             try{
-                Socket conexion = new Socket("Localhost", port);
+                // Creando conexión segura
+                SSLSocketFactory cliente = (SSLSocketFactory) SSLSocketFactory.getDefault();
+                // Hacemos el reintento de conexiòn
+                for(;;){
+                    try{
+                        conexion = cliente.createSocket("localhost",50000); // Creamos el socket
+                        break;
+                    }
+                    catch (Exception ex){
+                        System.out.println("Reintentando conexion...");
+                        Thread.sleep(100);
+                        //System.err.println(ex.getMessage());
+                    }
+                }
                 /**Flujos de entrada y salida*/
                 DataOutputStream salidaSocket = new DataOutputStream(conexion.getOutputStream());
                 DataInputStream entradaSocket = new DataInputStream(conexion.getInputStream());
@@ -32,10 +48,11 @@ public class Cliente {
                 // 4. Enviando la longitud del archivo
                 int archivoLength = (int) archivo.length();
                 salidaSocket.writeInt(archivoLength);
-                System.out.println("La longitud del archivo es de " + archivoLength);
+                // System.out.println("La longitud del archivo es de " + archivoLength);
 
                 // 5. Mandando el contenido del archivo
                 DataInputStream dis = new DataInputStream(new FileInputStream(archivo.getAbsolutePath()));
+                System.out.println("Enviando el archivo: " + fileName);
                 sendFile(dis, salidaSocket, archivoLength);
 
                 // 6. Esperar respuesta del servidor
@@ -51,9 +68,15 @@ public class Cliente {
             catch (Exception ex){
                 System.err.println(ex.getMessage());
             }
-
         }
 
+        /**
+         * Método que manda el archivo al servidor
+         * @param dis DataInputStream que lee los datos de un archivo a travès de un FileInputStream
+         * @param dos DataOutputStream que nos servirà para escribir los datos del archivo al servidor
+         * @param tam Tamaño del archivo a mandar actual
+         * @throws IOException
+         */
         public static void sendFile(DataInputStream dis, DataOutputStream dos, int tam) throws IOException{
             int datosEnviados = 0;
             int l = 0;
@@ -65,14 +88,11 @@ public class Cliente {
                 dos.flush();
                 datosEnviados = datosEnviados + l;
             }
-
             dis.close();
         }
 
-
         /**
-         * Función que lee una cadena de bytes mandada desde el servidor
-         *
+         * Método que lee una cadena de bytes mandada desde el servidor
          * @param f        el flujo de entrada
          * @param b        el arreglo de bytes
          * @param posicion la posicion del arreglo
@@ -89,24 +109,19 @@ public class Cliente {
     }
 
     public static void main(String[] args) throws Exception {
-        /*
-        SSLSocketFactory cliente = (SSLSocketFactory) SSLSocketFactory.getDefault();
-        Socket socket = cliente.createSocket("localhost",5000);
-        */
-        Socket conexion = new Socket("Localhost", 50000);
+        // Propiedades para indicar el nombre del keystore del cliente (repositorio de confianza) y la contraseña
+        System.setProperty("javax.net.ssl.trustStore", "keystore_cliente.jks");
+        System.setProperty("javax.net.ssl.trustStorePassword", "1234567");
 
         if (args.length < 1) {
             System.out.println("Debe ingresar un nombre de archivo o mas como argumento: java archivo-1 archivo-2 archivo-3");
             System.exit(0);
         }
 
+        // Leyendo arguementos y creando hilos
         for (int i = 0; i < args.length; i++) {
             Worker w = new Worker(args[i]);
-            w.start();
-
+            w.start();  // Empezando la ejecución de los hilos
         }
-
-
-
     }
 }

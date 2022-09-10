@@ -1,5 +1,7 @@
 package server;
 
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
@@ -23,11 +25,11 @@ public class Servidor {
                 byte[] buffer = new byte[size];
                 read(entrada, buffer, 0, size);
                 String fileName = new String(buffer, "UTF-8");
-                System.out.println("Nombre del archivo " + fileName);
+                //System.out.println("Nombre del archivo " + fileName);
 
                 // 2. Recibiendo la longitud del arhivo
                 int archivoLength = entrada.readInt();
-                System.out.println("La longitud del archivo es de " + archivoLength);
+                //System.out.println("La longitud del archivo es de " + archivoLength);
 
                 // 3. Recibiendo el contenido del archivo
                 boolean isOK = recieveFile(entrada, archivoLength, fileName);
@@ -46,16 +48,25 @@ public class Servidor {
 
                 entrada.close();
                 salida.close();
+                //  Cerrando la conexion
                 conexion.close();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         }
 
+        /**
+         * Método que recibe el archivo que mando el cliente
+         * @param entrada       DataInputStream que permitirá leer el archivo
+         * @param archivoLength Longitud del tamñana a recibir actual
+         * @param fileName      Nombre del archivo a recibir actual
+         * @return
+         */
         public static boolean recieveFile(DataInputStream entrada, int archivoLength, String fileName) {
             File f = new File("");
             File archivo = new File(f.getAbsolutePath() + "/" + fileName);
             try {
+                // Creamos un DataOuputStream para poder escrhibir en un archivo los datos
                 DataOutputStream dos = new DataOutputStream(new FileOutputStream(archivo));
                 int datosRecibidos = 0;
                 int l = 0;
@@ -68,8 +79,8 @@ public class Servidor {
                     dos.flush();
                     datosRecibidos = datosRecibidos + l;
                 }
-
                 dos.close();
+                System.out.println("Archivo" + fileName + " recibido");
                 return true; // Si se recibió correctamente
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -78,8 +89,7 @@ public class Servidor {
         }
 
         /**
-         * Función que lee una cadena de bytes mandada desde el servidor
-         *
+         * Método que lee una cadena de bytes mandada desde el servidor
          * @param f        el flujo de entrada
          * @param b        el arreglo de bytes
          * @param posicion la posicion del arreglo
@@ -96,11 +106,13 @@ public class Servidor {
     }
 
     public static void main(String[] args) throws Exception {
-            /*
-            SSLSocketFactory cliente = (SSLSocketFactory) SSLSocketFactory.getDefault();
-            Socket socket = cliente.createSocket("localhost",5000);
-            */
-        ServerSocket servidor = new ServerSocket(50000);
+        // Propiedades para indicar el nombre deñ keystore del servidor y la contraseña
+        System.setProperty("javax.net.ssl.keyStore", "keystore_servidor.jks");
+        System.setProperty("javax.net.ssl.keyStorePassword", "1234567");
+
+        // Creando la conexión segura
+        SSLServerSocketFactory socket_factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        ServerSocket servidor = socket_factory.createServerSocket(50000);
         for (; ; ) {
             Socket conexion = servidor.accept();
             Worker w = new Worker(conexion);
