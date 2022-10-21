@@ -1,15 +1,17 @@
-import javax.xml.crypto.Data;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Multiplica {
-    static int N = 4;
+    static int N = 12;
     static float[][] A = new float[N][N];
     static float[][] B = new float[N][N];
     static float[][] C = new float[N][N];
+    static float[][] Baux = new float[N][N];
+
     static float[][] A1 = new float[N / 4][N];
     static float[][] A2 = new float[N / 4][N];
     static float[][] A3 = new float[N / 4][N];
@@ -138,30 +140,29 @@ public class Multiplica {
 
                 /// 1. Recibiendo A1
                 A1 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz A1");
-                imprimirMatriz(A1, N / 4, N);
+                System.out.println("Matriz A1 recibida");
+               // imprimirMatriz(A1, N / 4, N);
 
                 /// 2. Recibiendo B1, B2, B3, B4
                 // Recibiendo B1
                 B1 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B1");
-                imprimirMatriz(B1, N / 4, N);
+                System.out.println("Matriz B1 recibida");
+                //imprimirMatriz(B1, N / 4, N);
 
                 // Recibiendo B2
                 B2 = recibirMatriz(entrada, N / 4, N);
                 System.out.println("Matriz B2");
-                imprimirMatriz(B2, N / 4, N);
+               // imprimirMatriz(B2, N / 4, N);
 
                 // Recibiendo B3
                 B3 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B3");
-                imprimirMatriz(B3, N / 4, N);
+                System.out.println("Matriz B3 recibida");
+               // imprimirMatriz(B3, N / 4, N);
 
                 // Recibiendo B4
                 B4 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B4");
-                imprimirMatriz(B4, N / 4, N);
-                conexion.close();
+                System.out.println("Matriz B4 recibida");
+               // imprimirMatriz(B4, N / 4, N);
                 /// Multiplicando matrices
                 // Obteniendo C1
                 Cx = multiplicarMatrices(A1, B1);
@@ -175,6 +176,11 @@ public class Multiplica {
                 // Obteniendo C4
                 Cx = multiplicarMatrices(A1, B4);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+
+                System.out.println("Matrices C1, C2, C3 y C4 enviadas");
+
+                conexion.close();
+
                 break;
             case 2:
                 servidor = new ServerSocket(60000 + nodo);
@@ -185,29 +191,29 @@ public class Multiplica {
 
                 /// 1. Recibiendo A2
                 A2 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz A2");
-                imprimirMatriz(A2, N / 4, N);
+                System.out.println("Matriz A2 recibida");
+              //  imprimirMatriz(A2, N / 4, N);
 
                 /// 2. Recibiendo B1, B2, B3, B4
                 // Recibiendo B1
                 B1 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B1");
-                imprimirMatriz(B1, N / 4, N);
+                System.out.println("Matriz B1 recibida");
+               // imprimirMatriz(B1, N / 4, N);
 
                 // Recibiendo B2
                 B2 = recibirMatriz(entrada, N / 4, N);
                 System.out.println("Matriz B2");
-                imprimirMatriz(B2, N / 4, N);
+              //  imprimirMatriz(B2, N / 4, N);
 
                 // Recibiendo B3
                 B3 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B3");
-                imprimirMatriz(B3, N / 4, N);
+                System.out.println("Matriz B3 recibida");
+              //  imprimirMatriz(B3, N / 4, N);
 
                 // Recibiendo B4
                 B4 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B4");
-                imprimirMatriz(B4, N / 4, N);
+                System.out.println("Matriz B4 recibida");
+               // imprimirMatriz(B4, N / 4, N);
 
                 /// Multiplicando matrices
                 // Obteniendo C5
@@ -222,6 +228,7 @@ public class Multiplica {
                 // Obteniendo C8
                 Cx = multiplicarMatrices(A2, B4);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                System.out.println("Matrices C5, C6, C7, C8 enviadas");
 
                 conexion.close();
                 break;
@@ -234,29 +241,29 @@ public class Multiplica {
 
                 /// 1. Recibiendo A3
                 A3 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz A3");
-                imprimirMatriz(A3, N / 4, N);
+                System.out.println("Matriz A3 recibida");
+               // imprimirMatriz(A3, N / 4, N);
 
                 /// 2. Recibiendo B1, B2, B3, B4
                 // Recibiendo B1
                 B1 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B1");
-                imprimirMatriz(B1, N / 4, N);
+                System.out.println("Matriz B1 recibida");
+               // imprimirMatriz(B1, N / 4, N);
 
                 // Recibiendo B2
                 B2 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B2");
-                imprimirMatriz(B2, N / 4, N);
+                System.out.println("Matriz B2 recibida");
+              //  imprimirMatriz(B2, N / 4, N);
 
                 // Recibiendo B3
                 B3 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B3");
-                imprimirMatriz(B3, N / 4, N);
+                System.out.println("Matriz B3 recibida");
+              //  imprimirMatriz(B3, N / 4, N);
 
                 // Recibiendo B4
                 B4 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B4");
-                imprimirMatriz(B4, N / 4, N);
+                System.out.println("Matriz B4 recibida");
+               // imprimirMatriz(B4, N / 4, N);
 
                 /// Multiplicando matrices
                 // Obteniendo C9
@@ -271,6 +278,8 @@ public class Multiplica {
                 // Obteniendo C12
                 Cx = multiplicarMatrices(A3, B4);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                System.out.println("Matrices C9, C10, C11, C12 enviadas");
+
 
                 conexion.close();
                 break;
@@ -283,29 +292,29 @@ public class Multiplica {
 
                 /// 1. Recibiendo A2
                 A4 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz A4");
-                imprimirMatriz(A4, N / 4, N);
+                System.out.println("Matriz A4 recibida");
+               // imprimirMatriz(A4, N / 4, N);
 
                 /// 2. Recibiendo B1, B2, B3, B4
                 // Recibiendo B1
                 B1 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B1");
-                imprimirMatriz(B1, N / 4, N);
+                System.out.println("Matriz B1 recibida");
+             //   imprimirMatriz(B1, N / 4, N);
 
                 // Recibiendo B2
                 B2 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B2");
-                imprimirMatriz(B2, N / 4, N);
+                System.out.println("Matriz B2 recibida");
+               // imprimirMatriz(B2, N / 4, N);
 
                 // Recibiendo B3
                 B3 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B3");
-                imprimirMatriz(B3, N / 4, N);
+                System.out.println("Matriz B3 recibida");
+               // imprimirMatriz(B3, N / 4, N);
 
                 // Recibiendo B4
                 B4 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz B4");
-                imprimirMatriz(B4, N / 4, N);
+                System.out.println("Matriz B4 recibida");
+               // imprimirMatriz(B4, N / 4, N);
 
                 /// Multiplicando matrices
                 // Obteniendo C13
@@ -320,6 +329,7 @@ public class Multiplica {
                 // Obteniendo C16
                 Cx = multiplicarMatrices(A4, B4);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                System.out.println("Matrices C13, C14, C15, C16 enviadas");
 
                 conexion.close();
                 break;
@@ -338,19 +348,21 @@ public class Multiplica {
                 B[i][j] = 2 * i - j;
             }
         }
-        System.out.println("Matriz A:");
-        imprimirMatriz(A, N, N);
-        System.out.println("Matriz B:");
-        imprimirMatriz(B, N, N);
+        Baux = B;
 
         /// 2. Transpuesta de B
+        /*
         for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
+            for (int j = 0; j < i; j++) {
                 float x = B[i][j];
                 B[i][j] = B[j][i];
                 B[j][i] = x;
             }
         }
+
+         */
+        //System.out.println("Matriz B transpuesta:");
+        //imprimirMatriz(B, N, N);
 
         /// Creando hilos
         Worker N1 = new Worker(A, B, 1, 0, N / 4, N);
@@ -393,7 +405,6 @@ public class Multiplica {
         C14 = N4.CN2;
         C15 = N4.CN3;
         C16 = N4.CN4;
-
         /// Construyendo C
         // Renglon 1
         for(int i = 0; i < C1.length; i++){
@@ -416,8 +427,84 @@ public class Multiplica {
                 C[i][j + C4[0].length*3] = C4[i][j];
             }
         }
-
         //Renglon 2
+        for(int i = 0; i < C5.length; i++){
+            for(int j = 0; j < C5[0].length; j++){
+                C[i+C5[0].length][j] = C5[i][j];
+            }
+        }
+        for(int i = 0; i < C6.length; i++){
+            for(int j = 0; j < C6[0].length; j++){
+                C[i+C6[0].length][j+C6[0].length] = C6[i][j];
+            }
+        }
+        for(int i = 0; i < C7.length; i++){
+            for(int j = 0; j < C7[0].length; j++){
+                C[i+C7[0].length][j+C7[0].length*2] = C7[i][j];
+            }
+        }
+        for(int i = 0; i < C8.length; i++){
+            for(int j = 0; j < C8[0].length; j++){
+                C[i+C8[0].length][j+C8[0].length*3] = C8[i][j];
+            }
+        }
+        /// Renglon 3
+        for(int i = 0; i < C9.length; i++){
+            for(int j = 0; j < C9[0].length; j++){
+                C[i+C9[0].length*2][j] = C9[i][j];
+            }
+        }
+        for(int i = 0; i < C10.length; i++){
+            for(int j = 0; j < C10[0].length; j++){
+                C[i+C10[0].length*2][j+C10[0].length] = C10[i][j];
+            }
+        }
+        for(int i = 0; i < C11.length; i++){
+            for(int j = 0; j < C11[0].length; j++){
+                C[i+C11[0].length*2][j+C11[0].length*2] = C11[i][j];
+            }
+        }
+        for(int i = 0; i < C12.length; i++){
+            for(int j = 0; j < C12[0].length; j++){
+                C[i+C12[0].length*2][j+C12[0].length*3] = C12[i][j];
+            }
+        }
+        /// Renglon 4
+        for(int i = 0; i < C13.length; i++){
+            for(int j = 0; j < C13[0].length; j++){
+                C[i+C13[0].length*3][j] = C13[i][j];
+            }
+        }
+        for(int i = 0; i < C14.length; i++){
+            for(int j = 0; j < C14[0].length; j++){
+                C[i+C14[0].length*3][j+C14[0].length] = C14[i][j];
+            }
+        }
+        for(int i = 0; i < C15.length; i++){
+            for(int j = 0; j < C15[0].length; j++){
+                C[i+C15[0].length*3][j+C15[0].length*2] = C15[i][j];
+            }
+        }
+        for(int i = 0; i < C16.length; i++){
+            for(int j = 0; j < C16[0].length; j++){
+                C[i+C16[0].length*3][j+C16[0].length*3] = C16[i][j];
+            }
+        }
+
+        if(N == 12){
+            System.out.println("Matriz A");
+            imprimirMatriz(A, N, N);
+            System.out.println("Matriz B");
+            imprimirMatriz(Baux, N, N);
+            System.out.println("Matriz C");
+            imprimirMatriz(C, N, N);
+        }
+
+        /// 16. Calculando y mostrando checksum de la matriz C
+        calcularChecksum(C, N);
+       // imprimirMatriz(C, N, N);
+
+
 
     }
 
@@ -447,11 +534,10 @@ public class Multiplica {
         for (int i = 0; i < N/4; i++){
             for (int j = 0; j < N/4; j++){
                 for (int k = 0; k < N; k++){
-                    C[i][j] += A[i][k] * B[j][k];
+                    Cx[i][j] += Ax[i][k] * Bx[j][k];
                 }
             }
         }
-
         return Cx;
     }
 
@@ -463,12 +549,29 @@ public class Multiplica {
             System.out.println("");
         }
     }
+    static void calcularChecksum(float matriz[][], int tam){
+        float checksum = 0;
+        for (int i = 0; i < tam; i++){
+            for(int j = 0; j < tam; j++){
+                checksum += matriz[i][j];
+            }
+        }
+        System.out.println("Checksum de la matriz = " + checksum);
+    }
 
     public static void read(DataInputStream f, byte[] b, int posicion, int longitud) throws Exception {
         while (longitud > 0) {
             int n = f.read(b, posicion, longitud);
             posicion += n;
             longitud -= n;
+        }
+    }
+
+    public static void formarMatrizC(float[][] Cx, int renglon, int columna){
+        for(int i = 0; i < Cx.length; i++){
+            for(int j = 0; j < Cx[0].length; j++){
+                C[i+renglon][j+columna] = Cx[i][j];
+            }
         }
     }
 }
