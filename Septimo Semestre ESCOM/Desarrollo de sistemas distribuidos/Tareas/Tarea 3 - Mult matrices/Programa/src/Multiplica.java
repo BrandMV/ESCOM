@@ -44,24 +44,38 @@ public class Multiplica {
         float[][] CN2 = new float[N/4][N/4];
         float[][] CN3 = new float[N/4][N/4];
         float[][] CN4 = new float[N/4][N/4];
+        float[][] CN5 = new float[N/4][N/4];
+        float[][] CN6 = new float[N/4][N/4];
+        float[][] CN7 = new float[N/4][N/4];
+        float[][] CN8 = new float[N/4][N/4];
 
-        int nodo, renglones, columnas, inicioRenglon;
+        String ipServer;
 
-        Worker(float[][] Ax, float[][] BN, int nodo, int inicioRenglon, int renglones, int columnas) {
+        int nodo, renglonesAx1, columnas, inicioRenglonAx1, inicioRenglonAx2, renglonesAx2;
+
+        Worker(String ipServer, float[][] Ax,  float[][] BN, int nodo, int inicioRenglonAx1, int renglonesAx1, int columnas, int inicioRenglonAx2, int renglonesAx2) {
             this.Ax = Ax;
             this.BN = BN;
             this.nodo = nodo;
-            this.renglones = renglones;
-            this.inicioRenglon = inicioRenglon;
+            this.renglonesAx1 = renglonesAx1;
+            this.renglonesAx2 = renglonesAx2;
+            this.inicioRenglonAx1 = inicioRenglonAx1;
+            this.inicioRenglonAx2 = inicioRenglonAx2;
             this.columnas = columnas;
+            this.ipServer = ipServer;
         }
 
+        /**
+         * @brief Método run del hilo que se encargara de crear las conexiones con los nodos servidores con la ip pública del servidor y el puerto
+         */
         public void run() {
             try {
+                /// Cliente con intentos de conexión
                 Socket conexion = null;
                 for (; ; ) {
                     try {
-                        conexion = new Socket("localhost", 60000 + nodo);
+                        /// Colocamos la ip pública de la maquina virtual
+                        conexion = new Socket(ipServer, 60000 + nodo);
                         break;
                     } catch (Exception e) {
                         System.out.println("Reintentando conexion...");
@@ -71,8 +85,10 @@ public class Multiplica {
                 DataInputStream entrada = new DataInputStream(conexion.getInputStream());
                 DataOutputStream salida = new DataOutputStream(conexion.getOutputStream());
                 /// Mandando matrices
-                // Ax
-                enviarMatriz(salida, renglones, columnas, inicioRenglon, 0, A);
+                // Ax1
+                enviarMatriz(salida, renglonesAx1, columnas, inicioRenglonAx1, 0, A);
+                // Ax2
+                enviarMatriz(salida, renglonesAx2, columnas, inicioRenglonAx2, 0, A);
 
                 // B1
                 enviarMatriz(salida, N / 4, N, 0, 0, BN);
@@ -102,6 +118,22 @@ public class Multiplica {
                 float[][] Cx4 = new float[N/4][N/4];
                 Cx4 = recibirMatriz(entrada, N/4, N/4);
                 this.CN4 = Cx4;
+
+                float[][] Cx5 = new float[N/4][N/4];
+                Cx5 = recibirMatriz(entrada, N/4, N/4);
+                this.CN5 = Cx5;
+
+                float[][] Cx6 = new float[N/4][N/4];
+                Cx6 = recibirMatriz(entrada, N/4, N/4);
+                this.CN6 = Cx6;
+
+                float[][] Cx7 = new float[N/4][N/4];
+                Cx7 = recibirMatriz(entrada, N/4, N/4);
+                this.CN7 = Cx7;
+
+                float[][] Cx8 = new float[N/4][N/4];
+                Cx8 = recibirMatriz(entrada, N/4, N/4);
+                this.CN8 = Cx8;
 
                 conexion.close();
             } catch (Exception e) {
@@ -141,7 +173,10 @@ public class Multiplica {
                 /// 1. Recibiendo A1
                 A1 = recibirMatriz(entrada, N / 4, N);
                 System.out.println("Matriz A1 recibida");
-               // imprimirMatriz(A1, N / 4, N);
+                /// 1. Recibiendo A2
+                A2 = recibirMatriz(entrada, N / 4, N);
+                System.out.println("Matriz A2 recibida");
+               //imprimirMatriz(A2, N / 4, N);
 
                 /// 2. Recibiendo B1, B2, B3, B4
                 // Recibiendo B1
@@ -176,8 +211,21 @@ public class Multiplica {
                 // Obteniendo C4
                 Cx = multiplicarMatrices(A1, B4);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
-
+                // Obteniendo C5
+                Cx = multiplicarMatrices(A2, B1);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                // Obteniendo C6
+                Cx = multiplicarMatrices(A2, B2);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                // Obteniendo C7
+                Cx = multiplicarMatrices(A2, B3);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                // Obteniendo C8
+                Cx = multiplicarMatrices(A2, B4);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
                 System.out.println("Matrices C1, C2, C3 y C4 enviadas");
+                System.out.println("Matrices C5, C6, C7, C8 enviadas");
+
 
                 conexion.close();
 
@@ -189,9 +237,12 @@ public class Multiplica {
                 salida = new DataOutputStream(conexion.getOutputStream());
                 entrada = new DataInputStream(conexion.getInputStream());
 
-                /// 1. Recibiendo A2
-                A2 = recibirMatriz(entrada, N / 4, N);
-                System.out.println("Matriz A2 recibida");
+                /// 1. Recibiendo A3
+                A3 = recibirMatriz(entrada, N / 4, N);
+                System.out.println("Matriz A3 recibida");
+                /// 1. Recibiendo A4
+                A4 = recibirMatriz(entrada, N / 4, N);
+                System.out.println("Matriz A4 recibida");
               //  imprimirMatriz(A2, N / 4, N);
 
                 /// 2. Recibiendo B1, B2, B3, B4
@@ -216,22 +267,39 @@ public class Multiplica {
                // imprimirMatriz(B4, N / 4, N);
 
                 /// Multiplicando matrices
-                // Obteniendo C5
-                Cx = multiplicarMatrices(A2, B1);
+                // Obteniendo C9
+                Cx = multiplicarMatrices(A3, B1);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
-                // Obteniendo C6
-                Cx = multiplicarMatrices(A2, B2);
+                // Obteniendo C10
+                Cx = multiplicarMatrices(A3, B2);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
-                // Obteniendo C7
-                Cx = multiplicarMatrices(A2, B3);
+                // Obteniendo C11
+                Cx = multiplicarMatrices(A3, B3);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
-                // Obteniendo C8
-                Cx = multiplicarMatrices(A2, B4);
+                // Obteniendo C12
+                Cx = multiplicarMatrices(A3, B4);
                 enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
-                System.out.println("Matrices C5, C6, C7, C8 enviadas");
+                // Obteniendo C13
+                Cx = multiplicarMatrices(A4, B1);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                // Obteniendo C14
+                Cx = multiplicarMatrices(A4, B2);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                // Obteniendo C15
+                Cx = multiplicarMatrices(A4, B3);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                // Obteniendo C16
+                Cx = multiplicarMatrices(A4, B4);
+                enviarMatriz(salida, N/4, N/4, 0, 0, Cx);
+                System.out.println("Matrices C9, C10, C11, C12 enviadas");
+                System.out.println("Matrices C13, C14, C15, C16 enviadas");
+
 
                 conexion.close();
                 break;
+            /** el case 3 y case 4 se hizo para cuando se tenían 4 nodos, como se usaron 2 al final, el código de
+             *  estos case no se usa, pero se deja por si en un futuro se necesita
+             * */
             case 3:
                 servidor = new ServerSocket(60000 + nodo);
                 System.out.println("Nodo 3 iniciado");
@@ -339,6 +407,10 @@ public class Multiplica {
         }
     }
 
+    /**
+     * @brief Nodo que hace las operaciones del nodo central (0)
+     * @throws Exception
+     */
     public static void nodoCentral() throws Exception {
 
         /// 1. Inicializando matrices
@@ -351,7 +423,7 @@ public class Multiplica {
         Baux = B;
 
         /// 2. Transpuesta de B
-        /*
+
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < i; j++) {
                 float x = B[i][j];
@@ -359,28 +431,28 @@ public class Multiplica {
                 B[j][i] = x;
             }
         }
-
-         */
         //System.out.println("Matriz B transpuesta:");
         //imprimirMatriz(B, N, N);
 
         /// Creando hilos
-        Worker N1 = new Worker(A, B, 1, 0, N / 4, N);
-        Worker N2 = new Worker(A, B, 2, N/4, N/2, N);
-        Worker N3 = new Worker(A, B, 3, N/2, N*3/4, N);
-        Worker N4 = new Worker(A, B, 4, N*3/4, N, N);
+        Worker N1 = new Worker("20.124.1.21", A, B, 1, 0, N / 4, N, N/4, N/2);
+        Worker N2 = new Worker("20.168.192.129", A, B, 2, N/2, N*3/4, N, N*3/4, N);
+        //Worker N3 = new Worker(A, B, 3, N/2, N*3/4, N);
+       // Worker N4 = new Worker(A, B, 4, N*3/4, N, N);
 
         /// Corriendo hilos
         N1.start();
-        N2.start();
-        N3.start();
-        N4.start();
-
-        /// Esperando hilos
+        /// Esperando hilo
         N1.join();
+
+        N2.start();
+        /// Esperando hilo
         N2.join();
-        N3.join();
-        N4.join();
+
+        //N3.start();
+        // N3.join();
+        //N4.start();
+        //N4.join();
 
         /// Obteniendo valores de C1 - C4 para construir C
         C1 = N1.CN1;
@@ -389,22 +461,22 @@ public class Multiplica {
         C4 = N1.CN4;
 
         /// Obteniendo valores de C5 - C8 para construir C
-        C5 = N2.CN1;
-        C6 = N2.CN2;
-        C7 = N2.CN3;
-        C8 = N2.CN4;
+        C5 = N1.CN5;
+        C6 = N1.CN6;
+        C7 = N1.CN7;
+        C8 = N1.CN8;
 
         /// Obteniendo valores de C9 - C12 para construir C
-        C9 = N3.CN1;
-        C10 = N3.CN2;
-        C11 = N3.CN3;
-        C12 = N3.CN4;
+        C9 = N2.CN1;
+        C10 = N2.CN2;
+        C11 = N2.CN3;
+        C12 = N2.CN4;
 
         /// Obteniendo valores de C13 - C16 para construir C
-        C13 = N4.CN1;
-        C14 = N4.CN2;
-        C15 = N4.CN3;
-        C16 = N4.CN4;
+        C13 = N2.CN5;
+        C14 = N2.CN6;
+        C15 = N2.CN7;
+        C16 = N2.CN8;
         /// Construyendo C
         // Renglon 1
         for(int i = 0; i < C1.length; i++){
@@ -502,23 +574,36 @@ public class Multiplica {
 
         /// 16. Calculando y mostrando checksum de la matriz C
         calcularChecksum(C, N);
-       // imprimirMatriz(C, N, N);
-
-
-
     }
 
+    /**
+     * @brief Método que envia una matriz usando writeFloat
+     * @param salida Flujo de salida para poder escribir los elementos de la matriz
+     * @param renglones Renglones totales de la matriz a enviar
+     * @param columnas Columnas totales de la matriz a enviar
+     * @param inicioR Variable que indica desde que renglon vamos a empezar a enviar la matriz
+     * @param inicioC Variable que indica desde que columna vamos a empezar a enviar la matriz
+     * @param matriz La matriz a enviar
+     * @throws Exception
+     */
     static void enviarMatriz(DataOutputStream salida, int renglones, int columnas, int inicioR, int inicioC, float[][] matriz) throws Exception {
         for (int i = inicioR; i < renglones; i++) {
             for (int j = inicioC; j < columnas; j++) {
                 float x = matriz[i][j];
-                //b.putFloat(x);
                 salida.writeFloat(x);
                 //System.out.println("Elementos A1: " + x);
             }
         }
     }
 
+    /**
+     * @brief Método que recibe una matriz con readFloat
+     * @param entrada Flujo de datos de entrada para leer la matriz
+     * @param renglones Renglones totales de la matriz a leer
+     * @param columnas Columnas totales de la matriz a leer
+     * @return
+     * @throws Exception
+     */
     static float[][] recibirMatriz(DataInputStream entrada, int renglones, int columnas) throws Exception {
         float[][] matriz = new float[renglones][columnas];
         for (int i = 0; i < renglones; i++) {
@@ -528,6 +613,13 @@ public class Multiplica {
         }
         return matriz;
     }
+
+    /**
+     * @brief Método que multiplica dos matrices
+     * @param Ax Matriz 1 a multiplicar
+     * @param Bx Matriz 2 a multiplicar con la matriz 1
+     * @return Cx Matriz con el resultado de la multiplicación
+     */
     static float[][] multiplicarMatrices(float[][] Ax, float[][] Bx){
         float[][] Cx = new float[N/4][N/4];
 
@@ -541,6 +633,12 @@ public class Multiplica {
         return Cx;
     }
 
+    /**
+     * @brief Método que imprime una matriz
+     * @param m La matriz a imprimir
+     * @param renglones Renglones de la matriz a imprimir
+     * @param columnas Columnas de la matriz a imprimir
+     */
     static void imprimirMatriz(float m[][], int renglones, int columnas) {
         for (int i = 0; i < renglones; i++) {
             for (int j = 0; j < columnas; j++) {
@@ -549,6 +647,12 @@ public class Multiplica {
             System.out.println("");
         }
     }
+
+    /**
+     * @brief Métofo que calcula el checksum de una matriz
+     * @param matriz Matriz de la que calcularemos el checksum
+     * @param tam Tamaño de la matriz
+     */
     static void calcularChecksum(float matriz[][], int tam){
         float checksum = 0;
         for (int i = 0; i < tam; i++){
@@ -557,21 +661,5 @@ public class Multiplica {
             }
         }
         System.out.println("Checksum de la matriz = " + checksum);
-    }
-
-    public static void read(DataInputStream f, byte[] b, int posicion, int longitud) throws Exception {
-        while (longitud > 0) {
-            int n = f.read(b, posicion, longitud);
-            posicion += n;
-            longitud -= n;
-        }
-    }
-
-    public static void formarMatrizC(float[][] Cx, int renglon, int columna){
-        for(int i = 0; i < Cx.length; i++){
-            for(int j = 0; j < Cx[0].length; j++){
-                C[i+renglon][j+columna] = Cx[i][j];
-            }
-        }
     }
 }

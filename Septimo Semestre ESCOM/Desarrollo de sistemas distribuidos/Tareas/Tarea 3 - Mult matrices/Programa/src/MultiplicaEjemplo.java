@@ -13,7 +13,7 @@ public class MultiplicaEjemplo {
             }
         }
         /// 2. Transpuesta de B
-        /*
+
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < i; j++) {
                 float x = B[i][j];
@@ -22,7 +22,6 @@ public class MultiplicaEjemplo {
             }
         }
 
-         */
         System.out.println("Matriz A:");
         //imprimirMatriz(A, N, N);
         System.out.println("Matriz B:");
