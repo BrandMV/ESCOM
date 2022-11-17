@@ -1,11 +1,11 @@
 import java.rmi.Naming;
 
-public class Cliente {
+public class ClienteRMI {
     public static void main(String[] args) throws Exception {
-        int N = 6, M = 5;
+        int N = 6000, M = 5000;
         double [] [] A = new double[N][M];
         double [] [] B = new double[N][N];
-        double [] [] Baux = new double[N][N];
+        double [] [] Baux = new double[M][N];
         double [] [] C = new double[N][N];
         double [] [] A1 = new double[N/6][M];
         double [] [] A2 = new double[N/6][M];
@@ -32,6 +32,13 @@ public class Cliente {
             }
         }
         Baux = B;
+        if(N == 6 && M == 5){
+            System.out.println("Matriz A");
+            imprimirMatriz(A, N, M);
+            System.out.println("Matriz B");
+            imprimirMatriz(Baux, M, N);
+        }
+
 
         /// 2. Transpuesta de B
 
@@ -42,11 +49,8 @@ public class Cliente {
                 B[j][i] = x;
             }
         }
-
-        System.out.println("Matriz B transpuesta:");
-        imprimirMatriz(B, B.length, M);
-        System.out.println("Matriz A:");
-        imprimirMatriz(A, N, M);
+        //System.out.println("Transpuesta");
+        //imprimirMatriz(B, N, M);
 
         /// Separando matrices
         A1 = separa_matriz(A, 0, N, M);
@@ -55,15 +59,6 @@ public class Cliente {
         A4 = separa_matriz(A, N/2, N, M);
         A5 = separa_matriz(A, N*2/3, N, M);
         A6 = separa_matriz(A, N*5/6, N, M);
-        /*
-        System.out.println("Matrices Ax: ");
-        imprimirMatriz(A1, N/6, M);
-        imprimirMatriz(A2, N/6, M);
-        imprimirMatriz(A3, N/6, M);
-        imprimirMatriz(A4, N/6, M);
-        imprimirMatriz(A5, N/6, M);
-        imprimirMatriz(A6, N/6, M);
-         */
 
         B1 = separa_matriz(B, 0, N, M);
         B2 = separa_matriz(B, N/6, N, M);
@@ -71,15 +66,6 @@ public class Cliente {
         B4 = separa_matriz(B, N/2, N, M);
         B5 = separa_matriz(B, N*2/3, N, M);
         B6 = separa_matriz(B, N*5/6, N, M);
-        /*
-        System.out.println("Matrices Bx: ");
-        imprimirMatriz(B1, N/6, M);
-        imprimirMatriz(B2, N/6, M);
-        imprimirMatriz(B3, N/6, M);
-        imprimirMatriz(B4, N/6, M);
-        imprimirMatriz(B5, N/6, M);
-        imprimirMatriz(B6, N/6, M);
-         */
 
         //// Calculando matrices C1 ... C12
         double[][] C1 = multiplica_matrices(A1, B1, N, M);
@@ -97,36 +83,88 @@ public class Cliente {
 
         String url = "rmi://localhost/prueba";
 
-       InterfaceRMI r = (InterfaceRMI) Naming.lookup(url);
-       InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url);
+        //InterfaceRMI r = (InterfaceRMI) Naming.lookup(url);
+       // InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url);
 
         //// Calculando matrices C13 ... C24
-        double[][] C13 = r.multiplica_matrices(A3, B1, N, M);
-        double[][] C14 = r.multiplica_matrices(A3, B2, N, M);
-        double[][] C15 = r.multiplica_matrices(A3, B3, N, M);
-        double[][] C16 = r.multiplica_matrices(A3, B4, N, M);
-        double[][] C17 = r.multiplica_matrices(A3, B5, N, M);
-        double[][] C18 = r.multiplica_matrices(A3, B6, N, M);
-        double[][] C19 = r.multiplica_matrices(A4, B1, N, M);
-        double[][] C20 = r.multiplica_matrices(A4, B2, N, M);
-        double[][] C21 = r.multiplica_matrices(A4, B3, N, M);
-        double[][] C22 = r.multiplica_matrices(A4, B4, N, M);
-        double[][] C23 = r.multiplica_matrices(A4, B5, N, M);
-        double[][] C24 = r.multiplica_matrices(A4, B6, N, M);
+        double[][] C13 = multiplica_matrices(A3, B1, N, M);
+        double[][] C14 = multiplica_matrices(A3, B2, N, M);
+        double[][] C15 = multiplica_matrices(A3, B3, N, M);
+        double[][] C16 = multiplica_matrices(A3, B4, N, M);
+        double[][] C17 = multiplica_matrices(A3, B5, N, M);
+        double[][] C18 = multiplica_matrices(A3, B6, N, M);
+        double[][] C19 = multiplica_matrices(A4, B1, N, M);
+        double[][] C20 = multiplica_matrices(A4, B2, N, M);
+        double[][] C21 = multiplica_matrices(A4, B3, N, M);
+        double[][] C22 = multiplica_matrices(A4, B4, N, M);
+        double[][] C23 = multiplica_matrices(A4, B5, N, M);
+        double[][] C24 = multiplica_matrices(A4, B6, N, M);
 
         //// Calculando matrices C25 ... C36
-        double[][] C25 = r2.multiplica_matrices(A5, B1, N, M);
-        double[][] C26 = r2.multiplica_matrices(A5, B2, N, M);
-        double[][] C27 = r2.multiplica_matrices(A5, B3, N, M);
-        double[][] C28 = r2.multiplica_matrices(A5, B4, N, M);
-        double[][] C29 = r2.multiplica_matrices(A5, B5, N, M);
-        double[][] C30 = r2.multiplica_matrices(A5, B6, N, M);
-        double[][] C31 = r2.multiplica_matrices(A6, B1, N, M);
-        double[][] C32 = r2.multiplica_matrices(A6, B2, N, M);
-        double[][] C33 = r2.multiplica_matrices(A6, B3, N, M);
-        double[][] C34 = r2.multiplica_matrices(A6, B4, N, M);
-        double[][] C35 = r2.multiplica_matrices(A6, B5, N, M);
-        double[][] C36 = r2.multiplica_matrices(A6, B6, N, M);
+        double[][] C25 = multiplica_matrices(A5, B1, N, M);
+        double[][] C26 = multiplica_matrices(A5, B2, N, M);
+        double[][] C27 = multiplica_matrices(A5, B3, N, M);
+        double[][] C28 = multiplica_matrices(A5, B4, N, M);
+        double[][] C29 = multiplica_matrices(A5, B5, N, M);
+        double[][] C30 = multiplica_matrices(A5, B6, N, M);
+        double[][] C31 = multiplica_matrices(A6, B1, N, M);
+        double[][] C32 = multiplica_matrices(A6, B2, N, M);
+        double[][] C33 = multiplica_matrices(A6, B3, N, M);
+        double[][] C34 = multiplica_matrices(A6, B4, N, M);
+        double[][] C35 = multiplica_matrices(A6, B5, N, M);
+        double[][] C36 = multiplica_matrices(A6, B6, N, M);
+
+        /// Juntando las matrices
+        acomoda_matriz(C, C1, 0, 0, N);
+        acomoda_matriz(C, C2, 0, N/6, N);
+        acomoda_matriz(C, C3, 0, N/3, N);
+        acomoda_matriz(C, C4, 0, N/2, N);
+        acomoda_matriz(C, C5, 0, N*2/3, N);
+        acomoda_matriz(C, C6, 0, N*5/6, N);
+
+        acomoda_matriz(C, C7, 1, 0, N);
+        acomoda_matriz(C, C8, 1, N/6, N);
+        acomoda_matriz(C, C9, 1, N/3, N);
+        acomoda_matriz(C, C10, 1, N/2, N);
+        acomoda_matriz(C, C11, 1, N*2/3, N);
+        acomoda_matriz(C, C12, 1, N*5/6, N);
+
+        acomoda_matriz(C, C13, 2, 0, N);
+        acomoda_matriz(C, C14, 2, N/6, N);
+        acomoda_matriz(C, C15, 2, N/3, N);
+        acomoda_matriz(C, C16, 2, N/2, N);
+        acomoda_matriz(C, C17, 2, N*2/3, N);
+        acomoda_matriz(C, C18, 2, N*5/6, N);
+
+        acomoda_matriz(C, C19, 3, 0, N);
+        acomoda_matriz(C, C20, 3, N/6, N);
+        acomoda_matriz(C, C21, 3, N/3, N);
+        acomoda_matriz(C, C22, 3, N/2, N);
+        acomoda_matriz(C, C23, 3, N*2/3, N);
+        acomoda_matriz(C, C24, 3, N*5/6, N);
+
+        acomoda_matriz(C, C25, 4, 0, N);
+        acomoda_matriz(C, C26, 4, N/6, N);
+        acomoda_matriz(C, C27, 4, N/3, N);
+        acomoda_matriz(C, C28, 4, N/2, N);
+        acomoda_matriz(C, C29, 4, N*2/3, N);
+        acomoda_matriz(C, C30, 4, N*5/6, N);
+
+        acomoda_matriz(C, C31, 5, 0, N);
+        acomoda_matriz(C, C32, 5, N/6, N);
+        acomoda_matriz(C, C33, 5, N/3, N);
+        acomoda_matriz(C, C34, 5, N/2, N);
+        acomoda_matriz(C, C35, 5, N*2/3, N);
+        acomoda_matriz(C, C36, 5, N*5/6, N);
+
+        if(N == 6 && M == 5){
+
+            System.out.println("Matriz C");
+            imprimirMatriz(C, N, N);
+        }
+        /// Calculando el checksum
+        calcularChecksum(C, N);
+
 
     }
 
@@ -149,10 +187,10 @@ public class Cliente {
      * @brief Métofo que calcula el checksum de una matriz
      * @param matriz Matriz de la que calcularemos el checksum
      */
-    static void calcularChecksum(double  matriz[][], int N, int M){
+    static void calcularChecksum(double  matriz[][], int N){
         float checksum = 0;
         for (int i = 0; i < N; i++){
-            for(int j = 0; j < M; j++){
+            for(int j = 0; j < N; j++){
                 checksum += matriz[i][j];
             }
         }
@@ -179,5 +217,13 @@ public class Cliente {
             }
         }
         return C;
+    }
+
+    static void acomoda_matriz(double[][]C, double[][] A, int renglon, int columna, int N){
+        for(int i = 0; i  < N / 6; i++){
+            for(int j = 0; j < N / 6; j++){
+                C[i+ renglon][j + columna] = A[i][j];
+            }
+        }
     }
 }

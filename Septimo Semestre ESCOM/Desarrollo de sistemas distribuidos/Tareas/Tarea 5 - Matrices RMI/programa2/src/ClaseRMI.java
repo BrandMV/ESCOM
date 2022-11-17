@@ -18,4 +18,3 @@ public class ClaseRMI extends UnicastRemoteObject implements InterfaceRMI {
         return C;
     }
 }
-
