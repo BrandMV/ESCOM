@@ -1,8 +1,47 @@
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.*;
 
 public class ClienteRMI {
-    public static void main(String[] args) throws Exception {
-        int N = 6000, M = 5000;
+    static int N = 6000;
+    static int M = 5000;
+
+    /**
+     * @brief Hilo que realiza la multiplicación de las matrices parciales
+     */
+    static class Worker extends Thread{
+        double [] [] Ax = new double[N/6][M];
+        double [] [] Bx = new double[N/6][M];
+        double[][] Cx = new double[N/6][N/6];
+        int Ci;
+        boolean isRmiMult;
+        InterfaceRMI r;
+
+        public Worker(double[][] Ax, double[][] Bx, int Ci, boolean isRmiMult, InterfaceRMI r){
+            this.Ax = Ax;
+            this.Bx = Bx;
+            this.Ci = Ci;
+            this.isRmiMult = isRmiMult;
+            this.r = r;
+        }
+
+        public void run() {
+            if(isRmiMult){
+                try {
+                    this.Cx = r.multiplica_matrices(Ax,Bx, N, M);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
+            }else{
+                this.Cx = multiplica_matrices(Ax,Bx, N, M);
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception{
         double [] [] A = new double[N][M];
         double [] [] B = new double[N][N];
         double [] [] Baux = new double[M][N];
@@ -19,6 +58,7 @@ public class ClienteRMI {
         double [] [] B4 = new double[N/6][M];
         double [] [] B5 = new double[N/6][M];
         double [] [] B6 = new double[N/6][M];
+
 
         /// 1. Inicializando matrices
         for (int i = 0; i < N; i++) {
@@ -67,6 +107,66 @@ public class ClienteRMI {
         B5 = separa_matriz(B, N*2/3, N, M);
         B6 = separa_matriz(B, N*5/6, N, M);
 
+        List<double[][]> AM = new ArrayList<>(5);
+        AM.add(A1);
+        AM.add(A2);
+        AM.add(A3);
+        AM.add(A4);
+        AM.add(A5);
+        AM.add(A6);
+        List<double[][]> BM = new ArrayList<>(5);
+        BM.add(B1);
+        BM.add(B2);
+        BM.add(B3);
+        BM.add(B4);
+        BM.add(B5);
+        BM.add(B6);
+
+        String url = "rmi://localhost/prueba";
+
+        InterfaceRMI r = (InterfaceRMI) Naming.lookup(url);
+        InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url);
+
+
+        /// Creando hilos para hacer las multiplciaciones
+        Worker WM[] = new Worker[36];
+        for(int i = 0, j = 0; i < WM.length; i++, j++){
+            if(j == 6){
+                j = 0;
+            }
+            if(i < 6){
+                WM[i] = new Worker(AM.get(0), BM.get(j), i, false, null);
+            }
+            if(i >= 6 && i < 12){
+                WM[i] = new Worker(AM.get(1), BM.get(j), i, false, null);
+            }
+            if(i >= 12 && i < 18){
+                WM[i] = new Worker(AM.get(2), BM.get(j), i, true, r);
+            }
+            if(i >= 18 && i < 24){
+                WM[i] = new Worker(AM.get(3), BM.get(j), i, true, r);
+            }
+            if(i >= 24 && i < 30){
+                WM[i] = new Worker(AM.get(4), BM.get(j), i, true, r2);
+            }
+            if(i >= 30 && i < 36){
+                WM[i] = new Worker(AM.get(5), BM.get(j), i, true, r2);
+            }
+
+        }
+        for(int i = 0; i < WM.length; i++){
+            WM[i].start();
+        }
+        for(int i = 0; i < WM.length; i++){
+            WM[i].join();
+        }
+
+        List<double[][]> CM = new ArrayList<>();
+        for(int i = 0; i < 36; i++){
+            CM.add(WM[i].Cx);
+        }
+
+/*
         //// Calculando matrices C1 ... C12
         double[][] C1 = multiplica_matrices(A1, B1, N, M);
         double[][] C2 = multiplica_matrices(A1, B2, N, M);
@@ -114,48 +214,49 @@ public class ClienteRMI {
         double[][] C35 = multiplica_matrices(A6, B5, N, M);
         double[][] C36 = multiplica_matrices(A6, B6, N, M);
 
+ */
         /// Juntando las matrices
-        acomoda_matriz(C, C1, 0, 0, N);
-        acomoda_matriz(C, C2, 0, N/6, N);
-        acomoda_matriz(C, C3, 0, N/3, N);
-        acomoda_matriz(C, C4, 0, N/2, N);
-        acomoda_matriz(C, C5, 0, N*2/3, N);
-        acomoda_matriz(C, C6, 0, N*5/6, N);
+        acomoda_matriz(C, CM.get(0), 0, 0, N);
+        acomoda_matriz(C, CM.get(1), 0, N/6, N);
+        acomoda_matriz(C, CM.get(2), 0, N/3, N);
+        acomoda_matriz(C, CM.get(3), 0, N/2, N);
+        acomoda_matriz(C, CM.get(4), 0, N*2/3, N);
+        acomoda_matriz(C, CM.get(5), 0, N*5/6, N);
 
-        acomoda_matriz(C, C7, 1, 0, N);
-        acomoda_matriz(C, C8, 1, N/6, N);
-        acomoda_matriz(C, C9, 1, N/3, N);
-        acomoda_matriz(C, C10, 1, N/2, N);
-        acomoda_matriz(C, C11, 1, N*2/3, N);
-        acomoda_matriz(C, C12, 1, N*5/6, N);
+        acomoda_matriz(C, CM.get(6), N/6, 0, N);
+        acomoda_matriz(C, CM.get(7), N/6, N/6, N);
+        acomoda_matriz(C, CM.get(8), N/6, N/3, N);
+        acomoda_matriz(C, CM.get(9), N/6, N/2, N);
+        acomoda_matriz(C, CM.get(10), N/6, N*2/3, N);
+        acomoda_matriz(C, CM.get(11), N/6, N*5/6, N);
 
-        acomoda_matriz(C, C13, 2, 0, N);
-        acomoda_matriz(C, C14, 2, N/6, N);
-        acomoda_matriz(C, C15, 2, N/3, N);
-        acomoda_matriz(C, C16, 2, N/2, N);
-        acomoda_matriz(C, C17, 2, N*2/3, N);
-        acomoda_matriz(C, C18, 2, N*5/6, N);
+        acomoda_matriz(C, CM.get(12), N/3, 0, N);
+        acomoda_matriz(C, CM.get(13), N/3, N/6, N);
+        acomoda_matriz(C, CM.get(14), N/3, N/3, N);
+        acomoda_matriz(C, CM.get(15), N/3, N/2, N);
+        acomoda_matriz(C, CM.get(16), N/3, N*2/3, N);
+        acomoda_matriz(C, CM.get(17), N/3, N*5/6, N);
 
-        acomoda_matriz(C, C19, 3, 0, N);
-        acomoda_matriz(C, C20, 3, N/6, N);
-        acomoda_matriz(C, C21, 3, N/3, N);
-        acomoda_matriz(C, C22, 3, N/2, N);
-        acomoda_matriz(C, C23, 3, N*2/3, N);
-        acomoda_matriz(C, C24, 3, N*5/6, N);
+        acomoda_matriz(C, CM.get(18), N/2, 0, N);
+        acomoda_matriz(C, CM.get(19), N/2, N/6, N);
+        acomoda_matriz(C, CM.get(20), N/2, N/3, N);
+        acomoda_matriz(C, CM.get(21), N/2, N/2, N);
+        acomoda_matriz(C, CM.get(22), N/2, N*2/3, N);
+        acomoda_matriz(C, CM.get(23), N/2, N*5/6, N);
 
-        acomoda_matriz(C, C25, 4, 0, N);
-        acomoda_matriz(C, C26, 4, N/6, N);
-        acomoda_matriz(C, C27, 4, N/3, N);
-        acomoda_matriz(C, C28, 4, N/2, N);
-        acomoda_matriz(C, C29, 4, N*2/3, N);
-        acomoda_matriz(C, C30, 4, N*5/6, N);
+        acomoda_matriz(C, CM.get(24), N*2/3, 0, N);
+        acomoda_matriz(C, CM.get(25), N*2/3, N/6, N);
+        acomoda_matriz(C, CM.get(26), N*2/3, N/3, N);
+        acomoda_matriz(C, CM.get(27), N*2/3, N/2, N);
+        acomoda_matriz(C, CM.get(28), N*2/3, N*2/3, N);
+        acomoda_matriz(C, CM.get(29), N*2/3, N*5/6, N);
 
-        acomoda_matriz(C, C31, 5, 0, N);
-        acomoda_matriz(C, C32, 5, N/6, N);
-        acomoda_matriz(C, C33, 5, N/3, N);
-        acomoda_matriz(C, C34, 5, N/2, N);
-        acomoda_matriz(C, C35, 5, N*2/3, N);
-        acomoda_matriz(C, C36, 5, N*5/6, N);
+        acomoda_matriz(C, CM.get(30), N*5/6, 0, N);
+        acomoda_matriz(C, CM.get(31), N*5/6, N/6, N);
+        acomoda_matriz(C, CM.get(32), N*5/6, N/3, N);
+        acomoda_matriz(C, CM.get(33), N*5/6, N/2, N);
+        acomoda_matriz(C, CM.get(34), N*5/6, N*2/3, N);
+        acomoda_matriz(C, CM.get(35), N*5/6, N*5/6, N);
 
         if(N == 6 && M == 5){
 
