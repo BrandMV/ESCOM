@@ -30,12 +30,14 @@ public class ClienteRMI {
         public void run() {
             if(isRmiMult){
                 try {
+                    System.out.println("Hilo " + Ci);
                     this.Cx = r.multiplica_matrices(Ax,Bx, N, M);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
 
             }else{
+		        System.out.println("Hilo " + Ci);
                 this.Cx = multiplica_matrices(Ax,Bx, N, M);
             }
         }
@@ -122,10 +124,11 @@ public class ClienteRMI {
         BM.add(B5);
         BM.add(B6);
 
-        String url = "rmi://localhost/prueba";
+        String url = "rmi://10.0.1.5/prueba";
+	    String url2 = "rmi://10.0.1.6/prueba";
 
         InterfaceRMI r = (InterfaceRMI) Naming.lookup(url);
-        InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url);
+        InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url2);
 
 
         /// Creando hilos para hacer las multiplciaciones
@@ -154,67 +157,21 @@ public class ClienteRMI {
             }
 
         }
+        /// Ejecutando los hilos
         for(int i = 0; i < WM.length; i++){
             WM[i].start();
         }
+        /// Esperando por la terminación de los hilos
         for(int i = 0; i < WM.length; i++){
             WM[i].join();
         }
 
+        /// Obteniendo los valores de Cx
         List<double[][]> CM = new ArrayList<>();
         for(int i = 0; i < 36; i++){
             CM.add(WM[i].Cx);
         }
 
-/*
-        //// Calculando matrices C1 ... C12
-        double[][] C1 = multiplica_matrices(A1, B1, N, M);
-        double[][] C2 = multiplica_matrices(A1, B2, N, M);
-        double[][] C3 = multiplica_matrices(A1, B3, N, M);
-        double[][] C4 = multiplica_matrices(A1, B4, N, M);
-        double[][] C5 = multiplica_matrices(A1, B5, N, M);
-        double[][] C6 = multiplica_matrices(A1, B6, N, M);
-        double[][] C7 = multiplica_matrices(A2, B1, N, M);
-        double[][] C8 = multiplica_matrices(A2, B2, N, M);
-        double[][] C9 = multiplica_matrices(A2, B3, N, M);
-        double[][] C10 = multiplica_matrices(A2, B4, N, M);
-        double[][] C11 = multiplica_matrices(A2, B5, N, M);
-        double[][] C12 = multiplica_matrices(A2, B6, N, M);
-
-        String url = "rmi://localhost/prueba";
-
-        //InterfaceRMI r = (InterfaceRMI) Naming.lookup(url);
-       // InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url);
-
-        //// Calculando matrices C13 ... C24
-        double[][] C13 = multiplica_matrices(A3, B1, N, M);
-        double[][] C14 = multiplica_matrices(A3, B2, N, M);
-        double[][] C15 = multiplica_matrices(A3, B3, N, M);
-        double[][] C16 = multiplica_matrices(A3, B4, N, M);
-        double[][] C17 = multiplica_matrices(A3, B5, N, M);
-        double[][] C18 = multiplica_matrices(A3, B6, N, M);
-        double[][] C19 = multiplica_matrices(A4, B1, N, M);
-        double[][] C20 = multiplica_matrices(A4, B2, N, M);
-        double[][] C21 = multiplica_matrices(A4, B3, N, M);
-        double[][] C22 = multiplica_matrices(A4, B4, N, M);
-        double[][] C23 = multiplica_matrices(A4, B5, N, M);
-        double[][] C24 = multiplica_matrices(A4, B6, N, M);
-
-        //// Calculando matrices C25 ... C36
-        double[][] C25 = multiplica_matrices(A5, B1, N, M);
-        double[][] C26 = multiplica_matrices(A5, B2, N, M);
-        double[][] C27 = multiplica_matrices(A5, B3, N, M);
-        double[][] C28 = multiplica_matrices(A5, B4, N, M);
-        double[][] C29 = multiplica_matrices(A5, B5, N, M);
-        double[][] C30 = multiplica_matrices(A5, B6, N, M);
-        double[][] C31 = multiplica_matrices(A6, B1, N, M);
-        double[][] C32 = multiplica_matrices(A6, B2, N, M);
-        double[][] C33 = multiplica_matrices(A6, B3, N, M);
-        double[][] C34 = multiplica_matrices(A6, B4, N, M);
-        double[][] C35 = multiplica_matrices(A6, B5, N, M);
-        double[][] C36 = multiplica_matrices(A6, B6, N, M);
-
- */
         /// Juntando las matrices
         acomoda_matriz(C, CM.get(0), 0, 0, N);
         acomoda_matriz(C, CM.get(1), 0, N/6, N);
@@ -259,13 +216,11 @@ public class ClienteRMI {
         acomoda_matriz(C, CM.get(35), N*5/6, N*5/6, N);
 
         if(N == 6 && M == 5){
-
             System.out.println("Matriz C");
             imprimirMatriz(C, N, N);
         }
         /// Calculando el checksum
         calcularChecksum(C, N);
-
 
     }
 
@@ -285,11 +240,11 @@ public class ClienteRMI {
     }
 
     /**
-     * @brief Métofo que calcula el checksum de una matriz
+     * @brief Método que calcula el checksum de una matriz
      * @param matriz Matriz de la que calcularemos el checksum
      */
     static void calcularChecksum(double  matriz[][], int N){
-        float checksum = 0;
+        double checksum = 0;
         for (int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
                 checksum += matriz[i][j];
@@ -298,6 +253,14 @@ public class ClienteRMI {
         System.out.println("Checksum de la matriz = " + checksum);
     }
 
+    /**
+     * @brief Método que separa una matriz en 6 partes
+     * @param A Matriz a separar
+     * @param inicio Renglon desde el que se va a separar
+     * @param N Tamaño de los renglones de la matriz
+     * @param M Tamalo de las columnas de la matriz
+     * @return
+     */
     static double[][] separa_matriz(double[][] A, int inicio, int N, int M){
         double[][] matriz = new double[N/6][M];
         for(int i = 0; i < N/6; i++){
@@ -307,6 +270,15 @@ public class ClienteRMI {
         }
         return matriz;
     }
+
+    /**
+     * @brief Método que multiplica dos matrices
+     * @param A Matriz A a multiplicar
+     * @param B Matriz B a multiplicar
+     * @param N Tamaño de los renglones de las matrices
+     * @param M Tamaño de las columnas de las matrices
+     * @return
+     */
 
     static double[][] multiplica_matrices(double[][] A, double[][] B, int N, int M){
         double[][] C = new double[N/6][N/6];
@@ -320,6 +292,14 @@ public class ClienteRMI {
         return C;
     }
 
+    /**
+     * @brief Método que acomoda la matriz C
+     * @param C Matriz final
+     * @param A Pedazo a acomodar en la matriz C
+     * @param renglon Renglon donde se acomodara la matriz A
+     * @param columna Columna donde se acomodara la matriz A
+     * @param N Tamaño de la matriz
+     */
     static void acomoda_matriz(double[][]C, double[][] A, int renglon, int columna, int N){
         for(int i = 0; i  < N / 6; i++){
             for(int j = 0; j < N / 6; j++){
