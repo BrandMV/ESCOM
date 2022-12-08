@@ -81,22 +81,21 @@ public class Servicio {
 
         Connection conexion = pool.getConnection();
         try{
-            PreparedStatement stmt1 = conexion.prepareStatement("SELECT id_articulo, nombre, descripcion, precio, cantidad, foto FROM articulos WHERE nombre LIKE CONCAT('%', ?, '%') OR descripcion LIKE CONCAT('%', ?, '%')");
+            PreparedStatement stmt1 = conexion.prepareStatement("SELECT id_articulo, nombre, descripcion, precio, foto FROM articulos WHERE nombre LIKE CONCAT('%', ?, '%') OR descripcion LIKE CONCAT('%', ?, '%')");
             try{
                 stmt1.setString(1, palabraClave);
                 stmt1.setString(2, palabraClave);
 
                 ResultSet rs = stmt1.executeQuery();
                 try{
-                    ArrayList<Articulo> articulosEncontrados = new ArrayList<>();
+                    ArrayList<ArticuloBusqueda> articulosEncontrados = new ArrayList<>();
                     while(rs.next()){
-                        Articulo r = new Articulo();
+                        ArticuloBusqueda r = new ArticuloBusqueda();
                         r.Id = rs.getInt(1);
                         r.Nombre = rs.getString(2);
                         r.Descripcion = rs.getString(3);
                         r.Precio = rs.getBigDecimal(4);
-                        r.Cantidad = rs.getInt(5);
-                        r.Foto = rs.getBytes(6);
+                        r.Foto = rs.getBytes(5);
                         articulosEncontrados.add(r);
                     }
                     if(articulosEncontrados.size() == 0 && articulosEncontrados == null)
@@ -123,13 +122,13 @@ public class Servicio {
     public Response agregarCarrito(String json) throws Exception{
         ParamAgregarCarrito pCarrito = (ParamAgregarCarrito) j.fromJson(json, ParamAgregarCarrito.class);
         Integer cantidad = pCarrito.Cantidad;
-        String nombreArticulo = pCarrito.Nombre;
+        Integer idArticuloParam = pCarrito.Id;
 
         Connection conexion = pool.getConnection();
         try{
-            PreparedStatement stmt1 = conexion.prepareStatement("SELECT id_articulo, cantidad FROM articulos WHERE nombre=?);
+            PreparedStatement stmt1 = conexion.prepareStatement("SELECT id_articulo, cantidad FROM articulos WHERE id_articulo=?);
             try{
-                stmt1.setString(1, nombreArticulo);
+                stmt1.setInt(1, idArticuloParam);
                 ResultSet rs = stmt1.executeQuery();
                 try{
                     if(rs.next()){
@@ -158,6 +157,8 @@ public class Servicio {
                                 }finally {
                                     stmt3.close();
                                 }
+                            }else{
+                                return Response.status(400).entity(j.toJson(new Error("Cantidad disponible de artículos: " + cantidadDisponible))).build();
                             }
                             conexion.commit();
                         }catch (Exception e){
@@ -311,18 +312,24 @@ public class Servicio {
             try{
                 ResultSet rs = stmt1.executeQuery();
                 ArrayList<Articulo> articulos = new ArrayList<>();
-                while(rs.next()){
-                    Articulo ar = new Articulo();
-                    ar.Id = rs.getInt(1);
-                    ar.Nombre = rs.getString(2);
-                    ar.Descripcion = "";
-                    ar.Precio = rs.getBigDecimal(3);
-                    ar.Foto = rs.getBytes(4);
-                    ar.Cantidad = rs.getInt(5);
-                    articulos.add(ar);
+                try{
+                    while(rs.next()){
+                        Articulo ar = new Articulo();
+                        ar.Id = rs.getInt(1);
+                        ar.Nombre = rs.getString(2);
+                        ar.Descripcion = "";
+                        ar.Precio = rs.getBigDecimal(3);
+                        ar.Foto = rs.getBytes(4);
+                        ar.Cantidad = rs.getInt(5);
+                        articulos.add(ar);
+                    }
+                    if(articulos.size() == 0 && articulos == null){
+                        return Response.status(400).entity(j.toJson(new Error("No tienes artículos en tu carrito"))).build();
+                    }
+                    return Response.ok().entity(j.toJson(articulos)).build();
+                }finally {
+                    rs.close();
                 }
-                rs.close();
-                return Response.ok().entity(j.toJson(articulos)).build();
             }catch (Exception e){
                 return Response.status(400).entity(j.toJson(new Error(e.getMessage()))).build();
             }finally {

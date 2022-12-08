@@ -1,4 +1,4 @@
 public class ParamAgregarCarrito {
-    String Nombre;
+    Integer Id;
     Integer Cantidad;
 }

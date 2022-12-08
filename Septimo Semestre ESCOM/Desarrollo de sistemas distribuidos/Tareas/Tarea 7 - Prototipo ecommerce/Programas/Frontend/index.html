@@ -6,41 +6,369 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarea 7 - Ecommerce</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
 </head>
+<style>
+  body{margin-top:20px;}
+
+.masthead {
+    padding: 3rem 0 7rem;
+    position: relative;
+    background-color: #dd3d31;
+    /* background-image: url(https://startbootstrap.com/assets/img/overlay.svg), linear-gradient(45deg, #dd3d31 0%, #d22f23 100%); */
+    background-size: cover;
+    z-index: 0
+}
+
+.masthead svg.wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0
+}
+
+.masthead h1 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.1;
+    z-index: 1
+}
+
+.masthead h2 {
+    color: rgba(255, 255, 255, .6);
+    font-weight: 600;
+    z-index: 1;
+    font-size: 1.2rem
+}
+
+.masthead a {
+    color: rgba(255, 255, 255, .8);
+    text-decoration: underline;
+    z-index: 1
+}
+
+.masthead a:hover {
+    color: #fff
+}
+
+.masthead a:active {
+    text-decoration: none
+}
+
+@media(min-width:992px) {
+    .masthead h1 {
+        font-size: 3rem
+    }
+    .masthead h2 {
+        font-size: 1.5rem
+    }
+}
+
+.masthead .masthead-cards {
+    position: relative;
+    z-index: 1
+}
+
+.masthead .masthead-cards .shape {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .3);
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 30% 70% 70% 30%/30% 30% 70% 70%
+}
+
+.masthead .masthead-cards .card {
+    opacity: 1;
+    font-size: .8rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: .05rem;
+    color: #212529;
+    transition: .15s all
+}
+
+.masthead .masthead-cards .card:hover {
+    margin-top: -.25rem;
+    margin-bottom: .25rem
+}
+
+.masthead .masthead-cards .card:active {
+    margin-top: inherit;
+    margin-bottom: inherit
+}
+
+.masthead .masthead-cards .card.border-bottom-blue:hover {
+    color: #2092ed
+}
+
+.masthead .masthead-cards .card.border-bottom-green:hover {
+    color: #28a745
+}
+
+.masthead .masthead-cards .card.border-bottom-red:hover {
+    color: #dd3d31
+}
+
+.masthead .masthead-cards .card.border-bottom-yellow:hover {
+    color: #ffc107
+}
+
+.masthead-page {
+    padding: 1rem 0 4rem
+}
+
+@media(min-width:992px) {
+    .masthead-page h1 {
+        font-size: 2.5rem
+    }
+}
+
+.border-bottom-yellow {
+    border-color: #ffc107!important;
+}
+
+.border-bottom-red {
+    border-color: #dd3d31!important;
+}
+
+.border-bottom-blue {
+    border-color: #2092ed!important;
+}
+
+.border-bottom-green {
+    border-color: #28a745!important;
+}
+
+.border-bottom-blue, .border-bottom-green, .border-bottom-red, .border-bottom-yellow {
+    border-bottom: .4rem solid!important;
+}
+.shadow-lg {
+    box-shadow: 0 2rem 1.5rem -1.5rem rgba(33,37,41,.15),0 0 1.5rem .5rem rgba(33,37,41,.05)!important;
+}
+.border-0 {
+    border: 0!important;
+}
+</style>
 <body>
-    <main id="mainPage" class="container d-flex flex-column align-items-center justify-content-center gap-5" style="border: 1px solid red;">
+    <!-- <main id="mainPage" class="container d-flex flex-column align-items-center justify-content-center gap-5">
             <a href="#"  id="AddProductPage" class="btn btn-success">Aregar artículo</a>
-            <a class="btn btn-primary">Comprar Artículos</a>
-    </main>
+            <a class="btn btn-primary" id="buyProductPage">Comprar Artículos</a>
+    </main> -->
+<header class="masthead" id="mainPage">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-7 py-5">
+                <h1 class="mb-4">Tarea 7. Desarrollo de un prototipo de sistema de comercio electrónico utilizando un servicio web estilo REST</h1>
+            </div>
+            <div class="col-lg-5">
+                <div class="py-5 px-4 masthead-cards">
+                    <div class="d-flex">
+                        <a href="#" id="AddProductPage" class="w-100 pr-3 pb-4">
+                            <div class="card border-0 border-bottom-red shadow-lg shadow-hover">
+                                <div class="card-body text-center">
+                                    <div class="text-center">
+                                        <i class="fa fa-add fa-4x my-2"></i>
+                                    </div>
+                                    Agregar Artículo
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="d-flex">
+                        <a href="#" id="buyProductPage" class="w-100 pl-3">
+                            <div class="card border-0 border-bottom-green shadow-lg shadow-hover">
+                                <div class="card-body text-center">
+                                  <div class="text-center">
+                                    <i class="fa fa-money fa-4x my-2"></i>
+                                </div>
+                                Comprar Artículos
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="shape"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <svg style="pointer-events: none" class="wave" width="100%" height="50px" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 75">
+        <defs>
+            <style>
+                .a {
+                    fill: none;
+                }
+                
+                .b {
+                    clip-path: url(#a);
+                }
+                
+                .c,
+                .d {
+                    fill: #f9f9fc;
+                }
+                
+                .d {
+                    opacity: 0.5;
+                    isolation: isolate;
+                }
+            </style>
+            <clipPath id="a">
+                <rect class="a" width="1920" height="75"></rect>
+            </clipPath>
+        </defs>
+        <title>wave</title>
+        <g class="b">
+            <path class="c" d="M1963,327H-105V65A2647.49,2647.49,0,0,1,431,19c217.7,3.5,239.6,30.8,470,36,297.3,6.7,367.5-36.2,642-28a2511.41,2511.41,0,0,1,420,48"></path>
+        </g>
+        <g class="b">
+            <path class="d" d="M-127,404H1963V44c-140.1-28-343.3-46.7-566,22-75.5,23.3-118.5,45.9-162,64-48.6,20.2-404.7,128-784,0C355.2,97.7,341.6,78.3,235,50,86.6,10.6-41.8,6.9-127,10"></path>
+        </g>
+        <g class="b">
+            <path class="d" d="M1979,462-155,446V106C251.8,20.2,576.6,15.9,805,30c167.4,10.3,322.3,32.9,680,56,207,13.4,378,20.3,494,24"></path>
+        </g>
+        <g class="b">
+            <path class="d" d="M1998,484H-243V100c445.8,26.8,794.2-4.1,1035-39,141-20.4,231.1-40.1,378-45,349.6-11.6,636.7,73.8,828,150"></path>
+        </g>
+    </svg>
+</header>
 
     <form id="addProductForm" class="d-none">
 
         <div class="container">
             <div class="mb-3">
-                <h1>Articulo</h1>
+                <h1>Agregar Articulo</h1>
                 <label for="name" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="name">
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="description">Descripción</label>
                 <textarea class="form-control" id="description" rows="3"></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="price">Precio</label>
                 <input type="text" class="form-control" id="price" placeholder="Precio" pattern="[0-9]+">
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="quantity">Cantidad</label>
-                <input type="number" name="quantity" id="quantity" step="1">
+                <input type="number" name="quantity" id="quantity" step="1" min="0">
               </div>
               <div class="input-group mb-3">
                 <input type="file" class="form-control" id="photo" accept="image/*">
               </div>
-              <button type="submit" class="btn btn-primary" id="addProduct">Submit</button>
+              <button type="submit" class="btn btn-primary" id="addProduct">Agregar Artículo</button>
+              <button type="button" class="btn btn-secondary" id="mainButton">Regresar</button>  
+        </div>
+
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+          <div id="toastAddProduct" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+          <div src="" class="toast-header bg-success">
+              <strong class="me-auto text-white">Producto</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+              Has agregado un artículo con éxito!
+          </div>
         </div>
     </form>
+
+
+    <section id="buyProductsSection" class="container d-none">
+      <h3>Buscar Articulos</h3>
+
+      <form class="d-flex gap-3 flex-wrap mt-5">
+          <div>
+              <input class="form-control" type="text" name="searchProductInput" id="searchProductInput">
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary form-control" id="searchProduct">Buscar Artículo</button>
+          </div>
+      </form>
+      <div class="d-flex gap-3 mt-3 justify-content-center">
+        <div>
+          <button type="submit" class="btn btn-success form-control" id="seeCar">Ver carrito</button>
+        </div>
+        <div>
+          <button class="btn btn-dark form-control" id="homeButton"><i class="fa fa-home "></i></button>
+        </div>
+
+      </div>
+
+      <div class="d-flex gap-5 mt-5 flex-wrap justify-content-center justify-content-lg-start m-auto" id="showProducts">
+
+      </div>
+      <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div src="" class="toast-header bg-success">
+            <strong class="me-auto text-white">Carrito</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Has agregado un artículo a tu carrito con éxito!
+        </div>
+      </div>
+      <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToastError" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div src="" class="toast-header bg-danger">
+            <strong class="me-auto text-white">Carrito</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toastErrorBody">
+            
+        </div>
+      </div>
+      
+    </section>
+
+    <section class="container d-none" id="carPage">
+      <h1 class="mb-5">Carrito</h1>
+
+      <div class="table-responsive" id="carItemsTableWraper">
+        <table id="carItemsTable" class="table table-striped table-bordered table-hover no-footer collapsed" width="100%" role="grid" aria-describedby="items_car" style="width: 100%;">
+          <thead>
+            <tr>
+              <th class="col-3">Nombre</th>
+              <th class="col-2">Cantidad</th>
+              <th class="col-2">Precio</th>
+              <th class="col-2">Costo</th>
+              <th class="col-2">Imagen</th>
+              <th class="col-2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="carTableBody">
+          </tbody>
+        </table>
+      </div>
+
+
+      <h1 id="carNotFound"></h1>
+      <h3 id="totalPrice"></h3>
+      
+      <button class="btn btn-warning form-control mb-3 mt-3" id="deleteCarBtn">Eliminar carrito</button>
+      <button class="btn btn-danger form-control" id="continueBuyingBtn">Seguir comprando</button>
+
+      <div class="position-fixed top-0 start-0 p-3" style="z-index: 11">
+        <div id="liveToastDeleteProduct" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div src="" class="toast-header bg-success">
+            <strong class="me-auto text-white">Carrito</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Has eliminado un artículo de tu carrito con éxito!
+        </div>
+      </div>
+      
+    </div>
+    </section>
+
+    <footer class="bg-dark vw-100 bottom-0 position-fixed">
+      <h2 class="text-center text-white p-2">Brandon David Meza Vargas</h2>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="src/js/WSClient.js"></script>
