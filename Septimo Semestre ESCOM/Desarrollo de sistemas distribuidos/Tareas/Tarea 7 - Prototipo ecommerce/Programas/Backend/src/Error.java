@@ -1,3 +1,5 @@
+
+package servicio_json;
 public class Error {
     String message;
 

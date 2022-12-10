@@ -5,6 +5,7 @@
   Carlos Pineda Guerrero, noviembre 2022
 */
 
+package servicio_json;
 
 import java.lang.reflect.Type;
 import java.util.Base64;

@@ -1,3 +1,5 @@
+
+package servicio_json;
 import java.math.BigDecimal;
 
 public class ArticuloBusqueda {

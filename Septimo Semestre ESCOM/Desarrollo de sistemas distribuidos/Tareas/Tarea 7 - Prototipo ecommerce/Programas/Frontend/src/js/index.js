@@ -15,9 +15,11 @@ function readSingleFile(files,imagen)
 					photo = reader.result.split(',')[1];
 				};
 				reader.readAsDataURL(file);
-            }
+                               document.getElementById("alta_imagen").src = "data:image/jpeg;base64," + photo        
+    }
 			
 function altaArticulio(){
+    document.getElementById("alta_imagen").src = "/sinfoto.png";
     let cliente = new WSClient(URL)
     let Articulo = {
         Id: 0,
@@ -27,13 +29,12 @@ function altaArticulio(){
         Cantidad: $("#quantity").val() * 1,
         Foto: photo
     }
+    
 
     console.log(Articulo);
-    var element = document.getElementById("toastAddProduct");
-    var myToast = new bootstrap.Toast(element);
-    myToast.show()
+
     cliente.postJson("altaArticulo", {
-        Articulo: Articulo
+        articulo: Articulo
     },
     function(code, result){
         if(code == 200){
@@ -41,6 +42,7 @@ function altaArticulio(){
             var myToast = new bootstrap.Toast(element);
             myToast.show()
         }else{
+console.log(code)
             alert(JSON.stringify(result));
         }
     })
@@ -102,7 +104,7 @@ function buscaArticulo(){
     
     cliente.postJson("buscarArticulo",
     {
-        PalabraCalve: $("#searchProductInput").val()
+        PalabraClave: $("#searchProductInput").val()
     },
     function(code, result){
         if(code == 200){
@@ -112,7 +114,7 @@ function buscaArticulo(){
             products = result
             products.forEach(element => {
                 let card = `
-                                <div class="card" style="width: 18rem;">
+                                <div class="card mb-5" style="width: 18rem;">
                                     <img class="card-img-top" id="productImage" src="data:image/jpeg;base64,${element.Foto}" alt="${element.Nombre}">
                                     <div class="card-body">
                                         <h5 class="card-title">${element.Nombre} - ${element.Precio} MXN</h5>
@@ -153,7 +155,8 @@ function buscaArticulo(){
                 $("#showProducts").append(card);
             });
         }else{
-            alert(JSON.stringify(result));
+            $("#showProducts").empty()
+            alert(result.message);
         }
     })
 }
@@ -204,7 +207,7 @@ function verCarrito(){
             });
         }else{
             $("#carItemsTableWraper").addClass("d-none")
-            $("#carNotFound").text(JSON.stringify(result))
+            $("#carNotFound").text(result.message)
         }
     })
 }
@@ -214,18 +217,39 @@ function deleteProduct(Id){
     let ParamEliminarArticuloCarrito = {
         Id: Id
     }
-    cliente.postJson("eliminarArticuloCarrito",{
-        ParamEliminarArticuloCarrito: ParamEliminarArticuloCarrito
+console.log(typeof Id)
+console.log(Id)
+$.confirm({
+    title: 'Eliminar Artículo',
+    content: '¿Esta seguro de eliminar el artículo de su carrito?',
+    buttons: {
+        confirm: {
+         text: 'Confirmar',
+         action: function(){
+              cliente.postJson("eliminarArticuloCarrito",{
+        Id: ParamEliminarArticuloCarrito.Id
     }, function(code, result){
         if(code == 200){
             var element = document.getElementById("liveToastDeleteProduct");
             var myToast = new bootstrap.Toast(element);
             myToast.show()
+verCarrito()
             $("table#carItemsTable tr#productRow"+Id).remove()
         }else{
-            alert(JSON.stringify(result))
+            alert(result.message)
         }
-    })
+    })    
+          }
+       },
+        cancel: {
+         text: 'Cancelar',
+         action: function(){
+             $.alert('Cancelado')
+         }
+        }
+    }
+});
+   
 }
 function addToCar(productId){
     let quantity = $("#productQuantity" + productId).val()
@@ -233,12 +257,13 @@ function addToCar(productId){
     console.log(quantity)
 
     let cliente = new WSClient(URL)
-    let ParamAgregarCarrito = {
-        Id: productId,
-        Cantidad: quantity
+    var ParamAgregarCarrito = {
+        Id: productId *1,
+        Cantidad: quantity*1
     }
     cliente.postJson("agregarCarrito",{
-        ParamAgregarCarrito: ParamAgregarCarrito
+        Id: ParamAgregarCarrito.Id,
+        Cantidad: ParamAgregarCarrito.Cantidad
     },
     function(code, result){
         if(code == 200){
@@ -249,7 +274,7 @@ function addToCar(productId){
         }else{
             var element = document.getElementById("liveToastError");
             var myToast = new bootstrap.Toast(element);
-            $("#toastErrorBody").text(JSON.stringify(result))
+            $("#toastErrorBody").text(result.message)
             myToast.show()
         }
             
@@ -258,21 +283,35 @@ function addToCar(productId){
 
 function BorrarCarrito(){
     let cliente = new WSClient(URL)
-    cliente.postJson("borrarCarrito", {}, function(code, result){
+$.confirm({
+    title: 'Eliminar Carrito',
+    content: '¿Esta seguro de eliminar su carrito?',
+    buttons: {
+        confirm: {
+         text: 'Confirmar',
+         action: function(){
+           cliente.postJson("borrarCarrito", {}, function(code, result){
         if(code == 200){
             $("#carItemsTableWraper").addClass("d-none")
             $("#carNotFound").text("No tienes artículos en tu carrito")
+            $("#totalPrice").empty()
         }else{
-            alert(JSON.stringify(result))
+            alert(result.message)
         }
     })
+         }
+       },
+        cancel: {
+         text: 'Cancelar',
+         action: function(){
+             $.alert('Cancelado')
+         }
+        }
+    }
+});
+    
 }
 
-$("#photo").on("change", function(e){
-    photo = $("#photo")
-    let files = photo.prop('files')
-    readSingleFile(files, photo);
-})
 
 $("#homeButton").on("click", function(){
     $("#buyProductsSection").addClass("d-none")
@@ -306,6 +345,7 @@ $("#seeCar").on("click", function(e){
 })
 
 $("#AddProductPage").on("click", function(){
+document.getElementById("alta_imagen").src = "/sinfoto.png"
     $("#mainPage").addClass("d-none")
     $("#addProductForm").removeClass("d-none");
     $("#addProductForm").addClass("d-block")

@@ -1,13 +1,25 @@
+package servicio_json;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.core.Response;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 
-import com.google.gson.*;
-
 import java.sql.*;
 import java.util.ArrayList;
+import com.google.gson.*;
 
+@Path("ws")
 public class Servicio {
     static DataSource pool = null;
     static{
@@ -28,7 +40,7 @@ public class Servicio {
     public Response altaArticulo(String json) throws Exception{
         ParamAltaArticulo p = (ParamAltaArticulo) j.fromJson(json, ParamAltaArticulo.class);
         Articulo articulo = p.articulo;
-
+System.out.println(articulo);
         Connection conexion = pool.getConnection();
         /// Ningun campo del articulo puede ser nulo
         if(articulo.Nombre == null || articulo.Nombre.equals(""))
@@ -47,7 +59,6 @@ public class Servicio {
             return Response.status(400).entity(j.toJson(new Error("Se debe ingresar una foto para el artículo"))).build();
 
         try{
-            conexion.setAutoCommit(false);
 
             PreparedStatement stmt1 = conexion.prepareStatement("INSERT INTO articulos (id_articulo, nombre, descripcion, precio, cantidad, foto) VALUES (0, ?, ?, ?, ?, ?)");
             try{
@@ -60,12 +71,10 @@ public class Servicio {
             }finally {
                 stmt1.close();
             }
-            conexion.commit();
+            
         }catch (Exception e){
-            conexion.rollback();
             return Response.status(400).entity(j.toJson(new Error(e.getMessage()))).build();
         }finally {
-            conexion.setAutoCommit(true);
             conexion.close();
         }
         return Response.ok().build();
@@ -98,7 +107,7 @@ public class Servicio {
                         r.Foto = rs.getBytes(5);
                         articulosEncontrados.add(r);
                     }
-                    if(articulosEncontrados.size() == 0 && articulosEncontrados == null)
+                    if(articulosEncontrados.size() == 0 || articulosEncontrados == null)
                         return Response.status(400).entity(j.toJson(new Error("No se encontraron artículos"))).build();
 
                     return Response.ok().entity(j.toJson(articulosEncontrados)).build();
@@ -126,7 +135,7 @@ public class Servicio {
 
         Connection conexion = pool.getConnection();
         try{
-            PreparedStatement stmt1 = conexion.prepareStatement("SELECT id_articulo, cantidad FROM articulos WHERE id_articulo=?);
+            PreparedStatement stmt1 = conexion.prepareStatement("SELECT id_articulo, cantidad FROM articulos WHERE id_articulo=?");
             try{
                 stmt1.setInt(1, idArticuloParam);
                 ResultSet rs = stmt1.executeQuery();
@@ -163,7 +172,7 @@ public class Servicio {
                             conexion.commit();
                         }catch (Exception e){
                             conexion.rollback();
-                            return Response.status(400).entity(j.toJson(new Error(e.getMessage()))).build();
+                            return Response.status(400).entity(j.toJson(new Error(e.getMessage()+"abajo rollback"))).build();
                         }finally {
                             conexion.setAutoCommit(true);
                         }
@@ -176,7 +185,7 @@ public class Servicio {
                 stmt1.close();
             }
         }catch (Exception e){
-            return Response.status(400).entity(j.toJson(new Error(e.getMessage()))).build();
+            return Response.status(400).entity(j.toJson(new Error(e.getMessage()+"final"))).build();
         }finally {
             conexion.close();
         }
@@ -189,7 +198,7 @@ public class Servicio {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response eliminarArticuloCarrito(String json) throws Exception{
-        ParamEliminarArticuloCarrito p = (ParamAltaArticulo) j.fromJson(json, ParamEliminarArticuloCarrito.class);
+        ParamEliminarArticuloCarrito p = (ParamEliminarArticuloCarrito) j.fromJson(json, ParamEliminarArticuloCarrito.class);
         Integer idArticulo = p.Id;
 
         Connection conexion = pool.getConnection();
@@ -323,7 +332,7 @@ public class Servicio {
                         ar.Cantidad = rs.getInt(5);
                         articulos.add(ar);
                     }
-                    if(articulos.size() == 0 && articulos == null){
+                    if(articulos.size() == 0 || articulos == null){
                         return Response.status(400).entity(j.toJson(new Error("No tienes artículos en tu carrito"))).build();
                     }
                     return Response.ok().entity(j.toJson(articulos)).build();
