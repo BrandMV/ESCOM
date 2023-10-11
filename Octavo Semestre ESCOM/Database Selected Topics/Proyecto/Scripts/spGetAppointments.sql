@@ -1,0 +1,13 @@
+USE [Hospital]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[spGetAppointments]
+AS
+BEGIN
+	SELECT * FROM [dbo].[Cita];
+END
+GO
