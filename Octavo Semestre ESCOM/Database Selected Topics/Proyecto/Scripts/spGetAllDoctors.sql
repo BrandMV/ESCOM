@@ -1,0 +1,13 @@
+USE [Hospital]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[spGetAllDoctors]
+AS
+BEGIN
+	SELECT * FROM Medico m INNER JOIN Personal p ON m.RFC = p.RFC;
+END
+GO
