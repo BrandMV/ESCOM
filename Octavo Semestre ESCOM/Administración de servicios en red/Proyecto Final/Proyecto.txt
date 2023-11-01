@@ -1,0 +1,309 @@
+import paramiko
+import time
+from pysnmp.hlapi import *
+from easysnmp import Session
+import sys
+import select
+import re
+
+
+devices = [
+    {
+        "hostname": "148.204.1.1",
+        "username": "cisco",
+        "password": "cisco"
+    },
+    {
+        "hostname": "148.204.2.1",
+        "username": "cisco",
+        "password": "cisco"
+    },
+    {
+        "hostname": "209.165.200.225",
+        "username": "cisco",
+        "password": "cisco"
+    },
+    {
+        "hostname": "148.204.3.1",
+        "username": "cisco",
+        "password": "cisco"
+    },
+    {
+        "hostname": "192.168.0.1",
+        "username": "cisco",
+        "password": "cisco"
+    }
+]
+
+routers = {
+    'Router1': '148.204.1.1',
+    'Router2': '148.204.2.1',
+    'Router3': '209.165.200.225',
+    'Router4': '148.204.3.1',
+    'ISP': '192.168.0.1'
+}
+
+
+# FUnciòn que nos ayuda a saber el estado del enlace
+
+def getsnmp_link_status(routerIP):
+    session = Session(hostname=routerIP, community='public',version=2)
+
+    interfaces = session.walk('.1.3.6.1.2.1.2.2.1.2')
+    router_name = session.get('1.3.6.1.2.1.1.5.0').value
+
+    for interface in interfaces:
+        interface_index = interface.oid.split('.')[-1]
+        interface_name = interface.value
+
+        status = session.get('.1.3.6.1.2.1.2.2.1.8.' + interface_index)
+
+        if status.value == '1':
+            print(f"La interfaz {interface_name} en el router {router_name} esta arriba")
+        elif status.value == '2':
+            print(f"La interfaz {interface_name} en el router {router_name} esta abajo")
+        else:
+            print('EStatus desconocido')
+
+def verify_link_status():
+    for router, routerIp in routers.items():
+        getsnmp_link_status(routerIp)
+
+# Función que ontiene toda la configuración de la red
+def get_topology_configuration(hostname, username, password, router):
+    print("Configuración de Router #" + str(router))
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname, username=username, password=password)
+
+    stdin, stdout, stderr = client.exec_command("show running-config")
+    output = stdout.read().decode()
+
+    #print(f"--- Configuración de {hostname} ---")
+    print(output)
+
+    client.close()
+
+def get_routing_info(hostname, username, password, router):
+    print("Protocolos de enrutamiento de Router #" + str(router))
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname, username=username, password=password)
+
+    stdin, stdout, stderr = client.exec_command("show ip protocols")
+    output = stdout.read().decode()
+
+    #print(f"--- Configuración de {hostname} ---")
+    print(output)
+
+    client.close()
+
+
+def get_NAT_info(hostname, username, password):
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname, username=username, password=password)
+
+    # Informaciòn NAT
+    print("***** INFORMACIÒN NAT *****")
+    stdin, stdout, stderr = client.exec_command("show ip nat translations")
+    output = stdout.read().decode()
+
+    print(output)
+ 
+    client.close()
+
+def get_ACL_info(hostname, username, password):
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname, username=username, password=password)
+    # Informaciòn ACL
+    print("***** INFORMACIÒN ACL *****")
+    stdin, stdout, stderr = client.exec_command("show access-lists")
+    output = stdout.read().decode()
+
+    print(output)
+
+ 
+    client.close()
+
+def get_DHCP_info(hostname, username, password):
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname, username=username, password=password)
+    
+
+    # Informaciòn DHCP
+    print("***** INFORMACIÒN DHCP *****")
+    stdin, stdout, stderr = client.exec_command("show ip dhcp pool")
+    output = stdout.read().decode()
+
+    #print(f"--- Configuración de {hostname} ---")
+    print(output)
+
+def get_DNS_stats(hostname, username, password):
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname, username=username, password=password)
+    
+
+    # Informaciòn DHCP
+    print("***** INFORMACIÒN DNS *****")
+    print("***** EStadisticas *****")
+    stdin, stdout, stderr = client.exec_command("show ip dns statistics")
+    output = stdout.read().decode()
+
+    #print(f"--- Configuración de {hostname} ---")
+    print(output)
+def get_DNS_info(hostname, username, password):
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname, username=username, password=password)
+    
+
+    # Informaciòn DHCP
+    print("***** INFORMACIÒN DNS *****")
+    print("***** EStadisticas *****")
+    stdin, stdout, stderr = client.exec_command("show running-config")
+    output = stdout.read().decode()
+    patron = r"ip host proyectoloopback\.R4\.com 2\.2\.2\.2"
+    patron2 = r"ip name-server 5\.5\.5\.10"
+    patron3 = r"ip name-server 5\.5\.5\.6"
+    resultado = re.search(patron, output)
+    resultado2 = re.search(patron2, output)
+    resultado3 = re.search(patron3, output)
+
+
+    #print(f"--- Configuración de {hostname} ---")
+    if resultado:
+        print(resultado)
+    if resultado2:
+        print(resultado2)
+    if resultado3:
+        print(resultado3)
+           
+
+# Menú para la selección del router a saber configuraciones adicionales
+def opcion4_submenu():
+    while True:
+        print("--- Routers ---")
+        print("1. Router 1")
+        print("2. Router 2")
+        print("3. Router 3")
+        print("4. Router 4")
+        print("5. Router ISP")
+        print("0. Volver al menú principal")
+
+        subopcion = input("Seleccione una opciòn: ")
+
+        if subopcion == "1":
+            print("Informaciòn adicional del Router 1")
+            get_ACL_info(devices[0]["hostname"],devices[0]["username"], devices[0]["password"])
+            get_DHCP_info(devices[0]["hostname"],devices[0]["username"], devices[0]["password"])
+            get_NAT_info(devices[0]["hostname"],devices[0]["username"], devices[0]["password"])
+            get_DNS_stats(devices[0]["hostname"],devices[0]["username"], devices[0]["password"])
+            get_DNS_info(devices[0]["hostname"],devices[0]["username"], devices[0]["password"])
+        elif subopcion == "2":
+            print("Informaciòn adicional del Router 2")
+            get_ACL_info(devices[1]["hostname"],devices[1]["username"], devices[1]["password"])
+            get_DHCP_info(devices[1]["hostname"],devices[1]["username"], devices[1]["password"])
+            get_NAT_info(devices[1]["hostname"],devices[1]["username"], devices[1]["password"])
+            get_DNS_stats(devices[1]["hostname"],devices[1]["username"], devices[1]["password"])
+            get_DNS_info(devices[1]["hostname"],devices[1]["username"], devices[1]["password"])
+        elif subopcion == "3":
+            print("Informaciòn adicional del Router 3")
+            get_ACL_info(devices[2]["hostname"],devices[2]["username"], devices[2]["password"])
+            get_DHCP_info(devices[2]["hostname"],devices[2]["username"], devices[2]["password"])
+            get_NAT_info(devices[2]["hostname"],devices[2]["username"], devices[2]["password"])
+            get_DNS_stats(devices[2]["hostname"],devices[2]["username"], devices[2]["password"])
+            get_DNS_info(devices[2]["hostname"],devices[2]["username"], devices[2]["password"])
+        elif subopcion == "4":
+            print("Informaciòn adicional del Router 4")
+            get_ACL_info(devices[3]["hostname"],devices[3]["username"], devices[3]["password"])
+            get_DHCP_info(devices[3]["hostname"],devices[3]["username"], devices[3]["password"])
+            get_NAT_info(devices[3]["hostname"],devices[3]["username"], devices[3]["password"])
+            get_DNS_stats(devices[3]["hostname"],devices[3]["username"], devices[3]["password"])
+            get_DNS_info(devices[3]["hostname"],devices[3]["username"], devices[3]["password"])
+        elif subopcion == "5":
+            print("Informaciòn adicional del Router ISP")
+            get_ACL_info(devices[4]["hostname"],devices[4]["username"], devices[4]["password"])
+            get_DHCP_info(devices[4]["hostname"],devices[4]["username"], devices[4]["password"])
+            get_NAT_info(devices[4]["hostname"],devices[4]["username"], devices[4]["password"])
+            get_DNS_stats(devices[4]["hostname"],devices[4]["username"], devices[4]["password"])
+            get_DNS_info(devices[4]["hostname"],devices[4]["username"], devices[4]["password"])
+        elif subopcion == "0":
+            print("Volviendo al menú principal...")
+            break
+        else:
+            print("Opción inválida. Por favor, seleccione una opción válida.")
+
+def opcion1():
+    print("Configuración de la red: ")
+    i = 0
+    # Empezamos recorriendo los routers que tenemos en la topología
+    for device in devices:
+        i = i+1
+        get_topology_configuration(device["hostname"], device["username"], device["password"], i)
+
+def opcion2():
+    print("Protocolos de enrutamiento por cada router")
+    i = 0
+    # Empezamos recorriendo los routers que tenemos en la topología
+    for device in devices:
+        i = i+1
+        get_routing_info(device["hostname"], device["username"], device["password"], i)
+
+# def opcion3():
+#     print("Seleccione el router al que desea conectarse")
+#     # Coloca aquí la lógica correspondiente a la opción 3
+
+def opcion4():
+    print("Seleccione el router")
+    opcion4_submenu()
+
+def opcion5():
+    while True:
+        print("***** OBTENIENDO ESTATUS *****")
+        print("***** PRESIONA ENTER PARA SALIR *****")
+        verify_link_status()
+        time.sleep(5)
+
+        ready_to_read, _, _ = select.select([sys.stdin], [] , [], 0.1)
+
+        if sys.stdin in ready_to_read:
+            key = sys.stdin.readline().rstrip("\n")
+
+            if key == "":
+                break
+
+
+def mostrar_menu():
+    print("---- MENU ----")
+    print("1. Ver la configuración de toda la red")
+    print("2. Ver protocolos de enrutamiento en cada router router")
+    print("3. Mostrar configuración adicional (ACL, DHCP, NAT, DNS)")
+    print("4. Monitoreo con SNMP")
+    print("0. Salir")
+
+def main():
+    while True:
+        mostrar_menu()
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            opcion1()
+        elif opcion == "2":
+            opcion2()
+        elif opcion == "3":
+            opcion4()
+        elif opcion == "4":
+            opcion5()
+        # elif opcion == "5":
+        #     opcion5()
+        elif opcion == "0":
+            print("Saliendo del programa...")
+            break
+        else:
+            print("Opción inválida. Por favor, seleccione una opción válida.")
+
+main()
